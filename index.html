@@ -42,7 +42,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 .enemy-card h4{margin:0 0 9px;color:#f0cc70;font-size:1.02rem}
 .enemy-card p{margin:6px 0}
 .enemy-card .enemy-label{color:var(--muted);font-size:.82rem}
-.enemy-card .drop{border-top:1px solid var(--line);margin-top:10px;padding-top:9px}
+.enemy-card .drop{border-top:1px solid var(--line);margin-top:10px;padding-top:9px}.enemy-drop-item{padding:7px 0;border-bottom:1px dashed var(--line)}.enemy-drop-item:last-child{border-bottom:0}.enemy-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}.enemy-stat{background:#07100d;border:1px solid var(--line);border-radius:6px;padding:6px;text-align:center}.enemy-stat b{display:block;color:#f0cc70;font-size:.78rem}.enemy-stat span{font-weight:700}.drop-editor{border:1px solid var(--line);border-radius:8px;padding:8px}.drop-row{display:grid;grid-template-columns:1.4fr .7fr 2fr auto;gap:6px;margin-bottom:6px}.drop-row input{min-width:0}@media(max-width:700px){.drop-row{grid-template-columns:1fr 1fr}.enemy-stats{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:700px){.enemy-cards{grid-template-columns:1fr}}
 
 
@@ -123,8 +123,10 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 .image-upload-box{border:1px dashed var(--line);padding:12px;border-radius:10px;background:#0b1512}
 .enemy-thumb{width:42px;height:42px;object-fit:cover;border-radius:7px;vertical-align:middle;margin-right:8px;border:1px solid var(--line)}
 .gallery-admin{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
-.gallery-admin-card{border:1px solid var(--line);border-radius:10px;padding:9px;background:#0b1512}
-.gallery-admin-card img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:7px}
+.gallery-admin-card{border:1px solid var(--line);border-radius:10px;padding:10px;background:#0b1512;display:flex;flex-direction:column;gap:7px}
+.gallery-admin-card img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:7px}.gallery-admin-card.no-image{min-height:120px;justify-content:center}.gallery-admin-card .enemy-card-actions{display:flex;gap:6px;flex-wrap:wrap}.gallery-admin-card .enemy-card-actions .btn{flex:1;min-width:70px;padding:6px 8px;font-size:.85rem}
+.gallery-admin-card .viewer-detail{font-size:.82rem;line-height:1.45;color:var(--muted)}
+.gallery-admin-card .viewer-detail b{color:var(--text)}
 
 </style>
 </head>
@@ -653,15 +655,15 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
     </div>
     <div class="crud-table-wrap">
       <table class="crud-table">
-        <thead><tr><th>ダンジョン</th><th>敵</th><th>固有スキル</th><th>ドロップ</th><th>ドロップ率</th><th>操作</th></tr></thead>
+        <thead><tr><th>ダンジョン</th><th>敵</th><th>固有スキル</th><th>ドロップ</th><th>ステータス</th><th>操作</th></tr></thead>
         <tbody id="crudTbody"></tbody>
       </table>
     </div>
     <div id="crudStatus" class="admin-status"></div>
     
 <div class="admin-card" style="margin-top:16px">
-  <h3>🖼️ 敵画像ギャラリー</h3>
-  <p class="small">各敵の画像を一覧確認できます。画像は敵データに紐付けて管理します。</p>
+  <h3>🖼️ 敵図鑑カード管理</h3>
+  <p class="small">閲覧者画面の敵図鑑カードを管理者画面から直接編集・削除できます。カードの「編集」は通常の敵CRUDと同じ編集画面を開き、名前・ダンジョン・スキル・ドロップ・攻略メモ・画像まで変更できます。</p>
   <div id="enemyGalleryAdmin" class="gallery-admin"></div>
 </div>
 
@@ -681,10 +683,19 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
       </div>
       <div class="admin-field"><label>敵名</label><input id="crudEnemyName"></div>
       <div class="admin-field full"><label>固有スキル</label><textarea id="crudSkill"></textarea></div>
-      <div class="admin-field"><label>ドロップ品</label><input id="crudDropName"></div>
-      <div class="admin-field"><label>ドロップ率</label><input id="crudDropRate" placeholder="例：1/30"></div>
-      <div class="admin-field full"><label>ドロップ効果・説明</label><textarea id="crudDropEffect"></textarea></div>
-      <div class="admin-field full"><label>敵・攻略メモ</label><textarea id="crudStrategy"></textarea></div>
+      <div class="admin-field full"><label>ドロップ品（複数登録可）</label><div id="crudDropsEditor" class="drop-editor"></div><button id="crudAddDrop" class="btn" type="button" style="margin-top:6px">＋ ドロップを追加</button></div>
+      <div class="admin-field full"><label>モブステータス</label><div class="crud-grid">
+        <div class="admin-field"><label>HP</label><input id="crudHP" inputmode="numeric" placeholder="例：5000"></div>
+        <div class="admin-field"><label>ATK</label><input id="crudATK" inputmode="numeric" placeholder="例：300"></div>
+        <div class="admin-field"><label>DEF</label><input id="crudDEF" inputmode="numeric" placeholder="例：150"></div>
+        <div class="admin-field"><label>SPD</label><input id="crudSPD" inputmode="numeric" placeholder="例：80"></div>
+        <div class="admin-field"><label>EXP</label><input id="crudEXP" inputmode="numeric" placeholder="例：120"></div>
+        <div class="admin-field"><label>ゴールド</label><input id="crudGold" inputmode="numeric" placeholder="例：50"></div>
+      </div></div>
+      <div class="admin-field full"><label>モブ詳細・攻略説明（閲覧者画面に表示）</label><textarea id="crudStrategy" placeholder="この敵の特徴・行動・攻略方法など"></textarea></div>
+      <div class="admin-field full"><label>閲覧者カード表示プレビュー</label>
+        <div id="crudViewerPreview" class="enemy-card" style="margin-top:8px"></div>
+      </div>
       <div class="admin-field full"><label>敵画像</label>
         <div class="image-upload-box">
           <input id="crudImageFile" type="file" accept="image/*">
@@ -952,15 +963,49 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 <script>
 (function(){
   const KEY="untroddentWikiEnemyCRUD_v1";
+  // 閲覧者画面に既に存在する敵図鑑カードを、管理者CRUDの初期データとして完全移行。
+  // 同名モブでもドロップが違うカードは別レコードとして保持します。
   const initial=[
-    {id:"e1",dungeon:"ビギナーダンジョン",name:"スライム",skill:"—",drop:"スライムゼリー",rate:"1/10",effect:"素材アイテム",strategy:"弱い敵。序盤の基本的な敵。",image:""},
-    {id:"e2",dungeon:"ノービスダンジョン",name:"ゴブリン",skill:"—",drop:"ゴブリンの耳",rate:"1/15",effect:"素材アイテム",strategy:"複数で出現する場合は各個撃破。",image:""},
-    {id:"e3",dungeon:"ホーリーダンジョン",name:"ホーリービースト",skill:"—",drop:"聖獣の素材",rate:"1/20",effect:"素材アイテム",strategy:"属性に注意して戦う。",image:""},
-    {id:"e4",dungeon:"エキスパートダンジョン",name:"レッドドラゴン",skill:"—",drop:"竜の素材",rate:"1/30",effect:"レア素材",strategy:"高火力に注意。",image:""},
-    {id:"e5",dungeon:"アンドロデンダンジョン",name:"アンドロデン",skill:"—",drop:"不明",rate:"—",effect:"—",strategy:"最上位ダンジョンのボス。",image:""}
+    {id:"viewer-beginner-slime",dungeon:"ビギナーダンジョン",name:"スライム",skill:"一般的な敵",drop:"スライムマント",rate:"1/3",effect:"【防具】DEF+20。その他効果なし",strategy:"一般的な敵。",image:""},
+    {id:"viewer-beginner-blackbat-helmet",dungeon:"ビギナーダンジョン",name:"くろいコウモリ",skill:"一般的な敵",drop:"くろいヘルメット",rate:"1/5",effect:"【防具】DEF+50。追加効果なし",strategy:"一般的な敵。",image:""},
+    {id:"viewer-beginner-blackbat-light",dungeon:"ビギナーダンジョン",name:"くろいコウモリ",skill:"一般的な敵",drop:"あかるいライト",rate:"1/8",effect:"【武器】ATK+20。発動時に敵を麻痺させる。1ターン/15の確率で追撃",strategy:"一般的な敵。",image:""},
+    {id:"viewer-beginner-cat-marmot",dungeon:"ビギナーダンジョン",name:"モルモットっぽいねこ",skill:"一般的な敵",drop:"飛び石",rate:"1/5",effect:"【武器】ATK+50。すばやさ等の効果なし",strategy:"一般的な敵。",image:""},
+    {id:"viewer-beginner-brokenrobot",dungeon:"ビギナーダンジョン",name:"こわれたロボット",skill:"一般的な敵",drop:"スタンガン",rate:"1/6",effect:"【武器】ATK+150。1ターンごとに1/10の確率で敵全体に攻撃。追加効果あり",strategy:"一般的な敵。",image:""},
+    {id:"viewer-novice-fatdog",dungeon:"ノービスダンジョン",name:"ぶっとったいぬ",skill:"「ステータスがくれてやる。」発動時、ランダムでプレイヤーのステータスのどれかが1〜20上がる",drop:"—",rate:"—",effect:"—",strategy:"固有スキルに注意。",image:""},
+    {id:"viewer-novice-tutankhamen",dungeon:"ノービスダンジョン",name:"ツタンカーメン",skill:"—",drop:"どんぶり",rate:"1/5",effect:"【装飾具】獲得ゴールドが増える効果",strategy:"—",image:""},
+    {id:"viewer-novice-marie",dungeon:"ノービスダンジョン",name:"マリーコンネット",skill:"「私と一緒に帰りましょう」発動率1/10。獲得ゴールドが1.5倍になる",drop:"—",rate:"—",effect:"—",strategy:"固有スキルに注意。",image:""},
+    {id:"viewer-novice-walkingdead",dungeon:"ノービスダンジョン",name:"歩く死体",skill:"—",drop:"—",rate:"—",effect:"—",strategy:"—",image:""},
+    {id:"viewer-novice-survey",dungeon:"ノービスダンジョン",name:"怒りの測量",skill:"—",drop:"救急箱",rate:"1/20",effect:"【防具】DEF+500",strategy:"—",image:""},
+    {id:"viewer-holy-paladin",dungeon:"ホーリーダンジョン",name:"パラディン",skill:"「援助」スキル。発動率1%。発動時に敵全体へ追加ダメージ",drop:"感謝盾のコート",rate:"1/35",effect:"【防具】DEF+3000。全ステータスの30%以下になった時、全回復する",strategy:"—",image:""},
+    {id:"viewer-holy-arthur",dungeon:"ホーリーダンジョン",name:"激剣アーサー",skill:"「例の炎でおバーモニー」スキル。発動率1%。相手に貫通ダメージ",drop:"エクスカリバー",rate:"1/333",effect:"【武器】ATK+7777。発動条件等の詳細は画像記載のまま",strategy:"—",image:""},
+    {id:"viewer-holy-thor",dungeon:"ホーリーダンジョン",name:"闇帝トール",skill:"「怒りのいいがち」1/5の確率で発動",drop:"雷槌ニョルニル",rate:"1/100",effect:"【武器】ATK+8000",strategy:"—",image:""},
+    {id:"viewer-expert-red",dungeon:"エキスパートダンジョン",name:"レッドドラゴン",skill:"【仲間を呼ぶ】ドラゴンを召喚する",drop:"炎の翼",rate:"1/30",effect:"【性能】画像記載の合成素材",strategy:"—",image:""},
+    {id:"viewer-expert-blue",dungeon:"エキスパートダンジョン",name:"ブルードラゴン",skill:"【仲間を呼ぶ】以下同文",drop:"氷の翼",rate:"1/30",effect:"【性能】画像記載の合成素材",strategy:"—",image:""},
+    {id:"viewer-expert-white",dungeon:"エキスパートダンジョン",name:"ホワイトドラゴン",skill:"【仲間を呼ぶ】以下同文",drop:"光の翼",rate:"1/30",effect:"【性能】画像記載の合成素材",strategy:"—",image:""},
+    {id:"viewer-expert-black",dungeon:"エキスパートダンジョン",name:"ブラックドラゴン",skill:"【仲間を呼ぶ】以下同文",drop:"闇の翼",rate:"1/30",effect:"【性能】画像記載の合成素材",strategy:"—",image:""},
+    {id:"viewer-expert-ghost",dungeon:"エキスパートダンジョン",name:"ゴーストドラゴン",skill:"【仲間を呼ぶ】以下同文",drop:"ドラゴンのたましい",rate:"1/50",effect:"【性能】画像記載の合成素材",strategy:"—",image:""},
+    {id:"viewer-android-metal",dungeon:"アンドロデンダンジョン",name:"超☆疑☆メタル",skill:"【ドラゴンバスター】自分と全く同じステータスの敵になる",drop:"チタンのペンダント",rate:"1/99",effect:"【装身具】装備者が攻撃した敵だけ強くなる。画像記載の特殊効果あり",strategy:"—",image:""}
   ];
+  // 既存モブの単一ドロップを複数ドロップ形式へ移行し、ステータス項目を追加。
+  initial.forEach(x=>{x.drops=[{name:x.drop,rate:x.rate,effect:x.effect}];x.hp="";x.atk="";x.def="";x.spd="";x.exp="";x.gold="";});
+
+  const LEGACY_IDS=new Set(["e1","e2","e3","e4","e5"]);
   let data=[];
-  try{data=JSON.parse(localStorage.getItem(KEY)||"null")||window.__UNTRODDENT_CRUD_DATA__||initial;}catch(e){data=window.__UNTRODDENT_CRUD_DATA__||initial;}
+  try{data=JSON.parse(localStorage.getItem(KEY)||"null");}catch(e){data=null;}
+  if(!Array.isArray(data) || !data.length){
+    data=JSON.parse(JSON.stringify(initial));
+    localStorage.setItem(KEY,JSON.stringify(data));
+  }else if(data.every(x=>LEGACY_IDS.has(String(x.id)))){
+    // 旧5件の仮データだけが保存されている場合は、閲覧者画面の実データへ置換。
+    data=JSON.parse(JSON.stringify(initial));
+    localStorage.setItem(KEY,JSON.stringify(data));
+  }else{
+    // 既存の管理者編集内容を尊重しつつ、まだCRUDに取り込まれていない閲覧者カードだけ追加。
+    const ids=new Set(data.map(x=>String(x.id)));
+    let added=false;
+    initial.forEach(x=>{if(!ids.has(x.id)){data.push(JSON.parse(JSON.stringify(x)));added=true;}});
+    if(added)localStorage.setItem(KEY,JSON.stringify(data));
+  }
   let editingId=null;
 
   // 既存データとの互換性を保ちながら、敵→ダンジョンをIDでも紐付ける。
@@ -983,29 +1028,53 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 
   const $=id=>document.getElementById(id);
   const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+  function normalizeDrops(x){
+    if(Array.isArray(x?.drops)&&x.drops.length) return x.drops.map(d=>({name:d.name||"—",rate:d.rate||"—",effect:d.effect||"—"}));
+    return [{name:x?.drop||"—",rate:x?.rate||"—",effect:x?.effect||"—"}];
+  }
+  data=(data||[]).map(x=>{const drops=normalizeDrops(x); return {...x,drops,hp:x.hp??"",atk:x.atk??"",def:x.def??"",spd:x.spd??"",exp:x.exp??"",gold:x.gold??""};});
+  try{localStorage.setItem(KEY,JSON.stringify(data));}catch(_){}
+  function renderDropsEditor(drops){
+    const root=$("crudDropsEditor"); if(!root)return;
+    const list=(Array.isArray(drops)&&drops.length?drops:[{name:"",rate:"",effect:""}]);
+    root.innerHTML=list.map((d,i)=>`<div class="drop-row" data-index="${i}"><input class="drop-name" placeholder="ドロップ品" value="${esc(d.name)}"><input class="drop-rate" placeholder="1/30" value="${esc(d.rate)}"><input class="drop-effect" placeholder="効果・性能" value="${esc(d.effect)}"><button class="btn crud-danger drop-remove" type="button">削除</button></div>`).join("");
+    root.querySelectorAll(".drop-remove").forEach(b=>b.onclick=()=>{if(root.querySelectorAll(".drop-row").length>1){b.parentElement.remove();}else{b.parentElement.querySelectorAll("input").forEach(i=>i.value="");} updateViewerPreview();});
+    root.querySelectorAll("input").forEach(i=>i.addEventListener("input",updateViewerPreview));
+  }
+  function getDrops(){
+    return [...document.querySelectorAll("#crudDropsEditor .drop-row")].map(r=>({name:r.querySelector(".drop-name").value.trim()||"—",rate:r.querySelector(".drop-rate").value.trim()||"—",effect:r.querySelector(".drop-effect").value.trim()||"—"})).filter(d=>d.name!=="—"||d.rate!=="—"||d.effect!=="—");
+  }
+  function updateViewerPreview(){
+    const root=$("crudViewerPreview"); if(!root)return;
+    const name=$("crudEnemyName")?.value.trim()||"名称未設定", skill=$("crudSkill")?.value.trim()||"—", strategy=$("crudStrategy")?.value.trim()||"—";
+    const drops=getDrops(); const hp=$("crudHP")?.value.trim()||"—", atk=$("crudATK")?.value.trim()||"—", def=$("crudDEF")?.value.trim()||"—", spd=$("crudSPD")?.value.trim()||"—", exp=$("crudEXP")?.value.trim()||"—", gold=$("crudGold")?.value.trim()||"—";
+    const dropHtml=drops.length?drops.map(d=>`<div class="enemy-drop-item"><b>${esc(d.name)}</b> <span>（${esc(d.rate)}）</span><br><span class="small">${esc(d.effect)}</span></div>`).join(""):"<div>登録なし</div>";
+    root.innerHTML='<h4>'+esc(name)+'</h4><p class="enemy-label">固有スキル</p><p>'+esc(skill)+'</p><div class="drop"><b>ドロップ：</b>'+dropHtml+'</div><div class="enemy-stats"><div class="enemy-stat"><b>HP</b><span>'+esc(hp)+'</span></div><div class="enemy-stat"><b>ATK</b><span>'+esc(atk)+'</span></div><div class="enemy-stat"><b>DEF</b><span>'+esc(def)+'</span></div><div class="enemy-stat"><b>SPD</b><span>'+esc(spd)+'</span></div><div class="enemy-stat"><b>EXP</b><span>'+esc(exp)+'</span></div><div class="enemy-stat"><b>GOLD</b><span>'+esc(gold)+'</span></div></div><p class="small"><b>攻略：</b>'+esc(strategy)+'</p>';
+  }
   function save(){localStorage.setItem(KEY,JSON.stringify(data));}
   function render(){
     const q=$("crudSearch").value.trim().toLowerCase(), f=$("crudDungeonFilter").value;
     const rows=data.filter(x=>(!f||x.dungeon===f)&&(!q||[x.name,x.drop,x.skill].join(" ").toLowerCase().includes(q)));
     $("crudTbody").innerHTML=rows.length?rows.map(x=>`<tr>
       <td>${esc(x.dungeon)}</td><td>${x.image?`<img class="enemy-thumb" src="${esc(x.image)}" alt="">`:''}<b>${esc(x.name)}</b></td><td>${esc(x.skill)}</td>
-      <td>${esc(x.drop)}<br><span class="small">${esc(x.effect)}</span></td><td>${esc(x.rate)}</td>
+      <td>${normalizeDrops(x).map(d=>esc(d.name)+"（"+esc(d.rate)+"）").join("<br>")}</td><td class="small">HP:${esc(x.hp||"—")} / ATK:${esc(x.atk||"—")} / DEF:${esc(x.def||"—")}<br>SPD:${esc(x.spd||"—")} / EXP:${esc(x.exp||"—")} / G:${esc(x.gold||"—")}</td>
       <td class="crud-actions"><button class="btn crud-edit" data-id="${esc(x.id)}">編集</button>
       <button class="btn crud-remove" data-id="${esc(x.id)}">削除</button></td>
-    </tr>`).join(""):`<tr><td colspan="6" class="crud-empty">該当する敵がありません。</td></tr>`;
+    </tr>`).join(""):`<tr><td colspan="7" class="crud-empty">該当する敵がありません。</td></tr>`;
     document.querySelectorAll(".crud-edit").forEach(b=>b.onclick=()=>openEdit(b.dataset.id));
     document.querySelectorAll(".crud-remove").forEach(b=>b.onclick=()=>remove(b.dataset.id));
+    if(typeof window.__UNTRODDENT_REFRESH_ENEMY_GALLERY === "function") window.__UNTRODDENT_REFRESH_ENEMY_GALLERY();
   }
   function openNew(){
     editingId=null;$("crudModalTitle").textContent="敵を追加";$("crudDelete").style.display="none";
-    ["crudEnemyName","crudSkill","crudDropName","crudDropRate","crudDropEffect","crudStrategy"].forEach(id=>$(id).value="");
-    $("crudDungeon").value="ビギナーダンジョン";$("crudModal").classList.add("open");$("crudEnemyName").focus();
+    ["crudEnemyName","crudSkill","crudStrategy","crudHP","crudATK","crudDEF","crudSPD","crudEXP","crudGold"].forEach(id=>$(id).value=""); renderDropsEditor([{name:"",rate:"",effect:""}]);
+    $("crudDungeon").value="ビギナーダンジョン";$("crudModal").classList.add("open");updateViewerPreview();$("crudEnemyName").focus();
   }
   function openEdit(id){
     const x=data.find(v=>v.id===id);if(!x)return;editingId=id;$("crudModalTitle").textContent="敵を編集";$("crudDelete").style.display="inline-block";
     $("crudDungeon").value=x.dungeon;$("crudEnemyName").value=x.name;$("crudSkill").value=x.skill;
-    $("crudDropName").value=x.drop;$("crudDropRate").value=x.rate;$("crudDropEffect").value=x.effect;$("crudStrategy").value=x.strategy;
-    $("crudModal").classList.add("open");
+    $("crudStrategy").value=x.strategy; $("crudHP").value=x.hp??""; $("crudATK").value=x.atk??""; $("crudDEF").value=x.def??""; $("crudSPD").value=x.spd??""; $("crudEXP").value=x.exp??""; $("crudGold").value=x.gold??"";
+    renderDropsEditor(normalizeDrops(x)); $("crudModal").classList.add("open");updateViewerPreview();
   }
   function close(){ $("crudModal").classList.remove("open"); }
   function remove(id){
@@ -1021,15 +1090,17 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
       const ds=JSON.parse(localStorage.getItem("untroddentWikiDungeonCRUD_v1")||"[]");
       dungeonId=ds.find(d=>String(d.name||"")===String(dungeonName))?.id||"";
     }catch(_){}
-    const existing=editingId?data.find(v=>v.id===editingId):null;
-    const obj={dungeon:dungeonName,dungeonId:dungeonId||existing?.dungeonId||"",name,skill:$("crudSkill").value.trim()||"—",drop:$("crudDropName").value.trim()||"—",rate:$("crudDropRate").value.trim()||"—",effect:$("crudDropEffect").value.trim()||"—",strategy:$("crudStrategy").value.trim()||"—"};
+    const existing=editingId?data.find(v=>v.id===editingId):null; const drops=getDrops(); const first=drops[0]||{name:"—",rate:"—",effect:"—"};
+    const obj={dungeon:dungeonName,dungeonId:dungeonId||existing?.dungeonId||"",name,skill:$("crudSkill").value.trim()||"—",drops,drop:first.name,rate:first.rate,effect:first.effect,strategy:$("crudStrategy").value.trim()||"—",hp:$("crudHP").value.trim(),atk:$("crudATK").value.trim(),def:$("crudDEF").value.trim(),spd:$("crudSPD").value.trim(),exp:$("crudEXP").value.trim(),gold:$("crudGold").value.trim(),image:existing?.image||""};
     if(editingId){Object.assign(data.find(v=>v.id===editingId),obj);$("crudStatus").textContent="敵データを更新しました。";}
     else{obj.id="e_"+Date.now()+"_"+Math.random().toString(36).slice(2,7);data.push(obj);$("crudStatus").textContent="敵を追加しました。";}
     save();render();close();
   };
   $("crudDelete").onclick=function(){if(editingId){remove(editingId);close();}};
+  $("crudAddDrop").onclick=function(){const cur=getDrops();cur.push({name:"",rate:"",effect:""});renderDropsEditor(cur);updateViewerPreview();};
   $("crudCancel").onclick=close;
   $("crudNew").onclick=openNew;
+  ["crudEnemyName","crudSkill","crudStrategy","crudHP","crudATK","crudDEF","crudSPD","crudEXP","crudGold"].forEach(id=>$(id)?.addEventListener("input",updateViewerPreview));
   $("crudSearch").oninput=render;$("crudDungeonFilter").onchange=render;
   $("crudExport").onclick=function(){
     const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
@@ -1053,8 +1124,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
     const boot=document.createElement("script");
     boot.textContent="window.__UNTRODDENT_CRUD_DATA__="+JSON.stringify(enemyData).replace(/</g,"\u003c")+";window.__UNTRODDENT_DUNGEON_DATA__="+JSON.stringify(dungeonData).replace(/</g,"\u003c")+";";
     clone.querySelector("body").appendChild(boot);
-    const blob=new Blob(["<!doctype html>
-"+clone.outerHTML],{type:"text/html;charset=utf-8"});
+    const blob=new Blob(["<!doctype html>\n"+clone.outerHTML],{type:"text/html;charset=utf-8"});
     const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="index_updated.html";a.click();
     setTimeout(()=>URL.revokeObjectURL(a.href),1000);
     $("adminGithubStatus").textContent="敵・ダンジョン・画像・並び順を含むHTMLを保存しました。";
@@ -1075,6 +1145,8 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
   ];
   let data=[];
   try{data=JSON.parse(localStorage.getItem(KEY)||"null")||window.__UNTRODDENT_DUNGEON_DATA__||initial;}catch(e){data=window.__UNTRODDENT_DUNGEON_DATA__||initial;}
+  data=(data||[]).map(x=>{const drops=normalizeDrops(x); return {...x,drops,hp:x.hp??"",atk:x.atk??"",def:x.def??"",spd:x.spd??"",exp:x.exp??"",gold:x.gold??""};});
+  try{localStorage.setItem(KEY,JSON.stringify(data));}catch(_){}
   let editingId=null;
   const $=id=>document.getElementById(id);
   const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
@@ -1261,9 +1333,8 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
       setTimeout(()=>{
         if(pendingImage!==null){
           const d=getData();
-          // Match by current modal's visible enemy name.
-          const name=$("crudEnemyName")?.value.trim();
-          const found=d.find(x=>x.name===name);
+          // Match by the stable CRUD id, not the enemy name.
+          const found=d.find(x=>x.id===editingId);
           if(found){found.image=pendingImage;setData(d);}
           pendingImage=null;
           if(fileInput)fileInput.value="";
@@ -1277,13 +1348,33 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 
   function renderGallery(){
     const root=$("enemyGalleryAdmin");if(!root)return;
-    const d=getData().filter(x=>x.image);
-    root.innerHTML=d.length?d.map(x=>`<div class="gallery-admin-card">
-      <img src="${x.image}" alt="${String(x.name).replace(/"/g,"&quot;")}">
-      <b>${String(x.name).replace(/[&<>]/g,"")}</b>
-      <div class="small">${String(x.dungeon).replace(/[&<>]/g,"")}</div>
-    </div>`).join(""):`<div class="crud-empty">まだ画像が登録されていません。</div>`;
+    const d=getData();
+    root.innerHTML=d.length?d.map(x=>`<div class="gallery-admin-card ${x.image?"":"no-image"}">
+      ${x.image?`<img src="${esc(x.image)}" alt="${esc(x.name)}">`:`<div class="small" style="text-align:center">🖼️ 画像未登録</div>`}
+      <b>${esc(x.name||"名称未設定")}</b>
+      <div class="small">${esc(x.dungeon||"未分類")}</div>
+      <div class="viewer-detail"><b>固有スキル：</b>${esc(x.skill||"—")}</div>
+      <div class="viewer-detail"><b>ドロップ：</b>${esc(x.drop||"—")}</div>
+      <div class="viewer-detail"><b>ドロップ率：</b>${esc(x.rate||"—")}</div>
+      <div class="viewer-detail"><b>ドロップ効果：</b>${esc(x.effect||"—")}</div>
+      <div class="viewer-detail"><b>モブ詳細・攻略：</b>${esc(x.strategy||"—")}</div>
+      <div class="enemy-card-actions">
+        <button type="button" class="btn crud-edit" data-id="${esc(x.id)}">✏️ 編集</button>
+        <button type="button" class="btn crud-remove" data-id="${esc(x.id)}">🗑️ 削除</button>
+      </div>
+    </div>`).join(""):`<div class="crud-empty">敵図鑑カードが登録されていません。「＋ 敵を追加」から登録できます。</div>`;
+
+    root.querySelectorAll(".crud-edit").forEach(b=>b.addEventListener("click",()=>{
+      const tableButton=document.querySelector(`.crud-table .crud-edit[data-id="${CSS.escape(b.dataset.id)}"]`);
+      if(tableButton)tableButton.click();
+    }));
+    root.querySelectorAll(".crud-remove").forEach(b=>b.addEventListener("click",()=>{
+      const tableButton=document.querySelector(`.crud-table .crud-remove[data-id="${CSS.escape(b.dataset.id)}"]`);
+      if(tableButton)tableButton.click();
+      setTimeout(renderGallery,60);
+    }));
   }
+  window.__UNTRODDENT_REFRESH_ENEMY_GALLERY=renderGallery;
   renderGallery();
 
   // Drag/drop ordering. We attach after every render by observing tbody mutations.
@@ -1841,12 +1932,11 @@ function renderEnemyViewer(data){
       (e.image?'<img src="'+esc(e.image)+'" alt="" style="width:100%;max-height:180px;object-fit:contain;border-radius:7px;margin-bottom:8px">':"")+
       '<h4>'+esc(e.name||"名称未設定")+'</h4>'+
       '<p class="enemy-label">固有スキル</p><p>'+esc(e.skill||"—")+'</p>'+
-      '<div class="drop"><b>ドロップ：</b>'+esc(e.drop||"—")+'</div>'+
-      '<p class="small">【性能】'+esc(e.effect||"—")+'</p>'+
-      '<p><b>ドロップ率：</b>'+esc(e.rate||"—")+'</p>'+
+      '<div class="drop"><b>ドロップ：</b>'+((Array.isArray(e.drops)&&e.drops.length)?e.drops.map(d=>'<div class="enemy-drop-item"><b>'+esc(d.name||"—")+'</b>（'+esc(d.rate||"—")+'）<br><span class="small">'+esc(d.effect||"—")+'</span></div>').join(""):'<div>登録なし</div>')+'</div>'+
+      '<div class="enemy-stats"><div class="enemy-stat"><b>HP</b><span>'+esc(e.hp||"—")+'</span></div><div class="enemy-stat"><b>ATK</b><span>'+esc(e.atk||"—")+'</span></div><div class="enemy-stat"><b>DEF</b><span>'+esc(e.def||"—")+'</span></div><div class="enemy-stat"><b>SPD</b><span>'+esc(e.spd||"—")+'</span></div><div class="enemy-stat"><b>EXP</b><span>'+esc(e.exp||"—")+'</span></div><div class="enemy-stat"><b>GOLD</b><span>'+esc(e.gold||"—")+'</span></div></div>'+
       '<p class="small"><b>攻略：</b>'+esc(e.strategy||"—")+'</p>'+
       '</div>'
-    ).join(""):'<div class="crud-empty">このダンジョンに登録された敵はいません。</div>';
+    ).join(""): '<div class="crud-empty">このダンジョンに登録された敵はいません。</div>';
 
     box.innerHTML=
       '<div class="enemy-dungeon-head">'+
