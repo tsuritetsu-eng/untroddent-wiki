@@ -1572,9 +1572,8 @@ window.exportUntroddentPublishedHTML=function(){
   const clone=document.documentElement.cloneNode(true);
   const data=collectPublishedData();
 
-  // Never publish secrets.
   clone.querySelectorAll('input[type="password"]').forEach(el=>{
-    el.value=""; el.removeAttribute("value");
+    el.value="";el.removeAttribute("value");
   });
 
   const old=clone.querySelector("#untroddent-published-data");
@@ -1663,6 +1662,133 @@ b.onclick=function(){
   lines.push("※ ここで件数が正しいのに閲覧者画面が古い場合、閲覧者側レンダラーが固定データを使っている可能性があります。");
   s.textContent=lines.join("\n");
 };
+})();
+</script>
+
+
+<script>
+(function(){
+"use strict";
+
+function esc(v){
+  return String(v==null?"":v).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+}
+function getPublished(){
+  try{
+    const el=document.getElementById("untroddent-published-data");
+    if(el){
+      const d=JSON.parse(el.textContent);
+      if(d && Array.isArray(d.dungeons)) return d;
+    }
+  }catch(_){}
+  if(window.UNTRODDENT_VIEWER_DATA) return window.UNTRODDENT_VIEWER_DATA;
+  return null;
+}
+function rankClass(i){
+  return i===3?"rank ex":i===4?"rank boss":"rank";
+}
+function renderDungeonViewer(data){
+  const sec=document.querySelector("#dungeons");
+  if(!sec || !Array.isArray(data.dungeons) || !data.dungeons.length)return;
+
+  const ds=data.dungeons;
+  const enemies=Array.isArray(data.enemies)?data.enemies:[];
+
+  // Keep the section title and intro, but replace the hard-coded dungeon content.
+  const title=sec.querySelector("h2");
+  const intro=sec.querySelector("p.muted");
+  sec.innerHTML="";
+  if(title)sec.appendChild(title);
+  if(intro)sec.appendChild(intro);
+
+  const cards=document.createDocumentFragment();
+
+  ds.forEach((d,i)=>{
+    const box=document.createElement("div");
+    box.className="dungeon";
+    box.innerHTML=
+      '<h3><span class="'+rankClass(i)+'">★'+(i+1)+'</span> '+esc(d.name||"名称未設定")+'</h3>'+
+      '<p>'+esc(d.desc||"—")+'<br><b>系統効果：</b>'+esc(d.effect||"なし")+'</p>';
+    cards.appendChild(box);
+  });
+  sec.appendChild(cards);
+
+  const table=document.createElement("table");
+  table.innerHTML="<tr><th>種類</th><th>敵</th><th>攻略の位置づけ</th><th>系統効果</th></tr>";
+  ds.forEach(d=>{
+    const list=enemies.filter(e=>String(e.dungeon||"")===String(d.name||""));
+    const enemyText=list.length
+      ? list.map(e=>e.name).join("、")
+      : "登録なし";
+    const tr=document.createElement("tr");
+    tr.innerHTML=
+      "<td>"+esc(d.name||"")+"</td>"+
+      "<td>"+esc(enemyText)+"</td>"+
+      "<td>"+esc(d.strategy||"—")+"</td>"+
+      "<td>"+esc(d.effect||"なし")+"</td>";
+    table.appendChild(tr);
+  });
+  sec.appendChild(table);
+}
+function findEnemySection(){
+  const hs=[...document.querySelectorAll("h3")];
+  const h=hs.find(x=>x.textContent.includes("ダンジョン別・敵図鑑"));
+  return h ? h.parentElement : null;
+}
+function renderEnemyViewer(data){
+  const sec=findEnemySection();
+  if(!sec || !Array.isArray(data.dungeons))return;
+  const enemies=Array.isArray(data.enemies)?data.enemies:[];
+
+  // Find the first .enemy-dungeon after the heading and remove all old hard-coded cards.
+  const old=[...sec.querySelectorAll(".enemy-dungeon")];
+  old.forEach(x=>x.remove());
+
+  const frag=document.createDocumentFragment();
+  data.dungeons.forEach((d,i)=>{
+    const list=enemies.filter(e=>String(e.dungeon||"")===String(d.name||""));
+    const box=document.createElement("div");
+    box.className="enemy-dungeon";
+    let cards=list.length?list.map(e=>
+      '<div class="enemy-card">'+
+      (e.image?'<img src="'+esc(e.image)+'" alt="" style="width:100%;max-height:180px;object-fit:contain;border-radius:7px;margin-bottom:8px">':"")+
+      '<h4>'+esc(e.name||"名称未設定")+'</h4>'+
+      '<p class="enemy-label">固有スキル</p><p>'+esc(e.skill||"—")+'</p>'+
+      '<div class="drop"><b>ドロップ：</b>'+esc(e.drop||"—")+'</div>'+
+      '<p class="small">【性能】'+esc(e.effect||"—")+'</p>'+
+      '<p><b>ドロップ率：</b>'+esc(e.rate||"—")+'</p>'+
+      '<p class="small"><b>攻略：</b>'+esc(e.strategy||"—")+'</p>'+
+      '</div>'
+    ).join(""):'<div class="crud-empty">このダンジョンに登録された敵はいません。</div>';
+
+    box.innerHTML=
+      '<div class="enemy-dungeon-head">'+
+      '<h3><span class="'+rankClass(i)+'">★'+(i+1)+'</span> '+esc(d.name||"名称未設定")+'</h3>'+
+      '<p><b>系統効果：</b>'+esc(d.effect||"なし")+'</p>'+
+      '<p class="small">'+esc(d.desc||"—")+'</p>'+
+      '</div>'+
+      '<div class="enemy-cards">'+cards+'</div>';
+    frag.appendChild(box);
+  });
+  sec.appendChild(frag);
+}
+function renderAllFromPublished(){
+  const d=getPublished();
+  if(!d)return;
+  window.UNTRODDENT_VIEWER_DATA=d;
+  window.dungeonData=d.dungeons||[];
+  window.enemyData=d.enemies||[];
+  window.dropData=d.drops||[];
+  window.updateHistory=d.updates||[];
+  renderDungeonViewer(d);
+  renderEnemyViewer(d);
+}
+if(document.readyState==="loading"){
+  document.addEventListener("DOMContentLoaded",renderAllFromPublished);
+}else{
+  renderAllFromPublished();
+}
+window.renderUntroddentViewerFromPublishedData=renderAllFromPublished;
 })();
 </script>
 
