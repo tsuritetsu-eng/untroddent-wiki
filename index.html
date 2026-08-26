@@ -130,6 +130,20 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 .gallery-admin-card .viewer-detail b{color:var(--text)}
 
 </style>
+
+<style id="collapsible-dungeon-enemy-css">
+/* ダンジョン別敵図鑑（ダンジョンごとに開閉できます）：折りたたみ表示 */
+.enemy-dungeon-collapsible{margin:22px 0 30px;border:1px solid var(--line);background:var(--panel);border-radius:10px;overflow:hidden}
+.enemy-dungeon-collapsible>summary{list-style:none;cursor:pointer;padding:15px 17px;background:var(--panel2);border-bottom:1px solid var(--line);user-select:none}
+.enemy-dungeon-collapsible>summary::-webkit-details-marker{display:none}
+.enemy-dungeon-collapsible>summary:before{content:'▶';display:inline-block;margin-right:9px;transition:transform .18s ease;color:#f0cc70}
+.enemy-dungeon-collapsible[open]>summary:before{transform:rotate(90deg)}
+.enemy-dungeon-collapsible .enemy-dungeon-summary h3{display:inline;margin:0;color:#f0cc70}
+.enemy-dungeon-collapsible .enemy-dungeon-summary p{margin:5px 0 0}
+.enemy-dungeon-collapsible .enemy-dungeon-body{padding:0 17px 17px}
+.enemy-dungeon-collapsible .enemy-cards{padding-top:17px}
+.enemy-dungeon-collapsible .enemy-count{float:right;font-size:.85em;opacity:.8}
+</style>
 </head>
 <body>
 <header><nav><div class="logo">UNTRODDENT GUIDE</div><div class="links"><a href="#dungeons">ダンジョン</a><a href="#screens">実画面操作</a><a href="#encyclopedia">敵・ドロップ図鑑</a><a href="#drop">ドロップ</a><a href="#world">ワールド</a><a href="#fortress">要塞</a><a href="#contribute">改善・PR</a><a href="#history">更新履歴</a><a href="#developer-admin">開発者</a></div></nav></header>
@@ -207,201 +221,8 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 </div>
 </div>
 <h3 style="margin-top:30px">ダンジョン別・敵図鑑</h3>
-<p class="muted">提供された一覧画像をもとに、ダンジョンごとに敵をカード形式で整理しています。各カードには確認できるスキル・ドロップ品・ドロップ率をまとめています。</p>
-<div class="enemy-dungeon">
-<div class="enemy-dungeon-head">
-<h3><span class="rank">★1</span> ビギナーダンジョン</h3>
-<p><b>系統効果：</b>ドロップ率の分母が1減る</p>
-<p class="small">序盤向け。一般的な敵が出現します。</p>
-</div>
-<div class="enemy-cards">
-<div class="enemy-card">
-<h4>スライム</h4>
-<p class="enemy-label">出現モンスター</p>
-<p>一般的な敵</p>
-<div class="drop"><b>ドロップ：</b>スライムマント</div>
-<p class="small">【防具】DEF+20。その他効果なし</p>
-<p><b>ドロップ率：</b>1/3</p>
-</div>
-<div class="enemy-card">
-<h4>くろいコウモリ</h4>
-<p class="enemy-label">出現モンスター</p>
-<p>一般的な敵</p>
-<div class="drop"><b>ドロップ：</b>くろいヘルメット</div>
-<p class="small">【防具】DEF+50。追加効果なし</p>
-<p><b>ドロップ率：</b>1/5</p>
-</div>
-<div class="enemy-card">
-<h4>くろいコウモリ</h4>
-<p class="enemy-label">出現モンスター</p>
-<p>一般的な敵</p>
-<div class="drop"><b>ドロップ：</b>あかるいライト</div>
-<p class="small">【武器】ATK+20。発動時に敵を麻痺させる。1ターン/15の確率で追撃</p>
-<p><b>ドロップ率：</b>1/8</p>
-</div>
-<div class="enemy-card">
-<h4>モルモットっぽいねこ</h4>
-<p class="enemy-label">出現モンスター</p>
-<p>一般的な敵</p>
-<div class="drop"><b>ドロップ：</b>飛び石</div>
-<p class="small">【武器】ATK+50。すばやさ等の効果なし</p>
-<p><b>ドロップ率：</b>1/5</p>
-</div>
-<div class="enemy-card">
-<h4>こわれたロボット</h4>
-<p class="enemy-label">出現モンスター</p>
-<p>一般的な敵</p>
-<div class="drop"><b>ドロップ：</b>スタンガン</div>
-<p class="small">【武器】ATK+150。1ターンごとに1/10の確率で敵全体に攻撃。追加効果あり</p>
-<p><b>ドロップ率：</b>1/6</p>
-</div>
-</div>
-</div>
-<div class="enemy-dungeon">
-<div class="enemy-dungeon-head">
-<h3><span class="rank">★2</span> ノービスダンジョン</h3>
-<p><b>系統効果：</b>獲得ゴールドが15%上がる</p>
-<p class="small">ビギナーの次に挑戦するステップアップ帯。</p>
-</div>
-<div class="enemy-cards">
-<div class="enemy-card">
-<h4>ぶっとったいぬ</h4>
-<p class="enemy-label">固有スキル</p>
-<p>「ステータスがくれてやる。」発動時、ランダムでプレイヤーのステータスのどれかが1〜20上がる</p>
-<div class="drop"><b>ドロップ：</b>—</div>
-<p><b>ドロップ率：</b>—</p>
-</div>
-<div class="enemy-card">
-<h4>ツタンカーメン</h4>
-<p class="enemy-label">固有スキル</p>
-<p>—</p>
-<div class="drop"><b>ドロップ：</b>どんぶり</div>
-<p class="small">【装飾具】獲得ゴールドが増える効果</p>
-<p><b>ドロップ率：</b>1/5</p>
-</div>
-<div class="enemy-card">
-<h4>マリーコンネット</h4>
-<p class="enemy-label">固有スキル</p>
-<p>「私と一緒に帰りましょう」発動率1/10。獲得ゴールドが1.5倍になる</p>
-<div class="drop"><b>ドロップ：</b>—</div>
-<p><b>ドロップ率：</b>—</p>
-</div>
-<div class="enemy-card">
-<h4>歩く死体</h4>
-<p class="enemy-label">固有スキル</p>
-<p>—</p>
-<div class="drop"><b>ドロップ：</b>—</div>
-<p><b>ドロップ率：</b>—</p>
-</div>
-<div class="enemy-card">
-<h4>怒りの測量</h4>
-<p class="enemy-label">固有スキル</p>
-<p>—</p>
-<div class="drop"><b>ドロップ：</b>救急箱</div>
-<p class="small">【防具】DEF+500</p>
-<p><b>ドロップ率：</b>1/20</p>
-</div>
-</div>
-</div>
-<div class="enemy-dungeon">
-<div class="enemy-dungeon-head">
-<h3><span class="rank">★3</span> ホーリーダンジョン</h3>
-<p><b>系統効果：</b>経験値が2倍になる</p>
-<p class="small">一般的な敵が出現する上位側のダンジョン。</p>
-</div>
-<div class="enemy-cards">
-<div class="enemy-card">
-<h4>パラディン</h4>
-<p class="enemy-label">固有スキル</p>
-<p>「援助」スキル。発動率1%。発動時に敵全体へ追加ダメージ</p>
-<div class="drop"><b>ドロップ：</b>感謝盾のコート</div>
-<p class="small">【防具】DEF+3000。全ステータスの30%以下になった時、全回復する</p>
-<p><b>ドロップ率：</b>1/35</p>
-</div>
-<div class="enemy-card">
-<h4>激剣アーサー</h4>
-<p class="enemy-label">固有スキル</p>
-<p>「例の炎でおバーモニー」スキル。発動率1%。相手に貫通ダメージ</p>
-<div class="drop"><b>ドロップ：</b>エクスカリバー</div>
-<p class="small">【武器】ATK+7777。発動条件等の詳細は画像記載のまま</p>
-<p><b>ドロップ率：</b>1/333</p>
-</div>
-<div class="enemy-card">
-<h4>闇帝トール</h4>
-<p class="enemy-label">固有スキル</p>
-<p>「怒りのいいがち」1/5の確率で発動</p>
-<div class="drop"><b>ドロップ：</b>雷槌ニョルニル</div>
-<p class="small">【武器】ATK+8000</p>
-<p><b>ドロップ率：</b>1/100</p>
-</div>
-</div>
-</div>
-<div class="enemy-dungeon">
-<div class="enemy-dungeon-head">
-<h3><span class="rank ex">★4</span> エキスパートダンジョン</h3>
-<p><b>系統効果：</b>経験値が2倍になる</p>
-<p class="small">竜などが出現する高難度ダンジョン。</p>
-</div>
-<div class="enemy-cards">
-<div class="enemy-card">
-<h4>レッドドラゴン</h4>
-<p class="enemy-label">固有スキル</p>
-<p>【仲間を呼ぶ】ドラゴンを召喚する</p>
-<div class="drop"><b>ドロップ：</b>炎の翼</div>
-<p class="small">【性能】画像記載の合成素材</p>
-<p><b>ドロップ率：</b>1/30</p>
-</div>
-<div class="enemy-card">
-<h4>ブルードラゴン</h4>
-<p class="enemy-label">固有スキル</p>
-<p>【仲間を呼ぶ】以下同文</p>
-<div class="drop"><b>ドロップ：</b>氷の翼</div>
-<p class="small">【性能】画像記載の合成素材</p>
-<p><b>ドロップ率：</b>1/30</p>
-</div>
-<div class="enemy-card">
-<h4>ホワイトドラゴン</h4>
-<p class="enemy-label">固有スキル</p>
-<p>【仲間を呼ぶ】以下同文</p>
-<div class="drop"><b>ドロップ：</b>光の翼</div>
-<p class="small">【性能】画像記載の合成素材</p>
-<p><b>ドロップ率：</b>1/30</p>
-</div>
-<div class="enemy-card">
-<h4>ブラックドラゴン</h4>
-<p class="enemy-label">固有スキル</p>
-<p>【仲間を呼ぶ】以下同文</p>
-<div class="drop"><b>ドロップ：</b>闇の翼</div>
-<p class="small">【性能】画像記載の合成素材</p>
-<p><b>ドロップ率：</b>1/30</p>
-</div>
-<div class="enemy-card">
-<h4>ゴーストドラゴン</h4>
-<p class="enemy-label">固有スキル</p>
-<p>【仲間を呼ぶ】以下同文</p>
-<div class="drop"><b>ドロップ：</b>ドラゴンのたましい</div>
-<p class="small">【性能】画像記載の合成素材</p>
-<p><b>ドロップ率：</b>1/50</p>
-</div>
-</div>
-</div>
-<div class="enemy-dungeon">
-<div class="enemy-dungeon-head">
-<h3><span class="rank boss">★5</span> アンドロデンダンジョン</h3>
-<p><b>系統効果：</b>なし</p>
-<p class="small">正体不明のボスが出現する最上位ダンジョン。</p>
-</div>
-<div class="enemy-cards">
-<div class="enemy-card">
-<h4>超☆疑☆メタル</h4>
-<p class="enemy-label">固有スキル</p>
-<p>【ドラゴンバスター】自分と全く同じステータスの敵になる</p>
-<div class="drop"><b>ドロップ：</b>チタンのペンダント</div>
-<p class="small">【装身具】装備者が攻撃した敵だけ強くなる。画像記載の特殊効果あり</p>
-<p><b>ドロップ率：</b>1/99</p>
-</div>
-</div>
-</div>
+<p class="muted">管理者画面の「ダンジョン完全CRUD」と「敵・ドロップ完全CRUD」の最新データを自動反映します。</p>
+<div id="viewerEnemyDungeonList"></div>
 <div class="notice info">
 <b>画像資料について：</b>
 このカード一覧は提供された敵・ドロップ一覧画像を元に整理しています。画像で判読が難しい部分は推測せず、元資料に合わせて「—」「以下同文」「画像記載」としています。
@@ -1897,6 +1718,148 @@ if(document.readyState==="loading"){
   renderAllFromPublished();
 }
 window.renderUntroddentViewerFromPublishedData=renderAllFromPublished;
+})();
+</script>
+
+<script>
+/* ==========================================================
+   閲覧者：ダンジョン別・敵図鑑 完全同期レンダラー
+   - ダンジョンCRUDの名称 / 系統効果 / 説明 / 攻略を使用
+   - 敵CRUDの dungeonId を最優先して所属ダンジョンを決定
+   - dungeonId がない旧データはダンジョン名で互換表示
+   - 敵の追加・編集・削除、複数ドロップ、ステータス、画像を即時反映
+   - ダンジョンの追加・編集・削除も即時反映
+   ========================================================== */
+(function(){
+  const DKEY="untroddentWikiDungeonCRUD_v1";
+  const EKEY="untroddentWikiEnemyCRUD_v1";
+  const rootId="viewerEnemyDungeonList";
+  let lastSignature="";
+
+  const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;", "'":"&#39;"}[m]));
+
+  function read(key, embedded, fallback){
+    try{
+      const raw=localStorage.getItem(key);
+      if(raw!==null){
+        const parsed=JSON.parse(raw);
+        if(Array.isArray(parsed)) return parsed;
+      }
+    }catch(_){ }
+    if(Array.isArray(embedded)) return embedded;
+    return fallback;
+  }
+
+  const fallbackDungeons=[
+    {id:"d1",name:"ビギナーダンジョン",effect:"ドロップ率の分母が1減る",desc:"一般的な敵が出てくる入門向けダンジョン。",strategy:"基本的な敵から戦闘に慣れる。"},
+    {id:"d2",name:"ノービスダンジョン",effect:"獲得ゴールドが15%上がる",desc:"ビギナーの次に挑戦するダンジョン。",strategy:"敵の攻撃を見ながら各個撃破する。"},
+    {id:"d3",name:"ホーリーダンジョン",effect:"経験値が2倍になる",desc:"一般的な敵が出現する上位側のダンジョン。",strategy:"敵の属性や特殊攻撃に注意する。"},
+    {id:"d4",name:"エキスパートダンジョン",effect:"経験値が2倍になる",desc:"竜などが出現する高難度ダンジョン。",strategy:"強力な敵への対策を準備する。"},
+    {id:"d5",name:"アンドロデンダンジョン",effect:"なし",desc:"正体不明のボスが出現する最上位ダンジョン。",strategy:"ボス戦を想定した装備と編成を準備する。"}
+  ];
+
+  function getDungeons(){
+    return read(DKEY,window.__UNTRODDENT_DUNGEON_DATA__,fallbackDungeons);
+  }
+  function getEnemies(){
+    return read(EKEY,window.__UNTRODDENT_CRUD_DATA__,[]);
+  }
+  function normalizeDrops(e){
+    if(Array.isArray(e?.drops) && e.drops.length){
+      return e.drops.map(d=>({name:d?.name||"—",rate:d?.rate||"—",effect:d?.effect||"—"}));
+    }
+    if(e?.drop || e?.rate || e?.effect){
+      return [{name:e.drop||"—",rate:e.rate||"—",effect:e.effect||"—"}];
+    }
+    return [];
+  }
+  function dungeonRank(i){
+    const n=i+1;
+    return n===4?' ex':(n===5?' boss':'');
+  }
+  function enemyCard(e){
+    const drops=normalizeDrops(e);
+    const skill=e.skill||"—";
+    const strategy=e.strategy||"—";
+    const stats=[['HP',e.hp],['ATK',e.atk],['DEF',e.def],['SPD',e.spd],['EXP',e.exp],['GOLD',e.gold]]
+      .filter(x=>x[1]!==undefined && x[1]!==null && String(x[1]).trim()!=="");
+    let html='<div class="enemy-card">';
+    if(e.image){ html+='<img src="'+esc(e.image)+'" alt="'+esc(e.name||'敵')+'" style="width:100%;max-height:180px;object-fit:contain;border-radius:7px;margin-bottom:9px">'; }
+    html+='<h4>'+esc(e.name||"名称未設定")+'</h4>';
+    html+='<p class="enemy-label">固有スキル</p><p>'+esc(skill)+'</p>';
+    html+='<div class="drop"><b>ドロップ：</b>';
+    if(drops.length){
+      html+=drops.map(d=>'<div class="enemy-drop-item"><b>'+esc(d.name)+'</b> <span>（'+esc(d.rate)+'）</span>'+(d.effect&&d.effect!=="—"?'<br><span class="small">'+esc(d.effect)+'</span>':'')+'</div>').join('');
+    }else html+='<div>登録なし</div>';
+    html+='</div>';
+    if(stats.length){
+      html+='<div class="enemy-stats">'+stats.map(x=>'<div class="enemy-stat"><b>'+x[0]+'</b><span>'+esc(x[1])+'</span></div>').join('')+'</div>';
+    }
+    if(strategy && strategy!=="—") html+='<p class="small"><b>攻略：</b>'+esc(strategy)+'</p>';
+    html+='</div>';
+    return html;
+  }
+
+  function render(force){
+    const root=document.getElementById(rootId);
+    if(!root)return;
+    const dungeons=getDungeons();
+    const enemies=getEnemies();
+    const signature=JSON.stringify({d:dungeons,e:enemies});
+    if(!force && signature===lastSignature)return;
+    lastSignature=signature;
+
+    const byId=new Map(dungeons.map(d=>[String(d.id||''),d]));
+    const byName=new Map(dungeons.map(d=>[String(d.name||''),d]));
+    const grouped=new Map();
+    dungeons.forEach(d=>grouped.set(String(d.id||d.name),[]));
+    const orphans=[];
+
+    enemies.forEach(e=>{
+      let d=null;
+      if(e && e.dungeonId!=null) d=byId.get(String(e.dungeonId));
+      if(!d && e && e.dungeon) d=byName.get(String(e.dungeon));
+      if(d){
+        const key=String(d.id||d.name);
+        if(!grouped.has(key))grouped.set(key,[]);
+        grouped.get(key).push(e);
+      }else if(e){ orphans.push(e); }
+    });
+
+    let html='';
+    dungeons.forEach((d,i)=>{
+      const key=String(d.id||d.name);
+      const list=grouped.get(key)||[];
+      html+='<details class="enemy-dungeon-collapsible" data-dungeon-id="'+esc(d.id||'')+'" '+(i===0?'open':'')+'>';
+      html+='<summary><div class="enemy-dungeon-summary">';
+      html+='<span class="rank'+dungeonRank(i)+'">★'+(i+1)+'</span> <h3>'+esc(d.name||'名称未設定')+'</h3>';
+      html+='<span class="enemy-count">'+list.length+'体</span>';
+      html+='<p><b>系統効果：</b>'+esc(d.effect||'なし')+'</p>';
+      html+='<p class="small">'+esc(d.desc||'—')+'</p>';
+      if(d.strategy)html+='<p class="small"><b>攻略：</b>'+esc(d.strategy)+'</p>';
+      html+='</div></summary><div class="enemy-dungeon-body"><div class="enemy-cards">';
+      if(list.length) html+=list.map(enemyCard).join('');
+      else html+='<div class="enemy-card"><p class="muted">このダンジョンに登録されている敵はいません。</p></div>';
+      html+='</div></div></details>';
+    });
+
+    if(orphans.length){
+      html+='<details class="enemy-dungeon-collapsible" open><summary><div class="enemy-dungeon-summary"><h3>未所属の敵</h3><span class="enemy-count">'+orphans.length+'体</span><p class="small">敵CRUDには登録されていますが、所属ダンジョンが一致していません。</p></div></summary><div class="enemy-dungeon-body"><div class="enemy-cards">'+orphans.map(enemyCard).join('')+'</div></div></details>';
+    }
+    if(!dungeons.length) html='<div class="notice info">ダンジョンCRUDに登録されたダンジョンがありません。</div>';
+    root.innerHTML=html;
+  }
+
+  function start(){
+    render(true);
+    window.addEventListener('storage',()=>render(true));
+    window.addEventListener('untroddent-crud-updated',()=>render(true));
+    // 同一タブでlocalStorageを更新した場合にも即時同期できるよう軽い監視を行う。
+    setInterval(()=>render(false),700);
+  }
+
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',start);
+  else start();
 })();
 </script>
 </body>
