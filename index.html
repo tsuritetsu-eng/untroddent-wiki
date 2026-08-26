@@ -45,10 +45,33 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 .enemy-card .drop{border-top:1px solid var(--line);margin-top:10px;padding-top:9px}
 @media(max-width:700px){.enemy-cards{grid-template-columns:1fr}}
 
+
+.pr-box{border:1px solid var(--line);border-radius:15px;background:var(--panel);padding:20px;margin:22px 0}
+.pr-box h3{margin-top:0;color:#f0cc70}
+.pr-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.pr-input{width:100%;max-width:680px;padding:11px 13px;border:1px solid var(--line);border-radius:9px;background:#0b1512;color:var(--text);font:inherit}
+.pr-input::placeholder{color:var(--muted)}
+.pr-status{margin-top:10px;color:var(--muted);font-size:.88rem}
+.pr-help{margin-top:13px;padding:12px 14px;border-left:4px solid #71b6d1;background:#14232a;border-radius:8px;font-size:.9rem}
+
+
+.pr-form{display:grid;gap:11px;margin-top:16px}
+.pr-form label{font-weight:700;color:var(--text)}
+.pr-form input,.pr-form textarea,.pr-form select{width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:9px;background:#0b1512;color:var(--text);font:inherit}
+.pr-form textarea{min-height:140px;resize:vertical}
+.pr-preview{display:none;border:1px solid var(--line);background:#0b1512;border-radius:9px;padding:14px;margin-top:10px;white-space:pre-wrap}
+.history-list{display:grid;gap:12px}
+.history-item{border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:15px}
+.history-item h3{margin:0 0 5px;color:#f0cc70}
+.history-meta{font-size:.82rem;color:var(--muted);margin-bottom:7px}
+
+
+.github-badge{display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border:1px solid var(--line);border-radius:999px;background:#0b1512;color:#e9eee9;font-weight:700;font-size:.82rem}
+
 </style>
 </head>
 <body>
-<header><nav><div class="logo">UNTRODDENT GUIDE</div><div class="links"><a href="#dungeons">ダンジョン</a><a href="#screens">実画面操作</a><a href="#encyclopedia">敵・ドロップ図鑑</a><a href="#drop">ドロップ</a><a href="#world">ワールド</a><a href="#fortress">要塞</a></div></nav></header>
+<header><nav><div class="logo">UNTRODDENT GUIDE</div><div class="links"><a href="#dungeons">ダンジョン</a><a href="#screens">実画面操作</a><a href="#encyclopedia">敵・ドロップ図鑑</a><a href="#drop">ドロップ</a><a href="#world">ワールド</a><a href="#fortress">要塞</a><a href="#contribute">改善・PR</a><a href="#history">更新履歴</a></div></nav></header>
 
 <div class="hero">
 <span class="badge">実画面チュートリアル・クリーン表示版</span>
@@ -72,6 +95,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 
 <section id="screens">
 <h2>2. 実際のゲーム画面で操作を覚える</h2>
+<p>画像は端末のステータスバー・ブラウザUIを取り除き、ゲーム画面だけを独立したゲームUIとして見せています。説明枠は画像の外に配置して、ゲーム内の文字を隠さない構成にしました。</p>
 
 <div class="game-shot">
 <div class="titlebar"><span><span class="dot"></span>DUNGEON / GAME VIEW</span><span>実画面ガイド</span></div>
@@ -135,7 +159,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 
 
 <h3 style="margin-top:30px">ダンジョン別・敵図鑑</h3>
-
+<p class="muted">提供された一覧画像をもとに、ダンジョンごとに敵をカード形式で整理しています。各カードには確認できるスキル・ドロップ品・ドロップ率をまとめています。</p>
 
 <div class="enemy-dungeon">
   <div class="enemy-dungeon-head">
@@ -336,6 +360,11 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
   </div>
 </div>
 
+<div class="notice info">
+<b>画像資料について：</b>
+このカード一覧は提供された敵・ドロップ一覧画像を元に整理しています。画像で判読が難しい部分は推測せず、元資料に合わせて「—」「以下同文」「画像記載」としています。
+</div>
+
 <h3>敵データ早見表</h3>
 <table>
 <tr><th>敵カテゴリ</th><th>出現ダンジョン</th><th>難度</th><th>確認できている特徴</th></tr>
@@ -344,12 +373,20 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 <tr><td>正体不明のボス</td><td>アンドロデン</td><td>★★★★★</td><td>ボス戦。詳細はゲーム内で確認</td></tr>
 </table>
 
-<h3 style="margin-top:30px">その他のドロップ</h3>
+<h3 style="margin-top:30px">確認済みドロップ・アイテムログ</h3>
 <div class="grid">
+<div class="card">
+<h3>くろいヘルメット</h3>
+<p><span class="rank">ログ確認</span></p>
+<p>提供された実際のダンジョン結果画面に「くろいヘルメット」の表示を確認。</p>
+<p class="small"><b>入手ダンジョン：</b>スクリーンショット上ではビギナーダンジョン Lv2 の結果ログ付近に表示</p>
+<p class="small"><b>レア度：</b>未確認　　<b>ドロップ率：</b>未確認</p>
+</div>
+
 <div class="card">
 <h3>ガウル</h3>
 <p><span class="rank">報酬</span></p>
-<p>ダンジョン結果ログに「+1ガウル」などのガウルの獲得量が表示されます。</p>
+<p>ダンジョン結果ログに「+1ガウル」などの獲得表示を確認。</p>
 </div>
 
 <div class="card">
@@ -432,6 +469,84 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 </section>
 </main>
 
+
+<section id="contribute">
+  <h2>8. チュートリアルサイトを改善する</h2>
+  <div class="pr-box">
+    <h3>開発者にプルリクエストを送る</h3>
+    <p>「敵の情報を追加してほしい」「説明を修正したい」「UIを改善したい」など、サイトの改善案をGitHub経由で開発者に送れます。</p>
+    <p class="small"><b>接続先：</b> <span class="github-badge" aria-label="GitHub repository">◆ GitHub</span></p>
+    <div class="pr-actions">
+      <button id="openPr" class="btn primary" type="button">GitHubで編集してPRを作成</button>
+      
+    </div>
+
+    <div class="pr-form">
+      <label for="prTitle">PRタイトル</label>
+      <input id="prTitle" type="text" maxlength="100" placeholder="例：エキスパートダンジョンの敵情報を追加">
+      <label for="prType">変更の種類</label>
+      <select id="prType">
+        <option>情報の追加</option><option>情報の修正</option><option>誤字・脱字の修正</option>
+        <option>UI・デザインの改善</option><option>不具合の報告・修正</option><option>その他</option>
+      </select>
+      <label for="prBody">PR内容</label>
+      <textarea id="prBody" maxlength="5000" placeholder="何を変更したいか、どこを変更したか、理由などを書いてください。"></textarea>
+      <label for="prReason">変更理由・補足</label>
+      <textarea id="prReason" maxlength="3000" placeholder="画像資料、ゲーム内で確認した内容、改善したい理由など"></textarea>
+    </div>
+    <div class="pr-actions">
+      <button id="makePrText" class="btn" type="button">PR本文を作成</button>
+      <button id="openPrWithText" class="btn primary" type="button">PRを作成</button>
+    </div>
+    <div id="prPreview" class="pr-preview"></div>
+
+    <div id="prStatus" class="pr-status"></div>
+    <div class="pr-help">
+      <b>PRの流れ：</b>GitHubで編集 → 自分のブランチへ変更を保存（Forkが必要な場合はGitHubが案内）→ Pull Requestを作成。
+      <br>※GitHubへのログインや認証はGitHub公式画面で行います。このサイトにはGitHubのパスワードやアクセストークンを入力しません。
+    </div>
+  </div>
+</section>
+
+
+<section id="history">
+  <h2>9. 更新履歴</h2>
+  <p class="muted">チュートリアルサイトの更新内容を、開発者がここに追記して閲覧者へ公開できます。</p>
+  <div class="history-list">
+    <div class="history-item"><h3>v6.0 — PRフォーム・更新履歴を追加</h3><div class="history-meta">2026-08-26</div><div>閲覧者が改善内容を入力してGitHubへ送れるPRフォームと、更新履歴セクションを追加しました。</div></div>
+    <div class="history-item"><h3>v5.0 — GitHub PR導線を追加</h3><div class="history-meta">2026-08-26</div><div>開発者のGitHubリポジトリへアクセスし、サイト改善を提案できる導線を追加しました。</div></div>
+    <div class="history-item"><h3>v4.0 — 改善・PR機能を追加</h3><div class="history-meta">2026-08-26</div><div>チュートリアルサイトの改善に参加できる「改善・PR」セクションを追加しました。</div></div>
+  </div>
+  <div class="notice info"><b>開発者向け：</b>新しい更新を公開したら、この欄に「バージョン・日付・変更内容」を追記してコミットしてください。</div>
+</section>
+
 <footer>アントロデン攻略チュートリアル / 非公式ガイド<br><span class="small">提供されたゲーム画面を参考に構成した攻略資料です。</span></footer>
+
+<script>
+(function(){
+  const repo="https://github.com/tsuritetsu-eng/untroddent-wiki";
+  const status=document.getElementById("prStatus"), title=document.getElementById("prTitle");
+  const type=document.getElementById("prType"), body=document.getElementById("prBody");
+  const reason=document.getElementById("prReason"), preview=document.getElementById("prPreview");
+  const make=document.getElementById("makePrText"), open=document.getElementById("openPrWithText");
+
+  function markdown(){
+    return "## 変更の種類\n"+type.value+"\n\n## 変更内容\n"+(body.value.trim()||"変更内容を記入してください。")+
+      "\n\n## 変更理由・補足\n"+(reason.value.trim()||"特になし")+
+      "\n\n## 確認事項\n- [ ] 表示を確認しました\n- [ ] 既存のUI・レイアウトへの影響を確認しました";
+  }
+  make.addEventListener("click",function(){
+    preview.style.display="block"; preview.textContent=markdown();
+    status.textContent="PR本文を作成しました。内容を確認してください。";
+  });
+  open.addEventListener("click",function(){
+    const t=title.value.trim()||"チュートリアルサイトの改善提案";
+    const url=repo+"/issues/new?title="+encodeURIComponent(t)+"&body="+encodeURIComponent(markdown());
+    window.open(url,"_blank","noopener");
+    status.textContent="GitHubの入力画面を開きました。内容を確認してIssueを作成してください。必要ならそこからPull Requestへ進めます。";
+  });
+})();
+</script>
+
 </body>
 </html>
