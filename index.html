@@ -544,7 +544,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
     <p class="small">この管理画面は、サイトの編集・更新履歴管理・GitHubへの反映をまとめて行うための画面です。</p>
     <div class="admin-warning"><b>重要：</b>静的HTMLだけでは本当の意味での安全なサーバー側ログインはできません。この版ではGitHubの認証情報をHTMLに埋め込まず、必要な操作時だけ開発者本人が入力する方式にしています。</div>
     <div class="admin-field">
-      <label for="adminPass">管理画面パスワード（このブラウザ内の表示制限用）</label>
+      <label for="adminPass">管理画面パスワード</label>
       <input id="adminPass" type="password" placeholder="管理用パスワード">
     </div>
     <div class="admin-actions">
@@ -653,22 +653,41 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
     "アンドロデンダンジョン":{effect:"なし",desc:"正体不明のボスが出現する最上位ダンジョン。"}
   };
 
-  function unlock(){
-    if(passInput.value.trim().length<1){
+  const ADMIN_PASSWORD_SHA256="a7501d587cedecb5f4570b7b638395711e1b13b8a1bdf3be45225c39a6eb8216";
+  async function sha256(text){
+    const data=new TextEncoder().encode(text);
+    const hash=await crypto.subtle.digest("SHA-256",data);
+    return Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,"0")).join("");
+  }
+  async function unlock(){
+    const value=passInput.value;
+    if(!value){
       gateStatus.textContent="パスワードを入力してください。";
       return;
     }
+    if(await sha256(value)!==ADMIN_PASSWORD_SHA256){
+      gateStatus.textContent="パスワードが違います。";
+      return;
+    }
     sessionStorage.setItem(adminKey,"1");
+    localStorage.setItem("untroddentWikiAdminRemembered","1");
     panel.style.display="block";
-    gateStatus.textContent="管理画面を開きました。このブラウザのタブを閉じるとログアウト状態になります。";
+    passInput.value="";
+    gateStatus.textContent="管理画面を開きました。ログイン状態をこのブラウザに記憶しました。";
   }
   function logout(){
-    sessionStorage.removeItem(adminKey); panel.style.display="none"; passInput.value="";
+    sessionStorage.removeItem(adminKey);
+    localStorage.removeItem("untroddentWikiAdminRemembered");
+    panel.style.display="none";
+    passInput.value="";
     gateStatus.textContent="ログアウトしました。";
   }
   document.getElementById("adminLogin").onclick=unlock;
   document.getElementById("adminLogout").onclick=logout;
-  if(sessionStorage.getItem(adminKey)==="1") panel.style.display="block";
+  if(sessionStorage.getItem(adminKey)==="1" || localStorage.getItem("untroddentWikiAdminRemembered")==="1"){
+    panel.style.display="block";
+    gateStatus.textContent="保存された管理者ログイン状態を使用しています。";
+  }
 
   const d=document.getElementById("adminDungeon");
   const effect=document.getElementById("adminEffect"), desc=document.getElementById("adminDungeonDesc");
