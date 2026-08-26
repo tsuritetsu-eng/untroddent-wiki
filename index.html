@@ -185,56 +185,22 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 <div class="notice info"><b>攻略のコツ：</b>ダンジョン欄の下には、判定・戦闘間隔・系統効果などの情報があります。挑戦前にここまで読むと、報酬や条件を把握しやすくなります。</div>
 </section>
 <section id="encyclopedia">
-<h2>3. ダンジョン別・敵・ドロップ図鑑</h2>
-<p class="muted">ダンジョンごとに敵カードとドロップ情報をまとめています。各ダンジョンをタップすると開閉できます。表示内容は管理者画面の「敵・ドロップ完全CRUD」と連動し、敵名・固有スキル・複数ドロップ・ドロップ率・効果・ステータス・攻略・画像を即時反映します。</p>
-
-<h3 style="margin-top:30px">ダンジョン別・敵図鑑</h3>
-<p class="muted">管理者画面の「ダンジョン完全CRUD」と「敵・ドロップ完全CRUD」の最新データを自動反映します。</p>
-<div id="viewerEnemyDungeonList"><details class="enemy-dungeon-collapsible" data-dungeon-id="d1"><summary><div class="enemy-dungeon-summary"><span class="rank">★1</span> <h3>ビギナーダンジョン</h3><span class="enemy-count">5体</span><p><b>系統効果：</b>ドロップ率の分母が1減る</p><p class="small">序盤向けのダンジョン。</p><p class="small"><b>攻略：</b>基本的な敵から戦闘に慣れる。</p></div></summary><div class="enemy-dungeon-body"><div class="enemy-cards"><div class="enemy-card"><h4>スライム</h4><p class="enemy-label">固有スキル</p><p>一般的な敵</p><div class="drop"><b>ドロップ：</b><div class="enemy-drop-item"><b>スライムマント</b> <span>（1/3）</span><br><span class="small">【防具】DEF+20。その他効果なし</span></div></div><p class="small"><b>攻略：</b>一般的な敵。</p></div><div class="enemy-card"><h4>くろいコウモリ</h4><p class="enemy-label">固有スキル</p><p>一般的な敵</p><div class="drop"><b>ドロップ：</b><div class="enemy-drop-item"><b>くろいヘルメット</b> <span>（1/5）</span><br><span class="small">【防具】DEF+50。追加効果なし</span></div></div><p class="small"><b>攻略：</b>一般的な敵。</p></div><div class="enemy-card"><h4>くろいコウモリ</h4><p class="enemy-label">固有スキル</p><p>一般的な敵</p><div class="drop"><b>ドロップ：</b><div class="enemy-drop-item"><b>あかるいライト</b> <span>（1/8）</span><br><span class="small">【武器】ATK+20。発動時に敵を麻痺させる。1ターン/15の確率で追撃</span></div></div><p class="small"><b>攻略：</b>一般的な敵。</p></div><div class="enemy-card"><h4>モルモットっぽいねこ</h4><p class="enemy-label">固有スキル</p><p>一般的な敵</p><div class="drop"><b>ドロップ：</b><div class="enemy-drop-item"><b>飛び石</b> <span>（1/5）</span><br><span class="small">【武器】ATK+50。すばやさ等の効果なし</span></div></div><p class="small"><b>攻略：</b>一般的な敵。</p></div><div class="enemy-card"><h4>こわれたロボット</h4><p class="enemy-label">固有スキル</p><p>一般的な敵</p><div class="drop"><b>ドロップ：</b><div class="enemy-drop-item"><b>スタンガン</b> <span>（1/6）</span><br><span class="small">【武器】ATK+150。1ターンごとに1/10の確率で敵全体に攻撃。追加効果あり</span></div></div><p class="small"><b>攻略：</b>一般的な敵。</p></div></div></div></details><details class="enemy-dungeon-collapsible" data-dungeon-id="d2"><summary><div class="enemy-dungeon-summary"><span class="rank">★2</span> <h3>ノービスダンジョン</h3><span class="enemy-count">5体</span><p><b>系統効果：</b>獲得ゴールドが15%上がる</p><p class="small">ビギナーから一段階上のダンジョン。</p><p class="small"><b>攻略：</b>敵の攻撃を見ながら各個撃破する。</p></div></summary><div class="enemy-dungeon-body"><div class="enemy-cards"><div class="enemy-card"><h4>ぶっとったいぬ</h4><p class="enemy-label">固有スキル</p><p>「ステータスがくれてやる。」発動時、ランダムでプレイヤーのステータスのどれかが1〜20上がる</p><div class="drop"><b>ドロップ：</b><div class="enemy-drop-item"><b>—</b> <span>（—）</span></div></div><p class="small"><b>攻略：</b>固有スキルに注意。</p></div><div class="enemy-card"><h4>ツタンカーメン</h4><p class="enemy-label">固有スキル</p><p>—</p><div class="drop"><b>ドロップ：</b><div class="enemy-drop-item"><b>どんぶり</b> <span>（1/5）</span><br><span class="small">【装飾具】獲得ゴールドが増える効果</span></div></div></div><div class="enemy-card"><h4>マリーコンネット</h4><p class="enemy-label">固有スキル</p><p>「私と一緒に帰りましょう」発動率1/10。獲得ゴールドが1.5倍になる</p><div class="drop"><b>ドロップ：</b><div class="enemy-drop-item"><b>—</b> <span>（—）</span></div></div><p class="small"><b>攻略：</b>固有スキルに注意。</p></div><div class="enemy-card"><h4>歩く死体</h4><p class="enemy-label">固有スキル</p><p>—</p><div class="drop"><b>ドロップ：</b><div class="enemy-drop-item"><b>—</b> <span>（—）</span></div></div></div><div class="enemy-card"><h4>怒りの測量</h4><p class="enemy-label">固有スキル</p><p>—</p><div class="drop"><b>ドロップ：</b><div class="enemy-drop-item"><b>救急箱</b> <span>（1/20）</span><br><span class="small">【防具】DEF+500</span></div></div></div></div></div></details><details class="enemy-dungeon-collapsible" data-dungeon-id="d3"><summary><div class="enemy-dungeon-summary"><span class="rank">★3</span> <h3>ホーリーダンジョン</h3><span class="enemy-count">3体</span><p><b>系統効果：</b>獲得ガウルがたまに1増える</p><p class="small">経験値稼ぎにも向くダンジョン。</p><p class="small"><b>攻略：</b>敵の属性や特殊攻撃に注意する。</p></div></summary><div class="enemy-dungeon-body"><div class="enemy-cards"><div class="enemy-card"><h4>パラディン</h4><p class="enemy-label">固有スキル</p><p>「援助」スキル。発動率1%。発動時に敵全体へ追加ダメージ</p><div class="drop"><b>ドロップ：</b><div class="enemy-drop-item"><b>感謝盾のコート</b> <span>（1/35）</span><br><span class="small">【防具】DEF+3000。全ステータスの30%以下になった時、全回復する</span></div></div></div><div class="enemy-card"><h4>激剣アーサー</h4><p class="enemy-label">固有スキル</p><p>「例の炎でおバーモニー」スキル。発動率1%。相手に貫通ダメージ</p><div class="drop"><b>ドロップ：</b><div class="enemy-drop-item"><b>エクスカリバー</b> <span>（1/333）</span><br><span class="small">【武器】ATK+7777。発動条件等の詳細は画像記載のまま</span></div></div></div><div class="enemy-card"><h4>闇帝トール</h4><p class="enemy-label">固有スキル</p><p>「怒りのいいがち」1/5の確率で発動</p><div class="drop"><b>ドロップ：</b><div class="enemy-drop-item"><b>雷槌ニョルニル</b> <span>（1/100）</span><br><span class="small">【武器】ATK+8000</span></div></div></div></div></div></details><details class="enemy-dungeon-collapsible" data-dungeon-id="d4"><summary><div class="enemy-dungeon-summary"><span class="rank ex">★4</span> <h3>エキスパートダンジョン</h3><span class="enemy-count">5体</span><p><b>系統効果：</b>経験値が2倍になる</p><p class="small">高難度のダンジョン。</p><p class="small"><b>攻略：</b>強力な敵への対策を準備する。</p></div></summary><div class="enemy-dungeon-body"><div class="enemy-cards"><div class="enemy-card"><h4>レッドドラゴン</h4><p class="enemy-label">固有スキル</p><p>【仲間を呼ぶ】ドラゴンを召喚する</p><div class="drop"><b>ドロップ：</b><div class="enemy-drop-item"><b>炎の翼</b> <span>（1/30）</span><br><span class="small">【性能】画像記載の合成素材</span></div></div></div><div class="enemy-card"><h4>ブルードラゴン</h4><p class="enemy-label">固有スキル</p><p>【仲間を呼ぶ】以下同文</p><div class="drop"><b>ドロップ：</b><div class="enemy-drop-item"><b>氷の翼</b> <span>（1/30）</span><br><span class="small">【性能】画像記載の合成素材</span></div></div></div><div class="enemy-card"><h4>ホワイトドラゴン</h4><p class="enemy-label">固有スキル</p><p>【仲間を呼ぶ】以下同文</p><div class="drop"><b>ドロップ：</b><div class="enemy-drop-item"><b>光の翼</b> <span>（1/30）</span><br><span class="small">【性能】画像記載の合成素材</span></div></div></div><div class="enemy-card"><h4>ブラックドラゴン</h4><p class="enemy-label">固有スキル</p><p>【仲間を呼ぶ】以下同文</p><div class="drop"><b>ドロップ：</b><div class="enemy-drop-item"><b>闇の翼</b> <span>（1/30）</span><br><span class="small">【性能】画像記載の合成素材</span></div></div></div><div class="enemy-card"><h4>ゴーストドラゴン</h4><p class="enemy-label">固有スキル</p><p>【仲間を呼ぶ】以下同文</p><div class="drop"><b>ドロップ：</b><div class="enemy-drop-item"><b>ドラゴンのたましい</b> <span>（1/50）</span><br><span class="small">【性能】画像記載の合成素材</span></div></div></div></div></div></details><details class="enemy-dungeon-collapsible" data-dungeon-id="d5"><summary><div class="enemy-dungeon-summary"><span class="rank boss">★5</span> <h3>アンドロデンダンジョン</h3><span class="enemy-count">1体</span><p><b>系統効果：</b>なし</p><p class="small">最上位クラスのダンジョン。</p><p class="small"><b>攻略：</b>ボス戦を想定した装備と編成を準備する。</p></div></summary><div class="enemy-dungeon-body"><div class="enemy-cards"><div class="enemy-card"><h4>超☆疑☆メタル</h4><p class="enemy-label">固有スキル</p><p>【ドラゴンバスター】自分と全く同じステータスの敵になる</p><div class="drop"><b>ドロップ：</b><div class="enemy-drop-item"><b>チタンのペンダント</b> <span>（1/99）</span><br><span class="small">【装身具】装備者が攻撃した敵だけ強くなる。画像記載の特殊効果あり</span></div></div></div></div></div></details></div>
-<div class="notice info">
-<b>画像資料について：</b>
-このカード一覧は提供された敵・ドロップ一覧画像を元に整理しています。画像で判読が難しい部分は推測せず、元資料に合わせて「—」「以下同文」「画像記載」としています。
+<h2>3. ダンジョン別・敵・ドロップ品カード図鑑</h2>
+<p class="muted">ここに表示されるダンジョン・敵・ドロップ品カードは、この一覧だけを正本として表示します。各ダンジョンをタップすると開閉でき、管理者画面の「敵・ドロップ完全CRUD」で変更した内容を即時反映します。</p>
+<div id="viewerEnemyDungeonList"></div>
+<div class="notice info" style="margin-top:14px">
+<b>統合表示：</b>「ダンジョン別敵図鑑」と「敵・ドロップ品カード」を分離せず、各ダンジョンの中に敵カード、その中に全ドロップ品をまとめています。
 </div>
-<h3>敵データ早見表</h3>
+<h3 style="margin-top:30px">敵データ早見表</h3>
 <table>
 <tbody><tr><th>敵カテゴリ</th><th>出現ダンジョン</th><th>難度</th><th>確認できている特徴</th></tr>
 <tr><td>一般的な敵</td><td>ビギナー / ノービス / ホーリー</td><td>★〜★★★</td><td>通常攻略・周回向け</td></tr>
 <tr><td>竜など</td><td>エキスパート</td><td>★★★★</td><td>強敵。上位装備・能力を整えて挑戦</td></tr>
 <tr><td>正体不明のボス</td><td>アンドロデン</td><td>★★★★★</td><td>ボス戦。詳細はゲーム内で確認</td></tr>
 </tbody></table>
-<h3 style="margin-top:30px">確認済みドロップ・アイテムログ</h3>
-<div class="grid">
-<div class="card">
-<h3>くろいヘルメット</h3>
-<p><span class="rank">ログ確認</span></p>
-<p>提供された実際のダンジョン結果画面に「くろいヘルメット」の表示を確認。</p>
-<p class="small"><b>入手ダンジョン：</b>スクリーンショット上ではビギナーダンジョン Lv2 の結果ログ付近に表示</p>
-<p class="small"><b>レア度：</b>未確認　　<b>ドロップ率：</b>未確認</p>
+<div class="notice info" style="margin-top:14px">
+<b>カード表示について：</b>画像で判読できない情報は、元データの「—」「以下同文」「画像記載」などを維持し、推測で補完しません。
 </div>
-<div class="card">
-<h3>ガウル</h3>
-<p><span class="rank">報酬</span></p>
-<p>ダンジョン結果ログに「+1ガウル」などの獲得表示を確認。</p>
-</div>
-<div class="card">
-<h3>経験値</h3>
-<p><span class="rank">報酬</span></p>
-<p>ダンジョン結果ログに経験値の獲得量が表示されます。</p>
-<p class="small">確認例：ビギナーダンジョン Lv2 → 経験値 +80、エキスパートダンジョン Lv9 → 経験値 +16,200</p>
-</div>
-</div>
-<div class="notice info">
-<b>レアドロップの見方：</b>
-「レアドロップ」と「通常報酬」は同じものとは限りません。
-</div>
-<details>
-<summary>レアドロップ図鑑の見方</summary>
-<p>今後アイテムのスクリーンショットが増えたら、<b>アイテム名 / レア度 / 入手ダンジョン / ダンジョンLv / 対象敵 / ドロップ率 / 効果</b>の順で整理できます。</p>
-</details>
-<details>
-<summary>敵図鑑の見方</summary>
-<p>敵のスクリーンショットが増えたら、<b>敵名 / 出現ダンジョン / Lv / HP / 攻撃力 / 特徴 / 有効な戦い方 / ドロップ</b>をまとめ、初心者でも一目で分かるカード形式にできます。</p>
-</details>
 </section>
 <section id="drop">
 <h2>4. ドロップ・報酬を見る場所</h2>
@@ -1721,47 +1687,6 @@ function renderDungeonViewer(data){
   });
   sec.appendChild(table);
 }
-function findEnemySection(){
-  const hs=[...document.querySelectorAll("h3")];
-  const h=hs.find(x=>x.textContent.includes("ダンジョン別・敵図鑑"));
-  return h ? h.parentElement : null;
-}
-function renderEnemyViewer(data){
-  const sec=findEnemySection();
-  if(!sec || !Array.isArray(data.dungeons))return;
-  const enemies=Array.isArray(data.enemies)?data.enemies:[];
-
-  // Find the first .enemy-dungeon after the heading and remove all old hard-coded cards.
-  const old=[...sec.querySelectorAll(".enemy-dungeon")];
-  old.forEach(x=>x.remove());
-
-  const frag=document.createDocumentFragment();
-  data.dungeons.forEach((d,i)=>{
-    const list=enemies.filter(e=>String(e.dungeonId||"")===String(d.id||"") || (!e.dungeonId && String(e.dungeon||"")===String(d.name||"")));
-    const box=document.createElement("div");
-    box.className="enemy-dungeon";
-    let cards=list.length?list.map(e=>
-      '<div class="enemy-card">'+
-      (e.image?'<img src="'+esc(e.image)+'" alt="" style="width:100%;max-height:180px;object-fit:contain;border-radius:7px;margin-bottom:8px">':"")+
-      '<h4>'+esc(e.name||"名称未設定")+'</h4>'+
-      '<p class="enemy-label">固有スキル</p><p>'+esc(e.skill||"—")+'</p>'+
-      '<div class="drop"><b>ドロップ：</b>'+((Array.isArray(e.drops)&&e.drops.length)?e.drops.map(d=>'<div class="enemy-drop-item"><b>'+esc(d.name||"—")+'</b>（'+esc(d.rate||"—")+'）<br><span class="small">'+esc(d.effect||"—")+'</span></div>').join(""):'<div>登録なし</div>')+'</div>'+
-      '<div class="enemy-stats"><div class="enemy-stat"><b>HP</b><span>'+esc(e.hp||"—")+'</span></div><div class="enemy-stat"><b>ATK</b><span>'+esc(e.atk||"—")+'</span></div><div class="enemy-stat"><b>DEF</b><span>'+esc(e.def||"—")+'</span></div><div class="enemy-stat"><b>SPD</b><span>'+esc(e.spd||"—")+'</span></div><div class="enemy-stat"><b>EXP</b><span>'+esc(e.exp||"—")+'</span></div><div class="enemy-stat"><b>GOLD</b><span>'+esc(e.gold||"—")+'</span></div></div>'+
-      '<p class="small"><b>攻略：</b>'+esc(e.strategy||"—")+'</p>'+
-      '</div>'
-    ).join(""): '<div class="crud-empty">このダンジョンに登録された敵はいません。</div>';
-
-    box.innerHTML=
-      '<div class="enemy-dungeon-head">'+
-      '<h3><span class="'+rankClass(i)+'">★'+(i+1)+'</span> '+esc(d.name||"名称未設定")+'</h3>'+
-      '<p><b>系統効果：</b>'+esc(d.effect||"なし")+'</p>'+
-      '<p class="small">'+esc(d.desc||"—")+'</p>'+
-      '</div>'+
-      '<div class="enemy-cards">'+cards+'</div>';
-    frag.appendChild(box);
-  });
-  sec.appendChild(frag);
-}
 function renderAllFromPublished(){
   const d=getPublished();
   if(!d)return;
@@ -1771,7 +1696,6 @@ function renderAllFromPublished(){
   window.dropData=d.drops||[];
   window.updateHistory=d.updates||[];
   renderDungeonViewer(d);
-  renderEnemyViewer(d);
 }
 if(document.readyState==="loading"){
   document.addEventListener("DOMContentLoaded",renderAllFromPublished);
@@ -1784,7 +1708,7 @@ window.renderUntroddentViewerFromPublishedData=renderAllFromPublished;
 
 <script>
 /* ==========================================================
-   閲覧者：ダンジョン別・敵図鑑 完全同期レンダラー
+   閲覧者：ダンジョン別・敵・ドロップ品カード 完全同期レンダラー
    - ダンジョンCRUDの名称 / 系統効果 / 説明 / 攻略を使用
    - 敵CRUDの dungeonId を最優先して所属ダンジョンを決定
    - dungeonId がない旧データはダンジョン名で互換表示
