@@ -1054,36 +1054,15 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 <script>
 (function(){
   const KEY="untroddentWikiDungeonCRUD_v1";
-  // 以前のダンジョン完全CRUDに登録されていた5件を復旧。
-  // 閲覧者画面に実際に表示されていた説明文・系統効果を基準にし、
-  // 既存のlocalStorageにカスタム編集がある場合は上書きせず維持する。
   const initial=[
-    {id:"d1",name:"ビギナーダンジョン",effect:"ドロップ率の分母が1減る",desc:"一般的な敵が出てくる入門向けダンジョン。まずはここで「ダンジョン選択 → Lv選択 → 魔法の方針 → 挑む」という流れを覚えます。",strategy:"基本的な敵から戦闘に慣れる。ダンジョン選択 → Lv選択 → 魔法の方針 → 挑む、の流れを確認する。"},
-    {id:"d2",name:"ノービスダンジョン",effect:"獲得ゴールドが15%上がる",desc:"ビギナーの次に挑戦するダンジョン。実画面では「ノービスダンジョン」「Lv3」の状態を確認できます。",strategy:"敵の攻撃を見ながら各個撃破する。Lvや報酬を確認してから挑戦する。"},
-    {id:"d3",name:"ホーリーダンジョン",effect:"経験値が2倍になる",desc:"一般的な敵が出現する上位側のダンジョン。周回や報酬確認にも注目します。",strategy:"敵の属性や特殊攻撃に注意する。経験値2倍の効果を活用して周回する。"},
-    {id:"d4",name:"エキスパートダンジョン",effect:"経験値が2倍になる",desc:"竜などが出現する高難度ダンジョン。能力値・HP・魔法などを確認してから挑戦します。",strategy:"強力な敵への対策を準備する。能力値・HP・魔法などを確認してから挑戦する。"},
-    {id:"d5",name:"アンドロデンダンジョン",effect:"なし",desc:"正体不明のボスが出現する最上位ダンジョン。ボス戦を意識した準備が必要です。",strategy:"ボス戦を想定した装備と編成を準備する。正体不明のボスに備えて十分に確認する。"}
+    {id:"d1",name:"ビギナーダンジョン",effect:"ドロップ率の分母が1減る",desc:"序盤向けのダンジョン。",strategy:"基本的な敵から戦闘に慣れる。"},
+    {id:"d2",name:"ノービスダンジョン",effect:"獲得ゴールドが15%上がる",desc:"ビギナーから一段階上のダンジョン。",strategy:"敵の攻撃を見ながら各個撃破する。"},
+    {id:"d3",name:"ホーリーダンジョン",effect:"経験値が2倍になる",desc:"経験値稼ぎにも向くダンジョン。",strategy:"敵の属性や特殊攻撃に注意する。"},
+    {id:"d4",name:"エキスパートダンジョン",effect:"経験値が2倍になる",desc:"高難度のダンジョン。",strategy:"強力な敵への対策を準備する。"},
+    {id:"d5",name:"アンドロデンダンジョン",effect:"なし",desc:"最上位クラスのダンジョン。",strategy:"ボス戦を想定した装備と編成を準備する。"}
   ];
   let data=[];
-  try{
-    const saved=JSON.parse(localStorage.getItem(KEY)||"null");
-    const embedded=window.__UNTRODDENT_DUNGEON_DATA__;
-    data=Array.isArray(saved)?saved:(Array.isArray(embedded)?embedded:[]);
-  }catch(e){data=Array.isArray(window.__UNTRODDENT_DUNGEON_DATA__)?window.__UNTRODDENT_DUNGEON_DATA__:[];}
-  // 空になってしまった旧版HTMLからも5件を自動復旧。
-  // 一部だけ残っている場合は不足分だけ追加し、ユーザー編集値は保持する。
-  const byId=new Map(data.map(x=>[String(x.id||""),x]));
-  const byName=new Map(data.map(x=>[String(x.name||""),x]));
-  initial.forEach(base=>{
-    const existing=byId.get(base.id)||byName.get(base.name);
-    if(!existing){data.push({...base});}
-    else{
-      if(!existing.id) existing.id=base.id;
-      if(existing.effect==null||existing.effect==="") existing.effect=base.effect;
-      if(existing.desc==null||existing.desc===""||existing.desc==="—") existing.desc=base.desc;
-      if(existing.strategy==null||existing.strategy===""||existing.strategy==="—") existing.strategy=base.strategy;
-    }
-  });
+  try{data=JSON.parse(localStorage.getItem(KEY)||"null")||window.__UNTRODDENT_DUNGEON_DATA__||initial;}catch(e){data=window.__UNTRODDENT_DUNGEON_DATA__||initial;}
   data=(data||[]).map(x=>{const drops=normalizeDrops(x); return {...x,drops,hp:x.hp??"",atk:x.atk??"",def:x.def??"",spd:x.spd??"",exp:x.exp??"",gold:x.gold??""};});
   try{localStorage.setItem(KEY,JSON.stringify(data));}catch(_){}
   let editingId=null;
