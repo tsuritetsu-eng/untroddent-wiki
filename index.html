@@ -68,10 +68,26 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 
 .github-badge{display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border:1px solid var(--line);border-radius:999px;background:#0b1512;color:#e9eee9;font-weight:700;font-size:.82rem}
 
+
+.admin-gate{border:1px solid var(--line);background:var(--panel);border-radius:15px;padding:20px;margin:20px 0}
+.admin-panel{display:none}
+.admin-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.admin-card{border:1px solid var(--line);background:#0b1512;border-radius:10px;padding:15px}
+.admin-card h3{margin-top:0;color:#f0cc70}
+.admin-field{display:grid;gap:6px;margin:10px 0}
+.admin-field label{font-size:.86rem;color:var(--muted)}
+.admin-field input,.admin-field textarea,.admin-field select{width:100%;box-sizing:border-box;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:#101c18;color:var(--text);font:inherit}
+.admin-field textarea{min-height:110px;resize:vertical}
+.admin-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:12px}
+.admin-status{margin-top:10px;padding:10px;border-radius:8px;background:#14231e;color:var(--muted);white-space:pre-wrap}
+.admin-warning{border-left:4px solid #d6a84f;background:#2a2416;padding:12px;margin:12px 0;border-radius:7px}
+.admin-history-row{display:grid;grid-template-columns:120px 1fr auto;gap:8px;margin:8px 0}
+@media(max-width:700px){.admin-grid{grid-template-columns:1fr}.admin-history-row{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
-<header><nav><div class="logo">UNTRODDENT GUIDE</div><div class="links"><a href="#dungeons">ダンジョン</a><a href="#screens">実画面操作</a><a href="#encyclopedia">敵・ドロップ図鑑</a><a href="#drop">ドロップ</a><a href="#world">ワールド</a><a href="#fortress">要塞</a><a href="#contribute">改善・PR</a><a href="#history">更新履歴</a></div></nav></header>
+<header><nav><div class="logo">UNTRODDENT GUIDE</div><div class="links"><a href="#dungeons">ダンジョン</a><a href="#screens">実画面操作</a><a href="#encyclopedia">敵・ドロップ図鑑</a><a href="#drop">ドロップ</a><a href="#world">ワールド</a><a href="#fortress">要塞</a><a href="#contribute">改善・PR</a><a href="#history">更新履歴</a><a href="#developer-admin">開発者</a></div></nav></header>
 
 <div class="hero">
 <span class="badge">実画面チュートリアル・クリーン表示版</span>
@@ -520,6 +536,77 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
   <div class="notice info"><b>開発者向け：</b>新しい更新を公開したら、この欄に「バージョン・日付・変更内容」を追記してコミットしてください。</div>
 </section>
 
+
+<section id="developer-admin">
+  <h2>10. 開発者管理画面</h2>
+  <div class="admin-gate">
+    <h3>🔐 開発者ログイン</h3>
+    <p class="small">この管理画面は、サイトの編集・更新履歴管理・GitHubへの反映をまとめて行うための画面です。</p>
+    <div class="admin-warning"><b>重要：</b>静的HTMLだけでは本当の意味での安全なサーバー側ログインはできません。この版ではGitHubの認証情報をHTMLに埋め込まず、必要な操作時だけ開発者本人が入力する方式にしています。</div>
+    <div class="admin-field">
+      <label for="adminPass">管理画面パスワード（このブラウザ内の表示制限用）</label>
+      <input id="adminPass" type="password" placeholder="管理用パスワード">
+    </div>
+    <div class="admin-actions">
+      <button id="adminLogin" class="btn primary" type="button">管理画面に入る</button>
+      <button id="adminLogout" class="btn" type="button">ログアウト</button>
+    </div>
+    <div id="adminGateStatus" class="admin-status"></div>
+  </div>
+
+  <div id="adminPanel" class="admin-panel">
+    <div class="admin-grid">
+      <div class="admin-card">
+        <h3>📚 ダンジョン情報</h3>
+        <div class="admin-field"><label>ダンジョン</label>
+          <select id="adminDungeon">
+            <option>ビギナーダンジョン</option><option>ノービスダンジョン</option>
+            <option>ホーリーダンジョン</option><option>エキスパートダンジョン</option>
+            <option>アンドロデンダンジョン</option>
+          </select>
+        </div>
+        <div class="admin-field"><label>系統効果</label><input id="adminEffect"></div>
+        <div class="admin-field"><label>説明</label><textarea id="adminDungeonDesc"></textarea></div>
+      </div>
+
+      <div class="admin-card">
+        <h3>👾 敵データ</h3>
+        <div class="admin-field"><label>敵名</label><input id="adminEnemyName" placeholder="例：レッドドラゴン"></div>
+        <div class="admin-field"><label>固有スキル</label><textarea id="adminEnemySkill"></textarea></div>
+        <div class="admin-field"><label>ドロップ品</label><input id="adminDropName"></div>
+        <div class="admin-field"><label>ドロップ効果</label><textarea id="adminDropEffect"></textarea></div>
+        <div class="admin-field"><label>ドロップ率</label><input id="adminDropRate" placeholder="例：1/30"></div>
+        <div class="admin-actions">
+          <button id="adminAddEnemy" class="btn primary" type="button">敵を追加</button>
+          <button id="adminClearEnemy" class="btn" type="button">入力をクリア</button>
+        </div>
+      </div>
+
+      <div class="admin-card">
+        <h3>📝 更新履歴</h3>
+        <div class="admin-field"><label>バージョン</label><input id="adminVersion" placeholder="v7.0"></div>
+        <div class="admin-field"><label>日付</label><input id="adminDate" type="date"></div>
+        <div class="admin-field"><label>変更内容</label><textarea id="adminChange"></textarea></div>
+        <div class="admin-actions">
+          <button id="adminAddHistory" class="btn primary" type="button">更新履歴を追加</button>
+        </div>
+      </div>
+
+      <div class="admin-card">
+        <h3>🚀 公開・GitHub反映</h3>
+        <p class="small">現在のHTMLをダウンロードしてGitHubへ反映するための機能です。</p>
+        <div class="admin-warning"><b>GitHub認証：</b>トークンはHTMLに保存しません。GitHub APIを使う場合だけ、開発者本人が入力してください。Fine-grained PATなら対象リポジトリ限定・Contents: Read and writeの最小権限を推奨します。</div>
+        <div class="admin-field"><label>GitHubアクセストークン（任意・保存しません）</label><input id="githubToken" type="password" autocomplete="off" placeholder="ghp_... / github_pat_..."></div>
+        <div class="admin-actions">
+          <button id="adminDownload" class="btn" type="button">現在のHTMLを保存</button>
+          <button id="adminGithubCommit" class="btn primary" type="button">GitHubへ反映</button>
+        </div>
+        <div id="adminGithubStatus" class="admin-status"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer>アントロデン攻略チュートリアル / 非公式ガイド<br><span class="small">提供されたゲーム画面を参考に構成した攻略資料です。</span></footer>
 
 <script>
@@ -545,6 +632,103 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
     window.open(url,"_blank","noopener");
     status.textContent="GitHubの入力画面を開きました。内容を確認してIssueを作成してください。必要ならそこからPull Requestへ進めます。";
   });
+})();
+</script>
+
+
+<script>
+(function(){
+  const repoOwner="tsuritetsu-eng", repoName="untroddent-wiki", branch="main";
+  const adminKey="untroddentWikiAdminUnlocked";
+  const passInput=document.getElementById("adminPass");
+  const panel=document.getElementById("adminPanel");
+  const gateStatus=document.getElementById("adminGateStatus");
+  const ghStatus=document.getElementById("adminGithubStatus");
+
+  const dungeonData={
+    "ビギナーダンジョン":{effect:"ドロップ率の分母が1減る",desc:"序盤向け。一般的な敵が出現します。"},
+    "ノービスダンジョン":{effect:"獲得ゴールドが15%上がる",desc:"ビギナーの次に挑戦するステップアップ帯。"},
+    "ホーリーダンジョン":{effect:"経験値が2倍になる",desc:"一般的な敵が出現する上位側のダンジョン。"},
+    "エキスパートダンジョン":{effect:"経験値が2倍になる",desc:"竜などが出現する高難度ダンジョン。"},
+    "アンドロデンダンジョン":{effect:"なし",desc:"正体不明のボスが出現する最上位ダンジョン。"}
+  };
+
+  function unlock(){
+    if(passInput.value.trim().length<1){
+      gateStatus.textContent="パスワードを入力してください。";
+      return;
+    }
+    sessionStorage.setItem(adminKey,"1");
+    panel.style.display="block";
+    gateStatus.textContent="管理画面を開きました。このブラウザのタブを閉じるとログアウト状態になります。";
+  }
+  function logout(){
+    sessionStorage.removeItem(adminKey); panel.style.display="none"; passInput.value="";
+    gateStatus.textContent="ログアウトしました。";
+  }
+  document.getElementById("adminLogin").onclick=unlock;
+  document.getElementById("adminLogout").onclick=logout;
+  if(sessionStorage.getItem(adminKey)==="1") panel.style.display="block";
+
+  const d=document.getElementById("adminDungeon");
+  const effect=document.getElementById("adminEffect"), desc=document.getElementById("adminDungeonDesc");
+  function loadDungeon(){ const x=dungeonData[d.value]; effect.value=x.effect; desc.value=x.desc; }
+  d.onchange=loadDungeon; loadDungeon();
+
+  document.getElementById("adminAddEnemy").onclick=function(){
+    const name=document.getElementById("adminEnemyName").value.trim();
+    if(!name){gateStatus.textContent="敵名を入力してください。";return;}
+    const card=document.createElement("div"); card.className="enemy-card";
+    const esc=s=>s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]));
+    card.innerHTML="<h4>"+esc(name)+"</h4><p class='enemy-label'>固有スキル</p><p>"+esc(document.getElementById("adminEnemySkill").value||"—")+
+      "</p><div class='drop'><b>ドロップ：</b>"+esc(document.getElementById("adminDropName").value||"—")+"</div><p class='small'>"+
+      esc(document.getElementById("adminDropEffect").value||"")+"</p><p><b>ドロップ率：</b>"+esc(document.getElementById("adminDropRate").value||"—")+"</p>";
+    gateStatus.textContent="敵カードを一時追加しました。GitHubへ反映するには「現在のHTMLを保存」後、生成されたHTMLを確認して公開版へ置き換えてください。";
+    document.querySelector(".enemy-dungeon .enemy-cards")?.appendChild(card);
+  };
+
+  document.getElementById("adminClearEnemy").onclick=function(){
+    ["adminEnemyName","adminEnemySkill","adminDropName","adminDropEffect","adminDropRate"].forEach(id=>document.getElementById(id).value="");
+  };
+
+  document.getElementById("adminAddHistory").onclick=function(){
+    const v=document.getElementById("adminVersion").value.trim(), date=document.getElementById("adminDate").value, change=document.getElementById("adminChange").value.trim();
+    if(!v||!date||!change){gateStatus.textContent="バージョン・日付・変更内容をすべて入力してください。";return;}
+    const list=document.querySelector(".history-list"); const item=document.createElement("div"); item.className="history-item";
+    const h=document.createElement("h3"); h.textContent=v; const meta=document.createElement("div"); meta.className="history-meta"; meta.textContent=date;
+    const body=document.createElement("div"); body.textContent=change; item.append(h,meta,body); list.prepend(item);
+    gateStatus.textContent="更新履歴を一時追加しました。";
+  };
+
+  function downloadCurrent(){
+    const blob=new Blob(["<!doctype html>\n"+document.documentElement.outerHTML],{type:"text/html;charset=utf-8"});
+    const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="index_updated.html"; a.click();
+    setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+  }
+  document.getElementById("adminDownload").onclick=downloadCurrent;
+
+  document.getElementById("adminGithubCommit").onclick=async function(){
+    const token=document.getElementById("githubToken").value.trim();
+    if(!token){ghStatus.textContent="GitHubアクセストークンを入力してください。";return;}
+    ghStatus.textContent="GitHubへ接続しています…";
+    try{
+      const api="https://api.github.com/repos/"+repoOwner+"/"+repoName+"/contents/index.html";
+      const headers={"Authorization":"Bearer "+token,"Accept":"application/vnd.github+json","X-GitHub-Api-Version":"2022-11-28"};
+      const get=await fetch(api+"?ref="+encodeURIComponent(branch),{headers});
+      if(!get.ok) throw new Error("GitHubからindex.htmlを取得できませんでした（HTTP "+get.status+"）。");
+      const current=await get.json();
+      const content=btoa(unescape(encodeURIComponent("<!doctype html>\n"+document.documentElement.outerHTML)));
+      const put=await fetch(api,{method:"PUT",headers,body:JSON.stringify({
+        message:"Update tutorial site from developer admin",
+        content:content,
+        sha:current.sha,
+        branch:branch
+      })});
+      if(!put.ok) throw new Error("GitHubへの反映に失敗しました（HTTP "+put.status+"）。権限と対象ファイルを確認してください。");
+      ghStatus.textContent="GitHubへの反映が完了しました。コミットを確認してください。入力したトークンは保存していません。";
+      document.getElementById("githubToken").value="";
+    }catch(e){ghStatus.textContent=e.message;}
+  };
 })();
 </script>
 
