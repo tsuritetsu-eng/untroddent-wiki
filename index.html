@@ -32,6 +32,19 @@ table{width:100%;border-collapse:collapse;background:var(--panel);border:1px sol
 footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-align:center;color:var(--muted)}
 @media(max-width:700px){.links{display:none}.hero{padding-top:42px}.callouts,.callouts.three{grid-template-columns:1fr 1fr}}
 @media(max-width:430px){.callouts,.callouts.three{grid-template-columns:1fr}}
+
+.enemy-dungeon{margin:22px 0 30px;border:1px solid var(--line);background:var(--panel);border-radius:10px;overflow:hidden}
+.enemy-dungeon-head{padding:15px 17px;background:var(--panel2);border-bottom:1px solid var(--line)}
+.enemy-dungeon-head h3{margin:0 0 7px;color:#f0cc70}
+.enemy-dungeon-head p{margin:4px 0}
+.enemy-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:14px}
+.enemy-card{border:1px solid var(--line);background:#0b1512;border-radius:9px;padding:13px}
+.enemy-card h4{margin:0 0 9px;color:#f0cc70;font-size:1.02rem}
+.enemy-card p{margin:6px 0}
+.enemy-card .enemy-label{color:var(--muted);font-size:.82rem}
+.enemy-card .drop{border-top:1px solid var(--line);margin-top:10px;padding-top:9px}
+@media(max-width:700px){.enemy-cards{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -47,14 +60,14 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 <section id="dungeons">
 <h2>1. ダンジョン5種類</h2>
 <p class="muted">攻略が簡単な順に、ビギナー → ノービス → ホーリー → エキスパート → アンドロデンと覚えます。</p>
-<div class="dungeon"><h3><span class="rank">★1</span> ビギナーダンジョン</h3><p>一般的な敵が出てくる入門向けダンジョン。まずはここで「ダンジョン選択 → Lv選択 → 魔法の方針 → 挑む」という流れを覚えます。</p></div>
-<div class="dungeon"><h3><span class="rank">★2</span> ノービスダンジョン</h3><p>ビギナーの次に挑戦するダンジョン。実画面では「ノービスダンジョン」「Lv3」の状態を確認できます。</p></div>
-<div class="dungeon"><h3><span class="rank">★3</span> ホーリーダンジョン</h3><p>一般的な敵が出現する上位側のダンジョン。周回や報酬確認にも注目します。</p></div>
-<div class="dungeon"><h3><span class="rank ex">★4</span> エキスパートダンジョン</h3><p>竜などが出現する高難度ダンジョン。能力値・HP・魔法などを確認してから挑戦します。</p></div>
-<div class="dungeon"><h3><span class="rank boss">★5</span> アンドロデンダンジョン</h3><p>正体不明のボスが出現する最上位ダンジョン。ボス戦を意識した準備が必要です。</p></div>
-<table><tr><th>種類</th><th>敵</th><th>攻略の位置づけ</th></tr>
-<tr><td>ビギナー</td><td>一般的な敵</td><td>操作を覚える</td></tr><tr><td>ノービス</td><td>一般的な敵</td><td>ステップアップ</td></tr>
-<tr><td>ホーリー</td><td>一般的な敵</td><td>中級〜上級への入口</td></tr><tr><td>エキスパート</td><td>竜など</td><td>高難度・強敵</td></tr><tr><td>アンドロデン</td><td>正体不明のボス</td><td>最上位・ボス攻略</td></tr></table>
+<div class="dungeon"><h3><span class="rank">★1</span> ビギナーダンジョン</h3><p>一般的な敵が出てくる入門向けダンジョン。まずはここで「ダンジョン選択 → Lv選択 → 魔法の方針 → 挑む」という流れを覚えます。<br><b>系統効果：</b>ドロップ率の分母が1減る</p></div>
+<div class="dungeon"><h3><span class="rank">★2</span> ノービスダンジョン</h3><p>ビギナーの次に挑戦するダンジョン。実画面では「ノービスダンジョン」「Lv3」の状態を確認できます。<br><b>系統効果：</b>獲得ゴールドが15%上がる</p></div>
+<div class="dungeon"><h3><span class="rank">★3</span> ホーリーダンジョン</h3><p>一般的な敵が出現する上位側のダンジョン。周回や報酬確認にも注目します。<br><b>系統効果：</b>経験値が2倍になる</p></div>
+<div class="dungeon"><h3><span class="rank ex">★4</span> エキスパートダンジョン</h3><p>竜などが出現する高難度ダンジョン。能力値・HP・魔法などを確認してから挑戦します。<br><b>系統効果：</b>経験値が2倍になる</p></div>
+<div class="dungeon"><h3><span class="rank boss">★5</span> アンドロデンダンジョン</h3><p>正体不明のボスが出現する最上位ダンジョン。ボス戦を意識した準備が必要です。<br><b>系統効果：</b>なし</p></div>
+<table><tr><th>種類</th><th>敵</th><th>攻略の位置づけ</th><th>系統効果</th></tr>
+<tr><td>ビギナー</td><td>一般的な敵</td><td>操作を覚える</td><td>ドロップ率の分母が1減る</td></tr><tr><td>ノービス</td><td>一般的な敵</td><td>ステップアップ</td><td>獲得ゴールドが15%上がる</td></tr>
+<tr><td>ホーリー</td><td>一般的な敵</td><td>中級〜上級への入口</td><td>経験値が2倍になる</td></tr><tr><td>エキスパート</td><td>竜など</td><td>高難度・強敵</td><td>経験値が2倍になる</td></tr><tr><td>アンドロデン</td><td>正体不明のボス</td><td>最上位・ボス攻略</td><td>なし</td></tr></table>
 </section>
 
 <section id="screens">
@@ -96,7 +109,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 
 <section id="encyclopedia">
 <h2>3. 敵・レアドロップ図鑑</h2>
-
+<p class="muted">現在確認できているゲーム情報をもとに、敵の出現帯とドロップ情報を整理しています。未確認の数値や確率は推測せず、「未確認」と明記しています。</p>
 
 <div class="grid">
 <div class="card">
@@ -122,171 +135,212 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 </div>
 
 
-<h3 style="margin-top:30px">画像資料ベース・敵＆ドロップ一覧</h3>
-<div style="overflow-x:auto">
-<table>
-<tr>
-<th>ダンジョン</th>
-<th>出現モンスター</th>
-<th>出現モンスター固有スキル</th>
-<th>ドロップアイテム</th>
-<th>ドロップ率</th>
-</tr>
+<h3 style="margin-top:30px">ダンジョン別・敵図鑑</h3>
+<p class="muted">提供された一覧画像をもとに、ダンジョンごとに敵をカード形式で整理しています。各カードには確認できるスキル・ドロップ品・ドロップ率をまとめています。</p>
 
-<tr>
-<td>ビギナー<br><span class="small">ドロップ率が分母×2増加 / Lv2〜4付近</span></td>
-<td>スライム</td>
-<td>—</td>
-<td>スライムマント<br><span class="small">【防具】DEF+20。その他効果なし</span></td>
-<td>1/3</td>
-</tr>
-
-<tr>
-<td>ビギナー</td>
-<td>くろいコウモリ</td>
-<td>—</td>
-<td>くろいヘルメット<br><span class="small">【防具】DEF+50。追加効果なし</span></td>
-<td>1/5</td>
-</tr>
-
-<tr>
-<td>ビギナー</td>
-<td>くろいコウモリ</td>
-<td>—</td>
-<td>あかるいライト<br><span class="small">【武器】ATK+20。発動時に敵を麻痺させる。1ターン/15の確率で追撃</span></td>
-<td>1/8</td>
-</tr>
-
-<tr>
-<td>ビギナー</td>
-<td>モルモットっぽいねこ</td>
-<td>—</td>
-<td>飛び石<br><span class="small">【武器】ATK+50。すばやさ等の効果なし</span></td>
-<td>1/5</td>
-</tr>
-
-<tr>
-<td>ビギナー</td>
-<td>こわれたロボット</td>
-<td>—</td>
-<td>スタンガン<br><span class="small">【武器】ATK+150。1ターンごとに1/10の確率で敵全体に攻撃。追加効果あり</span></td>
-<td>1/6</td>
-</tr>
-
-<tr>
-<td>ノービス<br><span class="small">敵撃破時に獲得ゴールドが15%以上増える</span></td>
-<td>ぶっとったいぬ</td>
-<td>「ステータスがくれてやる。」発動時、ランダムでプレイヤーのステータスのどれかが1〜20上がる</td>
-<td>—</td>
-<td>—</td>
-</tr>
-
-<tr>
-<td>ノービス</td>
-<td>ツタンカーメン</td>
-<td>—</td>
-<td>どんぶり<br><span class="small">【装飾具】獲得ゴールドが増える効果</span></td>
-<td>1/5</td>
-</tr>
-
-<tr>
-<td>ノービス</td>
-<td>マリーコンネット</td>
-<td>「私と一緒に帰りましょう」発動率1/10。獲得ゴールドが1.5倍になる</td>
-<td>—</td>
-<td>—</td>
-</tr>
-
-<tr>
-<td>ノービス</td>
-<td>歩く死体</td>
-<td>—</td>
-<td>—</td>
-<td>—</td>
-</tr>
-
-<tr>
-<td>ノービス</td>
-<td>怒りの測量</td>
-<td>—</td>
-<td>救急箱<br><span class="small">【防具】DEF+500</span></td>
-<td>1/20</td>
-</tr>
-
-<tr>
-<td>ホーリー<br><span class="small">敵がうんざりした時に1増える</span></td>
-<td>パラディン</td>
-<td>「援助」スキル。発動率1%。発動時に敵全体へ追加ダメージ</td>
-<td>感謝盾のコート<br><span class="small">【防具】DEF+3000。全ステータスの30%以下になった時、全回復する</span></td>
-<td>1/35</td>
-</tr>
-
-<tr>
-<td>ホーリー</td>
-<td>激剣アーサー<br><span class="small">画像表記を採用</span></td>
-<td>「例の炎でおバーモニー」スキル。発動率1%。相手に貫通ダメージ</td>
-<td>エクスカリバー<br><span class="small">【武器】ATK+7777。発動条件等の詳細は画像記載のまま</span></td>
-<td>1/333</td>
-</tr>
-
-<tr>
-<td>ホーリー</td>
-<td>闇帝トール</td>
-<td>「怒りのいいがち」1/5の確率で発動</td>
-<td>雷槌ニョルニル<br><span class="small">【武器】ATK+8000</span></td>
-<td>1/100</td>
-</tr>
-
-<tr>
-<td>エキスパート<br><span class="small">経験値倍率など上昇</span></td>
-<td>レッドドラゴン</td>
-<td>【仲間を呼ぶ】ドラゴンを召喚する</td>
-<td>炎の翼<br><span class="small">【性能】画像記載の合成素材</span></td>
-<td>1/30</td>
-</tr>
-
-<tr>
-<td>エキスパート</td>
-<td>ブルードラゴン</td>
-<td>【仲間を呼ぶ】以下同文</td>
-<td>氷の翼<br><span class="small">【性能】画像記載の合成素材</span></td>
-<td>1/30</td>
-</tr>
-
-<tr>
-<td>エキスパート</td>
-<td>ホワイトドラゴン</td>
-<td>【仲間を呼ぶ】以下同文</td>
-<td>光の翼<br><span class="small">【性能】画像記載の合成素材</span></td>
-<td>1/30</td>
-</tr>
-
-<tr>
-<td>エキスパート</td>
-<td>ブラックドラゴン</td>
-<td>【仲間を呼ぶ】以下同文</td>
-<td>闇の翼<br><span class="small">【性能】画像記載の合成素材</span></td>
-<td>1/30</td>
-</tr>
-
-<tr>
-<td>エキスパート</td>
-<td>ゴーストドラゴン</td>
-<td>【仲間を呼ぶ】以下同文</td>
-<td>ドラゴンのたましい<br><span class="small">【性能】画像記載の合成素材</span></td>
-<td>1/50</td>
-</tr>
-
-<tr>
-<td>アンドロデン</td>
-<td>超☆疑☆メタル</td>
-<td>【ドラゴンバスター】自分と全く同じステータスの敵になる</td>
-<td>チタンのペンダント<br><span class="small">【装身具】装備者が攻撃した敵だけ強くなる。画像記載の特殊効果あり</span></td>
-<td>1/99</td>
-</tr>
-</table>
+<div class="enemy-dungeon">
+  <div class="enemy-dungeon-head">
+    <h3><span class="rank">★1</span> ビギナーダンジョン</h3>
+    <p><b>系統効果：</b>ドロップ率の分母が1減る</p>
+    <p class="small">序盤向け。一般的な敵が出現します。</p>
+  </div>
+  <div class="enemy-cards">
+    <div class="enemy-card">
+      <h4>スライム</h4>
+      <p class="enemy-label">出現モンスター</p>
+      <p>一般的な敵</p>
+      <div class="drop"><b>ドロップ：</b>スライムマント</div>
+      <p class="small">【防具】DEF+20。その他効果なし</p>
+      <p><b>ドロップ率：</b>1/3</p>
+    </div>
+    <div class="enemy-card">
+      <h4>くろいコウモリ</h4>
+      <p class="enemy-label">出現モンスター</p>
+      <p>一般的な敵</p>
+      <div class="drop"><b>ドロップ：</b>くろいヘルメット</div>
+      <p class="small">【防具】DEF+50。追加効果なし</p>
+      <p><b>ドロップ率：</b>1/5</p>
+    </div>
+    <div class="enemy-card">
+      <h4>くろいコウモリ</h4>
+      <p class="enemy-label">出現モンスター</p>
+      <p>一般的な敵</p>
+      <div class="drop"><b>ドロップ：</b>あかるいライト</div>
+      <p class="small">【武器】ATK+20。発動時に敵を麻痺させる。1ターン/15の確率で追撃</p>
+      <p><b>ドロップ率：</b>1/8</p>
+    </div>
+    <div class="enemy-card">
+      <h4>モルモットっぽいねこ</h4>
+      <p class="enemy-label">出現モンスター</p>
+      <p>一般的な敵</p>
+      <div class="drop"><b>ドロップ：</b>飛び石</div>
+      <p class="small">【武器】ATK+50。すばやさ等の効果なし</p>
+      <p><b>ドロップ率：</b>1/5</p>
+    </div>
+    <div class="enemy-card">
+      <h4>こわれたロボット</h4>
+      <p class="enemy-label">出現モンスター</p>
+      <p>一般的な敵</p>
+      <div class="drop"><b>ドロップ：</b>スタンガン</div>
+      <p class="small">【武器】ATK+150。1ターンごとに1/10の確率で敵全体に攻撃。追加効果あり</p>
+      <p><b>ドロップ率：</b>1/6</p>
+    </div>
+  </div>
 </div>
 
+<div class="enemy-dungeon">
+  <div class="enemy-dungeon-head">
+    <h3><span class="rank">★2</span> ノービスダンジョン</h3>
+    <p><b>系統効果：</b>獲得ゴールドが15%上がる</p>
+    <p class="small">ビギナーの次に挑戦するステップアップ帯。</p>
+  </div>
+  <div class="enemy-cards">
+    <div class="enemy-card">
+      <h4>ぶっとったいぬ</h4>
+      <p class="enemy-label">固有スキル</p>
+      <p>「ステータスがくれてやる。」発動時、ランダムでプレイヤーのステータスのどれかが1〜20上がる</p>
+      <div class="drop"><b>ドロップ：</b>—</div>
+      <p><b>ドロップ率：</b>—</p>
+    </div>
+    <div class="enemy-card">
+      <h4>ツタンカーメン</h4>
+      <p class="enemy-label">固有スキル</p>
+      <p>—</p>
+      <div class="drop"><b>ドロップ：</b>どんぶり</div>
+      <p class="small">【装飾具】獲得ゴールドが増える効果</p>
+      <p><b>ドロップ率：</b>1/5</p>
+    </div>
+    <div class="enemy-card">
+      <h4>マリーコンネット</h4>
+      <p class="enemy-label">固有スキル</p>
+      <p>「私と一緒に帰りましょう」発動率1/10。獲得ゴールドが1.5倍になる</p>
+      <div class="drop"><b>ドロップ：</b>—</div>
+      <p><b>ドロップ率：</b>—</p>
+    </div>
+    <div class="enemy-card">
+      <h4>歩く死体</h4>
+      <p class="enemy-label">固有スキル</p>
+      <p>—</p>
+      <div class="drop"><b>ドロップ：</b>—</div>
+      <p><b>ドロップ率：</b>—</p>
+    </div>
+    <div class="enemy-card">
+      <h4>怒りの測量</h4>
+      <p class="enemy-label">固有スキル</p>
+      <p>—</p>
+      <div class="drop"><b>ドロップ：</b>救急箱</div>
+      <p class="small">【防具】DEF+500</p>
+      <p><b>ドロップ率：</b>1/20</p>
+    </div>
+  </div>
+</div>
+
+<div class="enemy-dungeon">
+  <div class="enemy-dungeon-head">
+    <h3><span class="rank">★3</span> ホーリーダンジョン</h3>
+    <p><b>系統効果：</b>経験値が2倍になる</p>
+    <p class="small">一般的な敵が出現する上位側のダンジョン。</p>
+  </div>
+  <div class="enemy-cards">
+    <div class="enemy-card">
+      <h4>パラディン</h4>
+      <p class="enemy-label">固有スキル</p>
+      <p>「援助」スキル。発動率1%。発動時に敵全体へ追加ダメージ</p>
+      <div class="drop"><b>ドロップ：</b>感謝盾のコート</div>
+      <p class="small">【防具】DEF+3000。全ステータスの30%以下になった時、全回復する</p>
+      <p><b>ドロップ率：</b>1/35</p>
+    </div>
+    <div class="enemy-card">
+      <h4>激剣アーサー</h4>
+      <p class="enemy-label">固有スキル</p>
+      <p>「例の炎でおバーモニー」スキル。発動率1%。相手に貫通ダメージ</p>
+      <div class="drop"><b>ドロップ：</b>エクスカリバー</div>
+      <p class="small">【武器】ATK+7777。発動条件等の詳細は画像記載のまま</p>
+      <p><b>ドロップ率：</b>1/333</p>
+    </div>
+    <div class="enemy-card">
+      <h4>闇帝トール</h4>
+      <p class="enemy-label">固有スキル</p>
+      <p>「怒りのいいがち」1/5の確率で発動</p>
+      <div class="drop"><b>ドロップ：</b>雷槌ニョルニル</div>
+      <p class="small">【武器】ATK+8000</p>
+      <p><b>ドロップ率：</b>1/100</p>
+    </div>
+  </div>
+</div>
+
+<div class="enemy-dungeon">
+  <div class="enemy-dungeon-head">
+    <h3><span class="rank ex">★4</span> エキスパートダンジョン</h3>
+    <p><b>系統効果：</b>経験値が2倍になる</p>
+    <p class="small">竜などが出現する高難度ダンジョン。</p>
+  </div>
+  <div class="enemy-cards">
+    <div class="enemy-card">
+      <h4>レッドドラゴン</h4>
+      <p class="enemy-label">固有スキル</p>
+      <p>【仲間を呼ぶ】ドラゴンを召喚する</p>
+      <div class="drop"><b>ドロップ：</b>炎の翼</div>
+      <p class="small">【性能】画像記載の合成素材</p>
+      <p><b>ドロップ率：</b>1/30</p>
+    </div>
+    <div class="enemy-card">
+      <h4>ブルードラゴン</h4>
+      <p class="enemy-label">固有スキル</p>
+      <p>【仲間を呼ぶ】以下同文</p>
+      <div class="drop"><b>ドロップ：</b>氷の翼</div>
+      <p class="small">【性能】画像記載の合成素材</p>
+      <p><b>ドロップ率：</b>1/30</p>
+    </div>
+    <div class="enemy-card">
+      <h4>ホワイトドラゴン</h4>
+      <p class="enemy-label">固有スキル</p>
+      <p>【仲間を呼ぶ】以下同文</p>
+      <div class="drop"><b>ドロップ：</b>光の翼</div>
+      <p class="small">【性能】画像記載の合成素材</p>
+      <p><b>ドロップ率：</b>1/30</p>
+    </div>
+    <div class="enemy-card">
+      <h4>ブラックドラゴン</h4>
+      <p class="enemy-label">固有スキル</p>
+      <p>【仲間を呼ぶ】以下同文</p>
+      <div class="drop"><b>ドロップ：</b>闇の翼</div>
+      <p class="small">【性能】画像記載の合成素材</p>
+      <p><b>ドロップ率：</b>1/30</p>
+    </div>
+    <div class="enemy-card">
+      <h4>ゴーストドラゴン</h4>
+      <p class="enemy-label">固有スキル</p>
+      <p>【仲間を呼ぶ】以下同文</p>
+      <div class="drop"><b>ドロップ：</b>ドラゴンのたましい</div>
+      <p class="small">【性能】画像記載の合成素材</p>
+      <p><b>ドロップ率：</b>1/50</p>
+    </div>
+  </div>
+</div>
+
+<div class="enemy-dungeon">
+  <div class="enemy-dungeon-head">
+    <h3><span class="rank boss">★5</span> アンドロデンダンジョン</h3>
+    <p><b>系統効果：</b>なし</p>
+    <p class="small">正体不明のボスが出現する最上位ダンジョン。</p>
+  </div>
+  <div class="enemy-cards">
+    <div class="enemy-card">
+      <h4>超☆疑☆メタル</h4>
+      <p class="enemy-label">固有スキル</p>
+      <p>【ドラゴンバスター】自分と全く同じステータスの敵になる</p>
+      <div class="drop"><b>ドロップ：</b>チタンのペンダント</div>
+      <p class="small">【装身具】装備者が攻撃した敵だけ強くなる。画像記載の特殊効果あり</p>
+      <p><b>ドロップ率：</b>1/99</p>
+    </div>
+  </div>
+</div>
+
+<div class="notice info">
+<b>画像資料について：</b>
+このカード一覧は提供された敵・ドロップ一覧画像を元に整理しています。画像で判読が難しい部分は推測せず、元資料に合わせて「—」「以下同文」「画像記載」としています。
+</div>
 
 <h3>敵データ早見表</h3>
 <table>
