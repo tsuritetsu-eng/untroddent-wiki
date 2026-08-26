@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
-<title>アントロデン攻略チュートリアル | 実画面でわかるダンジョン・ワールド操作</title>
+<title>UNTRODDENT GUIDE - ダンジョン情報＋折りたたみ敵図鑑 統合版</title>
 <style>
 :root{--bg:#08100d;--panel:#101b17;--panel2:#17251f;--line:#30463d;--text:#e9eee9;--muted:#a8b6ae;--gold:#e5b94f;--purple:#c6a6e8;--green:#8bd09a;--red:#d86b55}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
@@ -130,6 +130,20 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 .gallery-admin-card .viewer-detail b{color:var(--text)}
 
 </style>
+
+<style id="collapsible-dungeon-enemy-css">
+/* ダンジョン別敵図鑑（ダンジョンごとに開閉できます）：折りたたみ表示 */
+.enemy-dungeon-collapsible{margin:22px 0 30px;border:1px solid var(--line);background:var(--panel);border-radius:10px;overflow:hidden}
+.enemy-dungeon-collapsible>summary{list-style:none;cursor:pointer;padding:15px 17px;background:var(--panel2);border-bottom:1px solid var(--line);user-select:none}
+.enemy-dungeon-collapsible>summary::-webkit-details-marker{display:none}
+.enemy-dungeon-collapsible>summary:before{content:'▶';display:inline-block;margin-right:9px;transition:transform .18s ease;color:#f0cc70}
+.enemy-dungeon-collapsible[open]>summary:before{transform:rotate(90deg)}
+.enemy-dungeon-collapsible .enemy-dungeon-summary h3{display:inline;margin:0;color:#f0cc70}
+.enemy-dungeon-collapsible .enemy-dungeon-summary p{margin:5px 0 0}
+.enemy-dungeon-collapsible .enemy-dungeon-body{padding:0 17px 17px}
+.enemy-dungeon-collapsible .enemy-cards{padding-top:17px}
+.enemy-dungeon-collapsible .enemy-count{float:right;font-size:.85em;opacity:.8}
+</style>
 </head>
 <body>
 <header><nav><div class="logo">UNTRODDENT GUIDE</div><div class="links"><a href="#dungeons">ダンジョン</a><a href="#screens">実画面操作</a><a href="#encyclopedia">敵・ドロップ図鑑</a><a href="#drop">ドロップ</a><a href="#world">ワールド</a><a href="#fortress">要塞</a><a href="#contribute">改善・PR</a><a href="#history">更新履歴</a><a href="#developer-admin">開発者</a></div></nav></header>
@@ -207,7 +221,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 </div>
 </div>
 <h3 style="margin-top:30px">ダンジョン別・敵図鑑</h3>
-<p class="muted">管理者画面の「ダンジョン情報」と「敵・ドロップ完全CRUD」の最新データを自動反映します。</p>
+<p class="muted">管理者画面の「ダンジョン完全CRUD」と「敵・ドロップ完全CRUD」の最新データを自動反映します。</p>
 <div id="viewerEnemyDungeonList"></div>
 <div class="notice info">
 <b>画像資料について：</b>
@@ -611,8 +625,8 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 
   const d=document.getElementById("adminDungeon");
   const effect=document.getElementById("adminEffect"), desc=document.getElementById("adminDungeonDesc");
-  function loadDungeon(){ const x=dungeonData[d.value]; effect.value=x.effect; desc.value=x.desc; }
-  d.onchange=loadDungeon; loadDungeon();
+  function loadDungeon(){ if(!d||!effect||!desc)return; const x=dungeonData[d.value]; if(!x)return; effect.value=x.effect||""; desc.value=x.desc||""; }
+  if(d) d.onchange=loadDungeon; loadDungeon();
 
   const legacyEnemyAdd=document.getElementById("adminAddEnemy");
   if(legacyEnemyAdd) legacyEnemyAdd.onclick=function(){
@@ -1803,22 +1817,23 @@ window.renderUntroddentViewerFromPublishedData=renderAllFromPublished;
     dungeons.forEach((d,i)=>{
       const key=String(d.id||d.name);
       const list=grouped.get(key)||[];
-      html+='<div class="enemy-dungeon" data-dungeon-id="'+esc(d.id||'')+'">';
-      html+='<div class="enemy-dungeon-head">';
-      html+='<h3><span class="rank'+dungeonRank(i)+'">★'+(i+1)+'</span> '+esc(d.name||'名称未設定')+'</h3>';
+      html+='<details class="enemy-dungeon-collapsible" data-dungeon-id="'+esc(d.id||'')+'" '+(i===0?'open':'')+'>';
+      html+='<summary><div class="enemy-dungeon-summary">';
+      html+='<span class="rank'+dungeonRank(i)+'">★'+(i+1)+'</span> <h3>'+esc(d.name||'名称未設定')+'</h3>';
+      html+='<span class="enemy-count">'+list.length+'体</span>';
       html+='<p><b>系統効果：</b>'+esc(d.effect||'なし')+'</p>';
       html+='<p class="small">'+esc(d.desc||'—')+'</p>';
       if(d.strategy)html+='<p class="small"><b>攻略：</b>'+esc(d.strategy)+'</p>';
-      html+='</div><div class="enemy-cards">';
+      html+='</div></summary><div class="enemy-dungeon-body"><div class="enemy-cards">';
       if(list.length) html+=list.map(enemyCard).join('');
       else html+='<div class="enemy-card"><p class="muted">このダンジョンに登録されている敵はいません。</p></div>';
-      html+='</div></div>';
+      html+='</div></div></details>';
     });
 
     if(orphans.length){
-      html+='<div class="enemy-dungeon"><div class="enemy-dungeon-head"><h3>未所属の敵</h3><p class="small">敵CRUDには登録されていますが、所属ダンジョンが一致していません。</p></div><div class="enemy-cards">'+orphans.map(enemyCard).join('')+'</div></div>';
+      html+='<details class="enemy-dungeon-collapsible" open><summary><div class="enemy-dungeon-summary"><h3>未所属の敵</h3><span class="enemy-count">'+orphans.length+'体</span><p class="small">敵CRUDには登録されていますが、所属ダンジョンが一致していません。</p></div></summary><div class="enemy-dungeon-body"><div class="enemy-cards">'+orphans.map(enemyCard).join('')+'</div></div></details>';
     }
-    if(!dungeons.length) html='<div class="notice info">ダンジョン情報に登録されたダンジョンがありません。</div>';
+    if(!dungeons.length) html='<div class="notice info">ダンジョンCRUDに登録されたダンジョンがありません。</div>';
     root.innerHTML=html;
   }
 
@@ -1837,7 +1852,7 @@ window.renderUntroddentViewerFromPublishedData=renderAllFromPublished;
 </body>
 </html>
 <script>
-/* ダンジョン閲覧者表示を「ダンジョン情報」のデータへ完全同期する統合レンダラー */
+/* ダンジョン閲覧者表示を「ダンジョン完全CRUD」のデータへ完全同期する統合レンダラー */
 (function(){
   const INITIAL=[
     {id:'d1',name:'ビギナーダンジョン',effect:'ドロップ率の分母が1減る',desc:'序盤向けのダンジョン。',strategy:'基本的な敵から戦闘に慣れる。'},
