@@ -953,6 +953,9 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
     return [{name:x?.drop||"—",rate:x?.rate||"—",effect:x?.effect||"—"}];
   }
   data=(data||[]).map(x=>{const drops=normalizeDrops(x); return {...x,drops,hp:x.hp??"",atk:x.atk??"",def:x.def??"",spd:x.spd??"",exp:x.exp??"",gold:x.gold??""};});
+  // ダンジョンCRUDの元項目（名称・系統効果・説明・攻略情報）を常に保持。
+  // 空データや旧版への更新で項目が欠落しても、既存の編集値を優先して補完する。
+  try{localStorage.setItem(KEY+"_backup",JSON.stringify(data));}catch(_){}
   try{localStorage.setItem(KEY,JSON.stringify(data));}catch(_){}
   function renderDropsEditor(drops){
     const root=$("crudDropsEditor"); if(!root)return;
@@ -971,7 +974,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
     const dropHtml=drops.length?drops.map(d=>`<div class="enemy-drop-item"><b>${esc(d.name)}</b> <span>（${esc(d.rate)}）</span><br><span class="small">${esc(d.effect)}</span></div>`).join(""):"<div>登録なし</div>";
     root.innerHTML='<h4>'+esc(name)+'</h4><p class="enemy-label">固有スキル</p><p>'+esc(skill)+'</p><div class="drop"><b>ドロップ：</b>'+dropHtml+'</div><div class="enemy-stats"><div class="enemy-stat"><b>HP</b><span>'+esc(hp)+'</span></div><div class="enemy-stat"><b>ATK</b><span>'+esc(atk)+'</span></div><div class="enemy-stat"><b>DEF</b><span>'+esc(def)+'</span></div><div class="enemy-stat"><b>SPD</b><span>'+esc(spd)+'</span></div><div class="enemy-stat"><b>EXP</b><span>'+esc(exp)+'</span></div><div class="enemy-stat"><b>GOLD</b><span>'+esc(gold)+'</span></div></div><p class="small"><b>攻略：</b>'+esc(strategy)+'</p>';
   }
-  function save(){localStorage.setItem(KEY,JSON.stringify(data));}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(data));localStorage.setItem(KEY+"_backup",JSON.stringify(data));}catch(e){}}
   function render(){
     const q=$("crudSearch").value.trim().toLowerCase(), f=$("crudDungeonFilter").value;
     const rows=data.filter(x=>(!f||x.dungeon===f)&&(!q||[x.name,x.drop,x.skill].join(" ").toLowerCase().includes(q)));
@@ -1054,15 +1057,36 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 <script>
 (function(){
   const KEY="untroddentWikiDungeonCRUD_v1";
+  // 以前のダンジョン完全CRUDに登録されていた5件を復旧。
+  // 閲覧者画面に実際に表示されていた説明文・系統効果を基準にし、
+  // 既存のlocalStorageにカスタム編集がある場合は上書きせず維持する。
   const initial=[
-    {id:"d1",name:"ビギナーダンジョン",effect:"ドロップ率の分母が1減る",desc:"序盤向けのダンジョン。",strategy:"基本的な敵から戦闘に慣れる。"},
-    {id:"d2",name:"ノービスダンジョン",effect:"獲得ゴールドが15%上がる",desc:"ビギナーから一段階上のダンジョン。",strategy:"敵の攻撃を見ながら各個撃破する。"},
-    {id:"d3",name:"ホーリーダンジョン",effect:"経験値が2倍になる",desc:"経験値稼ぎにも向くダンジョン。",strategy:"敵の属性や特殊攻撃に注意する。"},
-    {id:"d4",name:"エキスパートダンジョン",effect:"経験値が2倍になる",desc:"高難度のダンジョン。",strategy:"強力な敵への対策を準備する。"},
-    {id:"d5",name:"アンドロデンダンジョン",effect:"なし",desc:"最上位クラスのダンジョン。",strategy:"ボス戦を想定した装備と編成を準備する。"}
+    {id:"d1",name:"ビギナーダンジョン",effect:"ドロップ率の分母が1減る",desc:"一般的な敵が出てくる入門向けダンジョン。まずはここで「ダンジョン選択 → Lv選択 → 魔法の方針 → 挑む」という流れを覚えます。",strategy:"基本的な敵から戦闘に慣れる。ダンジョン選択 → Lv選択 → 魔法の方針 → 挑む、の流れを確認する。"},
+    {id:"d2",name:"ノービスダンジョン",effect:"獲得ゴールドが15%上がる",desc:"ビギナーの次に挑戦するダンジョン。実画面では「ノービスダンジョン」「Lv3」の状態を確認できます。",strategy:"敵の攻撃を見ながら各個撃破する。Lvや報酬を確認してから挑戦する。"},
+    {id:"d3",name:"ホーリーダンジョン",effect:"経験値が2倍になる",desc:"一般的な敵が出現する上位側のダンジョン。周回や報酬確認にも注目します。",strategy:"敵の属性や特殊攻撃に注意する。経験値2倍の効果を活用して周回する。"},
+    {id:"d4",name:"エキスパートダンジョン",effect:"経験値が2倍になる",desc:"竜などが出現する高難度ダンジョン。能力値・HP・魔法などを確認してから挑戦します。",strategy:"強力な敵への対策を準備する。能力値・HP・魔法などを確認してから挑戦する。"},
+    {id:"d5",name:"アンドロデンダンジョン",effect:"なし",desc:"正体不明のボスが出現する最上位ダンジョン。ボス戦を意識した準備が必要です。",strategy:"ボス戦を想定した装備と編成を準備する。正体不明のボスに備えて十分に確認する。"}
   ];
   let data=[];
-  try{data=JSON.parse(localStorage.getItem(KEY)||"null")||window.__UNTRODDENT_DUNGEON_DATA__||initial;}catch(e){data=window.__UNTRODDENT_DUNGEON_DATA__||initial;}
+  try{
+    const saved=JSON.parse(localStorage.getItem(KEY)||"null");
+    const embedded=window.__UNTRODDENT_DUNGEON_DATA__;
+    data=Array.isArray(saved)?saved:(Array.isArray(embedded)?embedded:[]);
+  }catch(e){data=Array.isArray(window.__UNTRODDENT_DUNGEON_DATA__)?window.__UNTRODDENT_DUNGEON_DATA__:[];}
+  // 空になってしまった旧版HTMLからも5件を自動復旧。
+  // 一部だけ残っている場合は不足分だけ追加し、ユーザー編集値は保持する。
+  const byId=new Map(data.map(x=>[String(x.id||""),x]));
+  const byName=new Map(data.map(x=>[String(x.name||""),x]));
+  initial.forEach(base=>{
+    const existing=byId.get(base.id)||byName.get(base.name);
+    if(!existing){data.push({...base});}
+    else{
+      if(!existing.id) existing.id=base.id;
+      if(existing.effect==null||existing.effect==="") existing.effect=base.effect;
+      if(existing.desc==null||existing.desc===""||existing.desc==="—") existing.desc=base.desc;
+      if(existing.strategy==null||existing.strategy===""||existing.strategy==="—") existing.strategy=base.strategy;
+    }
+  });
   data=(data||[]).map(x=>{const drops=normalizeDrops(x); return {...x,drops,hp:x.hp??"",atk:x.atk??"",def:x.def??"",spd:x.spd??"",exp:x.exp??"",gold:x.gold??""};});
   try{localStorage.setItem(KEY,JSON.stringify(data));}catch(_){}
   let editingId=null;
@@ -1877,3 +1901,68 @@ window.renderUntroddentViewerFromPublishedData=renderAllFromPublished;
 </script>
 </body>
 </html>
+<script>
+/* ダンジョン閲覧者表示を「ダンジョン完全CRUD」のデータへ完全同期する統合レンダラー */
+(function(){
+  const INITIAL=[
+    {id:'d1',name:'ビギナーダンジョン',effect:'ドロップ率の分母が1減る',desc:'序盤向けのダンジョン。',strategy:'基本的な敵から戦闘に慣れる。'},
+    {id:'d2',name:'ノービスダンジョン',effect:'獲得ゴールドが15%上がる',desc:'ビギナーから一段階上のダンジョン。',strategy:'敵の攻撃を見ながら各個撃破する。'},
+    {id:'d3',name:'ホーリーダンジョン',effect:'経験値が2倍になる',desc:'経験値稼ぎにも向くダンジョン。',strategy:'敵の属性や特殊攻撃に注意する。'},
+    {id:'d4',name:'エキスパートダンジョン',effect:'経験値が2倍になる',desc:'高難度のダンジョン。',strategy:'強力な敵への対策を準備する。'},
+    {id:'d5',name:'アンドロデンダンジョン',effect:'なし',desc:'最上位クラスのダンジョン。',strategy:'ボス戦を想定した装備と編成を準備する。'}
+  ];
+  const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  function getData(){
+    let saved=null;
+    try{ saved=JSON.parse(localStorage.getItem('untroddentWikiDungeonCRUD_v1')||'null'); }catch(_){ }
+    if(Array.isArray(saved) && saved.length) return saved;
+    const embedded=window.__UNTRODDENT_DUNGEON_DATA__;
+    if(Array.isArray(embedded) && embedded.length) return embedded;
+    const pub=window.UNTRODDENT_VIEWER_DATA;
+    if(pub && Array.isArray(pub.dungeons) && pub.dungeons.length) return pub.dungeons;
+    return INITIAL;
+  }
+  function render(){
+    const sec=document.getElementById('dungeons');
+    if(!sec)return;
+    const data=getData().filter(x=>x && x.name);
+    if(!data.length)return;
+    const oldTable=sec.querySelector('table');
+    const rankClasses=['','', '', 'ex','boss'];
+    let html='<h2>1. ダンジョン'+data.length+'種類</h2>';
+    html+='<p class="muted">攻略が簡単な順に、'+data.map(x=>esc(x.name.replace(/ダンジョン$/,''))).join(' → ')+'と覚えます。</p>';
+    data.forEach((d,i)=>{
+      const rankClass=rankClasses[i]||'';
+      const rank=rankClass?`<span class="rank ${rankClass}">★${i+1}</span>`:`<span class="rank">★${i+1}</span>`;
+      html+=`<div class="dungeon" data-dungeon-id="${esc(d.id||'')}"><h3>${rank} ${esc(d.name)}</h3><p>${esc(d.desc||'—')}<br/><b>系統効果：</b>${esc(d.effect||'なし')}</p><p class="small"><b>攻略：</b>${esc(d.strategy||'—')}</p></div>`;
+    });
+    html+='<table><tr><th>種類</th><th>敵</th><th>攻略の位置づけ</th><th>系統効果</th></tr>';
+    data.forEach(d=>{
+      const short=String(d.name).replace(/ダンジョン$/,'');
+      html+=`<tr><td>${esc(short)}</td><td data-dungeon-enemies="${esc(d.id||d.name)}">—</td><td>${esc(d.strategy||'—')}</td><td>${esc(d.effect||'なし')}</td></tr>`;
+    });
+    html+='</table>';
+    sec.innerHTML=html;
+    renderEnemyNames(data);
+  }
+  function renderEnemyNames(dungeons){
+    const enemies=(()=>{try{return JSON.parse(localStorage.getItem('untroddentWikiEnemyCRUD_v1')||'null')||window.__UNTRODDENT_CRUD_DATA__||[]}catch(_){return window.__UNTRODDENT_CRUD_DATA__||[]}})();
+    if(!Array.isArray(enemies))return;
+    document.querySelectorAll('[data-dungeon-enemies]').forEach(cell=>{
+      const key=cell.getAttribute('data-dungeon-enemies');
+      const d=dungeons.find(x=>String(x.id||x.name)===key);
+      if(!d)return;
+      const list=enemies.filter(e=>String(e.dungeonId||e.dungeon||'')===String(d.id) || (!e.dungeonId && String(e.dungeon||'')===String(d.name)));
+      if(list.length)cell.textContent=list.map(e=>e.name||'—').join('、');
+    });
+  }
+  function install(){
+    render();
+    // 管理者画面でCRUD保存後も即時反映
+    window.renderDungeonViewer=render;
+    window.renderDungeons=render;
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install);else install();
+  window.addEventListener('storage',e=>{if(e.key==='untroddentWikiDungeonCRUD_v1'||e.key==='untroddentWikiEnemyCRUD_v1')render();});
+})();
+</script>
