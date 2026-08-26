@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="ja"><head>
+<html lang="ja">
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>アントロデン攻略チュートリアル | 実画面でわかるダンジョン・ワールド操作</title>
@@ -145,9 +146,9 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 <div class="dungeon"><h3><span class="rank">★3</span> ホーリーダンジョン</h3><p>一般的な敵が出現する上位側のダンジョン。周回や報酬確認にも注目します。<br><b>系統効果：</b>経験値が2倍になる</p></div>
 <div class="dungeon"><h3><span class="rank ex">★4</span> エキスパートダンジョン</h3><p>竜などが出現する高難度ダンジョン。能力値・HP・魔法などを確認してから挑戦します。<br><b>系統効果：</b>経験値が2倍になる</p></div>
 <div class="dungeon"><h3><span class="rank boss">★5</span> アンドロデンダンジョン</h3><p>正体不明のボスが出現する最上位ダンジョン。ボス戦を意識した準備が必要です。<br><b>系統効果：</b>なし</p></div>
-<table><tbody><tr><th>種類</th><th>敵</th><th>攻略の位置づけ</th><th>系統効果</th></tr>
+<table><tr><th>種類</th><th>敵</th><th>攻略の位置づけ</th><th>系統効果</th></tr>
 <tr><td>ビギナー</td><td>一般的な敵</td><td>操作を覚える</td><td>ドロップ率の分母が1減る</td></tr><tr><td>ノービス</td><td>一般的な敵</td><td>ステップアップ</td><td>獲得ゴールドが15%上がる</td></tr>
-<tr><td>ホーリー</td><td>一般的な敵</td><td>中級〜上級への入口</td><td>経験値が2倍になる</td></tr><tr><td>エキスパート</td><td>竜など</td><td>高難度・強敵</td><td>経験値が2倍になる</td></tr><tr><td>アンドロデン</td><td>正体不明のボス</td><td>最上位・ボス攻略</td><td>なし</td></tr></tbody></table>
+<tr><td>ホーリー</td><td>一般的な敵</td><td>中級〜上級への入口</td><td>経験値が2倍になる</td></tr><tr><td>エキスパート</td><td>竜など</td><td>高難度・強敵</td><td>経験値が2倍になる</td></tr><tr><td>アンドロデン</td><td>正体不明のボス</td><td>最上位・ボス攻略</td><td>なし</td></tr></table>
 </section>
 
 <section id="screens">
@@ -424,11 +425,11 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 
 <h3>敵データ早見表</h3>
 <table>
-<tbody><tr><th>敵カテゴリ</th><th>出現ダンジョン</th><th>難度</th><th>確認できている特徴</th></tr>
+<tr><th>敵カテゴリ</th><th>出現ダンジョン</th><th>難度</th><th>確認できている特徴</th></tr>
 <tr><td>一般的な敵</td><td>ビギナー / ノービス / ホーリー</td><td>★〜★★★</td><td>通常攻略・周回向け</td></tr>
 <tr><td>竜など</td><td>エキスパート</td><td>★★★★</td><td>強敵。上位装備・能力を整えて挑戦</td></tr>
 <tr><td>正体不明のボス</td><td>アンドロデン</td><td>★★★★★</td><td>ボス戦。詳細はゲーム内で確認</td></tr>
-</tbody></table>
+</table>
 
 <h3 style="margin-top:30px">確認済みドロップ・アイテムログ</h3>
 <div class="grid">
@@ -569,7 +570,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 <section id="history">
   <h2>9. 更新履歴</h2>
   <p class="muted">チュートリアルサイトの更新内容を、開発者がここに追記して閲覧者へ公開できます。</p>
-  <div class="history-list"><div class="history-item"><h3>V8</h3><div class="history-meta">2026-08-27</div><div>Test</div></div>
+  <div class="history-list">
     <div class="history-item"><h3>v6.0 — PRフォーム・更新履歴を追加</h3><div class="history-meta">2026-08-26</div><div>閲覧者が改善内容を入力してGitHubへ送れるPRフォームと、更新履歴セクションを追加しました。</div></div>
     <div class="history-item"><h3>v5.0 — GitHub PR導線を追加</h3><div class="history-meta">2026-08-26</div><div>開発者のGitHubリポジトリへアクセスし、サイト改善を提案できる導線を追加しました。</div></div>
     <div class="history-item"><h3>v4.0 — 改善・PR機能を追加</h3><div class="history-meta">2026-08-26</div><div>チュートリアルサイトの改善に参加できる「改善・PR」セクションを追加しました。</div></div>
@@ -592,10 +593,10 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
       <button id="adminLogin" class="btn primary" type="button">管理画面に入る</button>
       <button id="adminLogout" class="btn" type="button">ログアウト</button>
     </div>
-    <div id="adminGateStatus" class="admin-status">更新履歴を一時追加しました。</div>
+    <div id="adminGateStatus" class="admin-status"></div>
   </div>
 
-  <div id="adminPanel" class="admin-panel" style="display: block;">
+  <div id="adminPanel" class="admin-panel">
     
 
 <div class="dungeon-crud-wrap">
@@ -606,37 +607,12 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
       <input id="dungeonCrudSearch" type="search" placeholder="ダンジョン名・説明で検索">
       <button id="dungeonCrudNew" class="btn primary" type="button">＋ ダンジョンを追加</button>
       <button id="dungeonCrudExport" class="btn" type="button">JSONを書き出す</button>
-      <label class="btn" style="cursor:pointer">JSONを読み込む<input id="dungeonCrudImport" type="file" accept=".json,application/json" hidden=""></label>
+      <label class="btn" style="cursor:pointer">JSONを読み込む<input id="dungeonCrudImport" type="file" accept=".json,application/json" hidden></label>
     </div>
     <div class="dungeon-crud-table-wrap">
       <table class="dungeon-crud-table">
         <thead><tr><th>ダンジョン</th><th>系統効果</th><th>説明</th><th>敵・攻略</th><th>操作</th></tr></thead>
-        <tbody id="dungeonCrudTbody"><tr>
-      <td><b>ビギナーダンジョン</b></td><td>ドロップ率の分母が1減る</td><td>序盤向けのダンジョン。</td>
-      <td>基本的な敵から戦闘に慣れる。</td><td class="dungeon-crud-actions">
-      <button class="btn dungeon-edit" data-id="d1">編集</button>
-      <button class="btn dungeon-remove" data-id="d1">削除</button></td>
-    </tr><tr>
-      <td><b>ノービスダンジョン</b></td><td>獲得ゴールドが15%上がる</td><td>ビギナーから一段階上のダンジョン。</td>
-      <td>敵の攻撃を見ながら各個撃破する。</td><td class="dungeon-crud-actions">
-      <button class="btn dungeon-edit" data-id="d2">編集</button>
-      <button class="btn dungeon-remove" data-id="d2">削除</button></td>
-    </tr><tr>
-      <td><b>ホーリーダンジョン</b></td><td>経験値が2倍になる</td><td>経験値稼ぎにも向くダンジョン。</td>
-      <td>敵の属性や特殊攻撃に注意する。</td><td class="dungeon-crud-actions">
-      <button class="btn dungeon-edit" data-id="d3">編集</button>
-      <button class="btn dungeon-remove" data-id="d3">削除</button></td>
-    </tr><tr>
-      <td><b>エキスパートダンジョン</b></td><td>経験値が2倍になる</td><td>高難度のダンジョン。</td>
-      <td>強力な敵への対策を準備する。</td><td class="dungeon-crud-actions">
-      <button class="btn dungeon-edit" data-id="d4">編集</button>
-      <button class="btn dungeon-remove" data-id="d4">削除</button></td>
-    </tr><tr>
-      <td><b>アンドロデンダンジョン</b></td><td>なし</td><td>最上位クラスのダンジョン。</td>
-      <td>ボス戦を想定した装備と編成を準備する。</td><td class="dungeon-crud-actions">
-      <button class="btn dungeon-edit" data-id="d5">編集</button>
-      <button class="btn dungeon-remove" data-id="d5">削除</button></td>
-    </tr></tbody>
+        <tbody id="dungeonCrudTbody"></tbody>
       </table>
     </div>
     <div id="dungeonCrudStatus" class="admin-status"></div>
@@ -673,7 +649,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
       <button id="crudNew" class="btn primary" type="button">＋ 敵を追加</button>
       <button id="crudSortSave" class="btn" type="button">↕ 並び順を保存</button>
       <button id="crudExport" class="btn" type="button">JSONを書き出す</button>
-      <label class="btn" style="cursor:pointer">JSONを読み込む<input id="crudImport" type="file" accept=".json,application/json" hidden=""></label>
+      <label class="btn" style="cursor:pointer">JSONを読み込む<input id="crudImport" type="file" accept=".json,application/json" hidden></label>
     </div>
     <div class="crud-table-wrap">
       <table class="crud-table">
@@ -686,7 +662,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 <div class="admin-card" style="margin-top:16px">
   <h3>🖼️ 敵画像ギャラリー</h3>
   <p class="small">各敵の画像を一覧確認できます。画像は敵データに紐付けて管理します。</p>
-  <div id="enemyGalleryAdmin" class="gallery-admin"><div class="crud-empty">まだ画像が登録されていません。</div></div>
+  <div id="enemyGalleryAdmin" class="gallery-admin"></div>
 </div>
 
   </div>
@@ -763,14 +739,14 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 
       <div class="admin-card">
         <h3>🚀 公開・GitHub反映</h3>
-        <p class="small">現在のHTMLをダウンロードしてGitHubへ反映するための機能です。</p>
+        <p class="small">現在のHTMLをGitHubの <code>index.html</code> に反映します。先に「GitHub接続テスト」でトークンを確認できます。</p>
         <div class="admin-warning"><b>GitHub認証：</b>トークンはHTMLに保存しません。GitHub APIを使う場合だけ、開発者本人が入力してください。Fine-grained PATなら対象リポジトリ限定・Contents: Read and writeの最小権限を推奨します。</div>
         <div class="admin-field"><label>GitHubアクセストークン（任意・保存しません）</label><input id="githubToken" type="password" autocomplete="off" placeholder="ghp_... / github_pat_..."></div>
         <div class="admin-actions">
           <button id="adminDownload" class="btn" type="button">現在のHTMLを保存</button>
-          <button id="adminGithubCommit" class="btn primary" type="button">GitHubへ反映</button>
+          <button id="adminGithubCommit" class="btn primary" type="button">GitHubへ反映</button><button id="adminGithubTest" class="btn" type="button">🔎 GitHub接続テスト</button>
         </div>
-        <div id="adminGithubStatus" class="admin-status">GitHubへ接続しています…</div>
+        <div id="adminGithubStatus" class="admin-status"></div>
       </div>
     </div>
   </div>
@@ -898,24 +874,64 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
   document.getElementById("adminGithubCommit").onclick=async function(){
     const token=document.getElementById("githubToken").value.trim();
     if(!token){ghStatus.textContent="GitHubアクセストークンを入力してください。";return;}
-    ghStatus.textContent="GitHubへ接続しています…";
+    const button=this; button.disabled=true;
+    const owner="tsuritetsu-eng", repo="untroddent-wiki";
+    const headers={"Authorization":"Bearer "+token,"Accept":"application/vnd.github+json","X-GitHub-Api-Version":"2022-11-28"};
+
+    function utf8Base64(text){
+      const bytes=new TextEncoder().encode(text); let bin="";
+      for(let i=0;i<bytes.length;i+=0x8000) bin+=String.fromCharCode(...bytes.subarray(i,i+0x8000));
+      return btoa(bin);
+    }
+    async function api(url,opt={}){
+      const r=await fetch(url,{...opt,headers:{...headers,...(opt.headers||{})}});
+      let body; try{body=await r.json()}catch(_){body={message:await r.text()}};
+      if(!r.ok){const e=new Error(body.message||("HTTP "+r.status));e.status=r.status;throw e;}
+      return body;
+    }
     try{
-      const api="https://api.github.com/repos/"+repoOwner+"/"+repoName+"/contents/index.html";
-      const headers={"Authorization":"Bearer "+token,"Accept":"application/vnd.github+json","X-GitHub-Api-Version":"2022-11-28"};
-      const get=await fetch(api+"?ref="+encodeURIComponent(branch),{headers});
-      if(!get.ok) throw new Error("GitHubからindex.htmlを取得できませんでした（HTTP "+get.status+"）。");
-      const current=await get.json();
-      const content=btoa(unescape(encodeURIComponent("<!doctype html>\n"+document.documentElement.outerHTML)));
-      const put=await fetch(api,{method:"PUT",headers,body:JSON.stringify({
-        message:"Update tutorial site from developer admin",
-        content:content,
-        sha:current.sha,
-        branch:branch
-      })});
-      if(!put.ok) throw new Error("GitHubへの反映に失敗しました（HTTP "+put.status+"）。権限と対象ファイルを確認してください。");
-      ghStatus.textContent="GitHubへの反映が完了しました。コミットを確認してください。入力したトークンは保存していません。";
+      ghStatus.textContent="GitHubのリポジトリを確認しています…";
+      const repoInfo=await api("https://api.github.com/repos/"+owner+"/"+repo);
+      const branch=repoInfo.default_branch||"main";
+
+      let enemies=[],dungeons=[];
+      try{enemies=JSON.parse(localStorage.getItem("untroddentWikiEnemyCRUD_v1")||"[]")}catch(_){}
+      try{dungeons=JSON.parse(localStorage.getItem("untroddentWikiDungeonCRUD_v1")||"[]")}catch(_){}
+
+      const clone=document.documentElement.cloneNode(true);
+      const boot=document.createElement("script");
+      boot.textContent="window.__UNTRODDENT_CRUD_DATA__="+JSON.stringify(enemies).replace(/</g,"\u003c")+";window.__UNTRODDENT_DUNGEON_DATA__="+JSON.stringify(dungeons).replace(/</g,"\u003c")+";";
+      clone.querySelector("body").appendChild(boot);
+      const content="<!doctype html>
+"+clone.outerHTML;
+
+      let current=null;
+      try{current=await api("https://api.github.com/repos/"+owner+"/"+repo+"/contents/index.html?ref="+encodeURIComponent(branch));}
+      catch(e){if(e.status!==404)throw e;}
+
+      const payload={message:"Update tutorial site from developer admin",content:utf8Base64(content),branch};
+      if(current?.sha) payload.sha=current.sha;
+
+      ghStatus.textContent="index.htmlをGitHubへ反映しています…";
+      const result=await api("https://api.github.com/repos/"+owner+"/"+repo+"/contents/index.html",
+        {method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
+
+      ghStatus.textContent="✅ GitHubへの更新が完了しました。
+ブランチ: "+branch+"
+コミット: "+(result.commit?.sha||"完了")+
+        (result.commit?.html_url?"
+"+result.commit.html_url:"");
       document.getElementById("githubToken").value="";
-    }catch(e){ghStatus.textContent=e.message;}
+    }catch(e){
+      let msg=e.message||"不明なエラー";
+      if(e.status===401)msg="認証失敗：トークンが無効・期限切れ・取り消し済みの可能性があります。";
+      if(e.status===403)msg="権限不足：Repository accessがuntroddent-wikiのみ、ContentsがRead and writeになっているか確認してください。";
+      if(e.status===404)msg="リポジトリまたはindex.htmlが見つかりません。";
+      if(e.status===409)msg="更新競合です。ページを再読み込みしてから再試行してください。";
+      if(e.status===422)msg="GitHubが更新内容を拒否しました。ブランチ保護設定などを確認してください。";
+      ghStatus.textContent="❌ GitHub更新失敗
+"+msg;
+    }finally{button.disabled=false;}
   };
 })();
 </script>
@@ -1207,6 +1223,23 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 })();
 </script>
 
-
-
-</body></html>
+<script>
+(function(){
+ const b=document.getElementById("adminGithubTest"),s=document.getElementById("adminGithubStatus");
+ if(!b)return;
+ b.onclick=async function(){
+  const t=document.getElementById("githubToken").value.trim();
+  if(!t){s.textContent="GitHubアクセストークンを入力してください。";return}
+  b.disabled=true;s.textContent="接続確認中…";
+  try{
+   const r=await fetch("https://api.github.com/repos/tsuritetsu-eng/untroddent-wiki",
+    {headers:{"Authorization":"Bearer "+t,"Accept":"application/vnd.github+json","X-GitHub-Api-Version":"2022-11-28"}});
+   const x=await r.json(); if(!r.ok)throw new Error(x.message||("HTTP "+r.status));
+   s.textContent="✅ 接続成功\nリポジトリ: "+x.full_name+"\n既定ブランチ: "+x.default_branch;
+  }catch(e){s.textContent="❌ 接続失敗\n"+e.message}
+  finally{b.disabled=false}
+ };
+})();
+</script>
+</body>
+</html>
