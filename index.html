@@ -592,7 +592,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
       <button id="adminLogin" class="btn primary" type="button">管理画面に入る</button>
       <button id="adminLogout" class="btn" type="button">ログアウト</button>
     </div>
-    <div id="adminGateStatus" class="admin-status">保存された管理者ログイン状態を使用しています。</div>
+    <div id="adminGateStatus" class="admin-status">管理画面を開きました。ログイン状態をこのブラウザに記憶しました。</div>
   </div>
 
   <div id="adminPanel" class="admin-panel" style="display: block;">
@@ -793,11 +793,11 @@ untroddentWikiUpdates_v1: 未保存
     </div>
     <div class="admin-field">
       <label>対象HTML</label>
-      <select id="reliableGithubPath"><option value="index.html">index.html</option></select>
+      <select id="reliableGithubPath"><option value="">自動検出</option></select>
     </div>
     <div class="admin-field">
       <label>ブランチ</label>
-      <select id="reliableGithubBranch"><option value="main">main</option></select>
+      <select id="reliableGithubBranch"><option value="">自動検出</option></select>
     </div>
     <div class="admin-field full">
       <label>コミットメッセージ</label>
@@ -814,8 +814,15 @@ untroddentWikiUpdates_v1: 未保存
     <button id="pagesCheckOnly" class="btn" type="button">🔍 Pages状態を確認</button>
     <button id="pagesPublishCheck" class="btn primary" type="button">🚀 更新＋Pages公開確認</button>
   </div>
-  <div id="pagesResult" style="margin-top:12px"></div>
-  <pre id="pagesStatus" style="white-space:pre-wrap;margin-top:12px"></pre>
+  <div id="pagesResult" style="margin-top:12px"><p>🔗 <a href="https://tsuritetsu-eng.github.io/untroddent-wiki/" target="_blank" rel="noopener">GitHub Pagesを開く</a></p></div>
+  <pre id="pagesStatus" style="white-space:pre-wrap;margin-top:12px">🌐 GitHub Pages 確認結果
+リポジトリ: tsuritetsu-eng/untroddent-wiki
+Pages URL: https://tsuritetsu-eng.github.io/untroddent-wiki/
+公開状態: built
+公開元: main / /
+ビルド方式: legacy
+最新ビルド: built / 2026-08-26T16:38:43Z
+最新デプロイ: 取得できませんでした (404 Not Found)</pre>
 </div>
 
   <div class="admin-actions">
@@ -1607,9 +1614,8 @@ window.exportUntroddentPublishedHTML=function(){
   const clone=document.documentElement.cloneNode(true);
   const data=collectPublishedData();
 
-  // Never publish secrets.
   clone.querySelectorAll('input[type="password"]').forEach(el=>{
-    el.value=""; el.removeAttribute("value");
+    el.value="";el.removeAttribute("value");
   });
 
   const old=clone.querySelector("#untroddent-published-data");
@@ -1702,5 +1708,132 @@ b.onclick=function(){
 </script>
 
 
+<script>
+(function(){
+"use strict";
 
-<script id="untroddent-published-data" type="application/json">{"version":"2.0","updatedAt":"2026-08-26T16:37:54.403Z","dungeons":[{"id":"d1","name":"ビギナーダンジョン","effect":"ドロップ率の分母が1減る","desc":"序盤向けのダンジョン。","strategy":"基本的な敵から戦闘に慣れる。"},{"id":"d2","name":"ノービスダンジョン","effect":"獲得ゴールドが15%上がる","desc":"ビギナーから一段階上のダンジョン。","strategy":"敵の攻撃を見ながら各個撃破する。"},{"id":"d3","name":"ホーリーダンジョン","effect":"獲得ガウルがたまに1増える","desc":"経験値稼ぎにも向くダンジョン。","strategy":"敵の属性や特殊攻撃に注意する。"},{"id":"d4","name":"エキスパートダンジョン","effect":"経験値が2倍になる","desc":"高難度のダンジョン。","strategy":"強力な敵への対策を準備する。"},{"id":"d5","name":"アンドロデンダンジョン","effect":"なし","desc":"最上位クラスのダンジョン。","strategy":"ボス戦を想定した装備と編成を準備する。"}],"enemies":[],"drops":[],"updates":[]}</script></body></html>
+function esc(v){
+  return String(v==null?"":v).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+}
+function getPublished(){
+  try{
+    const el=document.getElementById("untroddent-published-data");
+    if(el){
+      const d=JSON.parse(el.textContent);
+      if(d && Array.isArray(d.dungeons)) return d;
+    }
+  }catch(_){}
+  if(window.UNTRODDENT_VIEWER_DATA) return window.UNTRODDENT_VIEWER_DATA;
+  return null;
+}
+function rankClass(i){
+  return i===3?"rank ex":i===4?"rank boss":"rank";
+}
+function renderDungeonViewer(data){
+  const sec=document.querySelector("#dungeons");
+  if(!sec || !Array.isArray(data.dungeons) || !data.dungeons.length)return;
+
+  const ds=data.dungeons;
+  const enemies=Array.isArray(data.enemies)?data.enemies:[];
+
+  // Keep the section title and intro, but replace the hard-coded dungeon content.
+  const title=sec.querySelector("h2");
+  const intro=sec.querySelector("p.muted");
+  sec.innerHTML="";
+  if(title)sec.appendChild(title);
+  if(intro)sec.appendChild(intro);
+
+  const cards=document.createDocumentFragment();
+
+  ds.forEach((d,i)=>{
+    const box=document.createElement("div");
+    box.className="dungeon";
+    box.innerHTML=
+      '<h3><span class="'+rankClass(i)+'">★'+(i+1)+'</span> '+esc(d.name||"名称未設定")+'</h3>'+
+      '<p>'+esc(d.desc||"—")+'<br><b>系統効果：</b>'+esc(d.effect||"なし")+'</p>';
+    cards.appendChild(box);
+  });
+  sec.appendChild(cards);
+
+  const table=document.createElement("table");
+  table.innerHTML="<tr><th>種類</th><th>敵</th><th>攻略の位置づけ</th><th>系統効果</th></tr>";
+  ds.forEach(d=>{
+    const list=enemies.filter(e=>String(e.dungeon||"")===String(d.name||""));
+    const enemyText=list.length
+      ? list.map(e=>e.name).join("、")
+      : "登録なし";
+    const tr=document.createElement("tr");
+    tr.innerHTML=
+      "<td>"+esc(d.name||"")+"</td>"+
+      "<td>"+esc(enemyText)+"</td>"+
+      "<td>"+esc(d.strategy||"—")+"</td>"+
+      "<td>"+esc(d.effect||"なし")+"</td>";
+    table.appendChild(tr);
+  });
+  sec.appendChild(table);
+}
+function findEnemySection(){
+  const hs=[...document.querySelectorAll("h3")];
+  const h=hs.find(x=>x.textContent.includes("ダンジョン別・敵図鑑"));
+  return h ? h.parentElement : null;
+}
+function renderEnemyViewer(data){
+  const sec=findEnemySection();
+  if(!sec || !Array.isArray(data.dungeons))return;
+  const enemies=Array.isArray(data.enemies)?data.enemies:[];
+
+  // Find the first .enemy-dungeon after the heading and remove all old hard-coded cards.
+  const old=[...sec.querySelectorAll(".enemy-dungeon")];
+  old.forEach(x=>x.remove());
+
+  const frag=document.createDocumentFragment();
+  data.dungeons.forEach((d,i)=>{
+    const list=enemies.filter(e=>String(e.dungeon||"")===String(d.name||""));
+    const box=document.createElement("div");
+    box.className="enemy-dungeon";
+    let cards=list.length?list.map(e=>
+      '<div class="enemy-card">'+
+      (e.image?'<img src="'+esc(e.image)+'" alt="" style="width:100%;max-height:180px;object-fit:contain;border-radius:7px;margin-bottom:8px">':"")+
+      '<h4>'+esc(e.name||"名称未設定")+'</h4>'+
+      '<p class="enemy-label">固有スキル</p><p>'+esc(e.skill||"—")+'</p>'+
+      '<div class="drop"><b>ドロップ：</b>'+esc(e.drop||"—")+'</div>'+
+      '<p class="small">【性能】'+esc(e.effect||"—")+'</p>'+
+      '<p><b>ドロップ率：</b>'+esc(e.rate||"—")+'</p>'+
+      '<p class="small"><b>攻略：</b>'+esc(e.strategy||"—")+'</p>'+
+      '</div>'
+    ).join(""):'<div class="crud-empty">このダンジョンに登録された敵はいません。</div>';
+
+    box.innerHTML=
+      '<div class="enemy-dungeon-head">'+
+      '<h3><span class="'+rankClass(i)+'">★'+(i+1)+'</span> '+esc(d.name||"名称未設定")+'</h3>'+
+      '<p><b>系統効果：</b>'+esc(d.effect||"なし")+'</p>'+
+      '<p class="small">'+esc(d.desc||"—")+'</p>'+
+      '</div>'+
+      '<div class="enemy-cards">'+cards+'</div>';
+    frag.appendChild(box);
+  });
+  sec.appendChild(frag);
+}
+function renderAllFromPublished(){
+  const d=getPublished();
+  if(!d)return;
+  window.UNTRODDENT_VIEWER_DATA=d;
+  window.dungeonData=d.dungeons||[];
+  window.enemyData=d.enemies||[];
+  window.dropData=d.drops||[];
+  window.updateHistory=d.updates||[];
+  renderDungeonViewer(d);
+  renderEnemyViewer(d);
+}
+if(document.readyState==="loading"){
+  document.addEventListener("DOMContentLoaded",renderAllFromPublished);
+}else{
+  renderAllFromPublished();
+}
+window.renderUntroddentViewerFromPublishedData=renderAllFromPublished;
+})();
+</script>
+
+
+
+<script id="untroddent-published-data" type="application/json">{"version":"2.0","updatedAt":"2026-08-26T16:40:01.497Z","dungeons":[{"id":"d1","name":"ビギナーダンジョン","effect":"ドロップ率の分母が1減る","desc":"序盤向けのダンジョン。","strategy":"基本的な敵から戦闘に慣れる。"},{"id":"d2","name":"ノービスダンジョン","effect":"獲得ゴールドが15%上がる","desc":"ビギナーから一段階上のダンジョン。","strategy":"敵の攻撃を見ながら各個撃破する。"},{"id":"d3","name":"ホーリーダンジョン","effect":"獲得ガウルがたまに1増える","desc":"経験値稼ぎにも向くダンジョン。","strategy":"敵の属性や特殊攻撃に注意する。"},{"id":"d4","name":"エキスパートダンジョン","effect":"経験値が2倍になる","desc":"高難度のダンジョン。","strategy":"強力な敵への対策を準備する。"},{"id":"d5","name":"アンドロデンダンジョン","effect":"なし","desc":"最上位クラスのダンジョン。","strategy":"ボス戦を想定した装備と編成を準備する。"}],"enemies":[],"drops":[],"updates":[]}</script></body></html>
