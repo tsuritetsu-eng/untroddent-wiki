@@ -1,6 +1,5 @@
 <!doctype html>
-<html lang="ja">
-<head>
+<html lang="ja"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>アントロデン攻略チュートリアル | 実画面でわかるダンジョン・ワールド操作</title>
@@ -146,9 +145,9 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 <div class="dungeon"><h3><span class="rank">★3</span> ホーリーダンジョン</h3><p>一般的な敵が出現する上位側のダンジョン。周回や報酬確認にも注目します。<br><b>系統効果：</b>経験値が2倍になる</p></div>
 <div class="dungeon"><h3><span class="rank ex">★4</span> エキスパートダンジョン</h3><p>竜などが出現する高難度ダンジョン。能力値・HP・魔法などを確認してから挑戦します。<br><b>系統効果：</b>経験値が2倍になる</p></div>
 <div class="dungeon"><h3><span class="rank boss">★5</span> アンドロデンダンジョン</h3><p>正体不明のボスが出現する最上位ダンジョン。ボス戦を意識した準備が必要です。<br><b>系統効果：</b>なし</p></div>
-<table><tr><th>種類</th><th>敵</th><th>攻略の位置づけ</th><th>系統効果</th></tr>
+<table><tbody><tr><th>種類</th><th>敵</th><th>攻略の位置づけ</th><th>系統効果</th></tr>
 <tr><td>ビギナー</td><td>一般的な敵</td><td>操作を覚える</td><td>ドロップ率の分母が1減る</td></tr><tr><td>ノービス</td><td>一般的な敵</td><td>ステップアップ</td><td>獲得ゴールドが15%上がる</td></tr>
-<tr><td>ホーリー</td><td>一般的な敵</td><td>中級〜上級への入口</td><td>経験値が2倍になる</td></tr><tr><td>エキスパート</td><td>竜など</td><td>高難度・強敵</td><td>経験値が2倍になる</td></tr><tr><td>アンドロデン</td><td>正体不明のボス</td><td>最上位・ボス攻略</td><td>なし</td></tr></table>
+<tr><td>ホーリー</td><td>一般的な敵</td><td>中級〜上級への入口</td><td>経験値が2倍になる</td></tr><tr><td>エキスパート</td><td>竜など</td><td>高難度・強敵</td><td>経験値が2倍になる</td></tr><tr><td>アンドロデン</td><td>正体不明のボス</td><td>最上位・ボス攻略</td><td>なし</td></tr></tbody></table>
 </section>
 
 <section id="screens">
@@ -425,11 +424,11 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 
 <h3>敵データ早見表</h3>
 <table>
-<tr><th>敵カテゴリ</th><th>出現ダンジョン</th><th>難度</th><th>確認できている特徴</th></tr>
+<tbody><tr><th>敵カテゴリ</th><th>出現ダンジョン</th><th>難度</th><th>確認できている特徴</th></tr>
 <tr><td>一般的な敵</td><td>ビギナー / ノービス / ホーリー</td><td>★〜★★★</td><td>通常攻略・周回向け</td></tr>
 <tr><td>竜など</td><td>エキスパート</td><td>★★★★</td><td>強敵。上位装備・能力を整えて挑戦</td></tr>
 <tr><td>正体不明のボス</td><td>アンドロデン</td><td>★★★★★</td><td>ボス戦。詳細はゲーム内で確認</td></tr>
-</table>
+</tbody></table>
 
 <h3 style="margin-top:30px">確認済みドロップ・アイテムログ</h3>
 <div class="grid">
@@ -593,10 +592,10 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
       <button id="adminLogin" class="btn primary" type="button">管理画面に入る</button>
       <button id="adminLogout" class="btn" type="button">ログアウト</button>
     </div>
-    <div id="adminGateStatus" class="admin-status"></div>
+    <div id="adminGateStatus" class="admin-status">保存された管理者ログイン状態を使用しています。</div>
   </div>
 
-  <div id="adminPanel" class="admin-panel">
+  <div id="adminPanel" class="admin-panel" style="display: block;">
     
 
 <div class="dungeon-crud-wrap">
@@ -607,21 +606,46 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
       <input id="dungeonCrudSearch" type="search" placeholder="ダンジョン名・説明で検索">
       <button id="dungeonCrudNew" class="btn primary" type="button">＋ ダンジョンを追加</button>
       <button id="dungeonCrudExport" class="btn" type="button">JSONを書き出す</button>
-      <label class="btn" style="cursor:pointer">JSONを読み込む<input id="dungeonCrudImport" type="file" accept=".json,application/json" hidden></label>
+      <label class="btn" style="cursor:pointer">JSONを読み込む<input id="dungeonCrudImport" type="file" accept=".json,application/json" hidden=""></label>
     </div>
     <div class="dungeon-crud-table-wrap">
       <table class="dungeon-crud-table">
         <thead><tr><th>ダンジョン</th><th>系統効果</th><th>説明</th><th>敵・攻略</th><th>操作</th></tr></thead>
-        <tbody id="dungeonCrudTbody"></tbody>
+        <tbody id="dungeonCrudTbody"><tr>
+      <td><b>ビギナーダンジョン</b></td><td>ドロップ率の分母が1減る</td><td>序盤向けのダンジョン。</td>
+      <td>基本的な敵から戦闘に慣れる。</td><td class="dungeon-crud-actions">
+      <button class="btn dungeon-edit" data-id="d1">編集</button>
+      <button class="btn dungeon-remove" data-id="d1">削除</button></td>
+    </tr><tr>
+      <td><b>ノービスダンジョン</b></td><td>獲得ゴールドが15%上がる</td><td>ビギナーから一段階上のダンジョン。</td>
+      <td>敵の攻撃を見ながら各個撃破する。</td><td class="dungeon-crud-actions">
+      <button class="btn dungeon-edit" data-id="d2">編集</button>
+      <button class="btn dungeon-remove" data-id="d2">削除</button></td>
+    </tr><tr>
+      <td><b>ホーリーダンジョン</b></td><td>獲得ガウルがたまに1増える</td><td>経験値稼ぎにも向くダンジョン。</td>
+      <td>敵の属性や特殊攻撃に注意する。</td><td class="dungeon-crud-actions">
+      <button class="btn dungeon-edit" data-id="d3">編集</button>
+      <button class="btn dungeon-remove" data-id="d3">削除</button></td>
+    </tr><tr>
+      <td><b>エキスパートダンジョン</b></td><td>経験値が2倍になる</td><td>高難度のダンジョン。</td>
+      <td>強力な敵への対策を準備する。</td><td class="dungeon-crud-actions">
+      <button class="btn dungeon-edit" data-id="d4">編集</button>
+      <button class="btn dungeon-remove" data-id="d4">削除</button></td>
+    </tr><tr>
+      <td><b>アンドロデンダンジョン</b></td><td>なし</td><td>最上位クラスのダンジョン。</td>
+      <td>ボス戦を想定した装備と編成を準備する。</td><td class="dungeon-crud-actions">
+      <button class="btn dungeon-edit" data-id="d5">編集</button>
+      <button class="btn dungeon-remove" data-id="d5">削除</button></td>
+    </tr></tbody>
       </table>
     </div>
-    <div id="dungeonCrudStatus" class="admin-status"></div>
+    <div id="dungeonCrudStatus" class="admin-status">ダンジョン情報を更新しました。</div>
   </div>
 </div>
 
 <div id="dungeonCrudModal" class="crud-modal" role="dialog" aria-modal="true" aria-labelledby="dungeonCrudModalTitle">
   <div class="crud-dialog">
-    <h3 id="dungeonCrudModalTitle">ダンジョンを追加</h3>
+    <h3 id="dungeonCrudModalTitle">ダンジョンを編集</h3>
     <div class="crud-grid">
       <div class="admin-field full"><label>ダンジョン名</label><input id="dungeonCrudName"></div>
       <div class="admin-field full"><label>系統効果</label><input id="dungeonCrudEffect"></div>
@@ -631,7 +655,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
     <div class="admin-actions">
       <button id="dungeonCrudSave" class="btn primary" type="button">保存</button>
       <button id="dungeonCrudCancel" class="btn" type="button">キャンセル</button>
-      <button id="dungeonCrudDelete" class="btn crud-danger" type="button" style="display:none">削除</button>
+      <button id="dungeonCrudDelete" class="btn crud-danger" type="button" style="display: inline-block;">削除</button>
     </div>
   </div>
 </div>
@@ -649,7 +673,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
       <button id="crudNew" class="btn primary" type="button">＋ 敵を追加</button>
       <button id="crudSortSave" class="btn" type="button">↕ 並び順を保存</button>
       <button id="crudExport" class="btn" type="button">JSONを書き出す</button>
-      <label class="btn" style="cursor:pointer">JSONを読み込む<input id="crudImport" type="file" accept=".json,application/json" hidden></label>
+      <label class="btn" style="cursor:pointer">JSONを読み込む<input id="crudImport" type="file" accept=".json,application/json" hidden=""></label>
     </div>
     <div class="crud-table-wrap">
       <table class="crud-table">
@@ -662,7 +686,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 <div class="admin-card" style="margin-top:16px">
   <h3>🖼️ 敵画像ギャラリー</h3>
   <p class="small">各敵の画像を一覧確認できます。画像は敵データに紐付けて管理します。</p>
-  <div id="enemyGalleryAdmin" class="gallery-admin"></div>
+  <div id="enemyGalleryAdmin" class="gallery-admin"><div class="crud-empty">まだ画像が登録されていません。</div></div>
 </div>
 
   </div>
@@ -743,7 +767,18 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
   <h3>🧩 CRUD → 閲覧者画面 同期確認</h3>
   <p class="small">管理画面で保存されている各CRUDデータと、公開HTMLへ埋め込まれるデータ件数を確認します。</p>
   <button id="crudSyncCheck" class="btn" type="button">🔎 CRUD同期を診断</button>
-  <pre id="crudSyncStatus" style="white-space:pre-wrap;margin-top:12px"></pre>
+  <pre id="crudSyncStatus" style="white-space:pre-wrap;margin-top:12px">untroddentWikiDungeonCRUD_v1: 5件
+untroddentWikiEnemyCRUD_v1: 未保存
+untroddentWikiDropCRUD_v1: 未保存
+untroddentWikiUpdates_v1: 未保存
+
+公開スナップショット:
+ダンジョン: 5件
+敵: 0件
+ドロップ: 0件
+更新履歴: 0件
+
+※ ここで件数が正しいのに閲覧者画面が古い場合、閲覧者側レンダラーが固定データを使っている可能性があります。</pre>
 </div>
 <div class="admin-card" id="githubReliableSync" style="margin-top:18px">
   <h3>☁️ GitHub確実反映センター</h3>
@@ -758,11 +793,11 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
     </div>
     <div class="admin-field">
       <label>対象HTML</label>
-      <select id="reliableGithubPath"><option value="">自動検出</option></select>
+      <select id="reliableGithubPath"><option value="index.html">index.html</option></select>
     </div>
     <div class="admin-field">
       <label>ブランチ</label>
-      <select id="reliableGithubBranch"><option value="">自動検出</option></select>
+      <select id="reliableGithubBranch"><option value="main">main</option></select>
     </div>
     <div class="admin-field full">
       <label>コミットメッセージ</label>
@@ -785,9 +820,9 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 
   <div class="admin-actions">
     <button id="reliableGithubDiagnose" class="btn" type="button">🔎 接続・権限・ファイル診断</button>
-    <button id="reliableGithubCommit" class="btn primary" type="button">☁️ GitHubへ反映</button>
+    <button id="reliableGithubCommit" class="btn primary" type="button" disabled="">☁️ GitHubへ反映</button>
   </div>
-  <pre id="reliableGithubStatus" style="white-space:pre-wrap;margin-top:12px"></pre>
+  <pre id="reliableGithubStatus" style="white-space:pre-wrap;margin-top:12px">③ 現在のindex.htmlを取得中…</pre>
 </div>
 <div class="admin-card">
         <h3>🚀 公開・GitHub反映</h3>
@@ -1792,5 +1827,6 @@ window.renderUntroddentViewerFromPublishedData=renderAllFromPublished;
 })();
 </script>
 
-</body>
-</html>
+
+
+<script id="untroddent-published-data" type="application/json">{"version":"2.0","updatedAt":"2026-08-26T16:46:59.350Z","dungeons":[{"id":"d1","name":"ビギナーダンジョン","effect":"ドロップ率の分母が1減る","desc":"序盤向けのダンジョン。","strategy":"基本的な敵から戦闘に慣れる。"},{"id":"d2","name":"ノービスダンジョン","effect":"獲得ゴールドが15%上がる","desc":"ビギナーから一段階上のダンジョン。","strategy":"敵の攻撃を見ながら各個撃破する。"},{"id":"d3","name":"ホーリーダンジョン","effect":"獲得ガウルがたまに1増える","desc":"経験値稼ぎにも向くダンジョン。","strategy":"敵の属性や特殊攻撃に注意する。"},{"id":"d4","name":"エキスパートダンジョン","effect":"経験値が2倍になる","desc":"高難度のダンジョン。","strategy":"強力な敵への対策を準備する。"},{"id":"d5","name":"アンドロデンダンジョン","effect":"なし","desc":"最上位クラスのダンジョン。","strategy":"ボス戦を想定した装備と編成を準備する。"}],"enemies":[],"drops":[],"updates":[]}</script></body></html>
