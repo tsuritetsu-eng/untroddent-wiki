@@ -13,7 +13,7 @@
 body{margin:0;background:radial-gradient(circle at 50% -10%,#21352d 0,#0d1512 35%,#070b09 100%);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Yu Gothic",sans-serif;line-height:1.85}
 a{color:#f0cb6b}.wrap{max-width:1080px;margin:auto;padding:0 18px}
 header{position:sticky;top:0;z-index:20;background:rgba(7,12,10,.95);border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}
-nav{max-width:1080px;margin:auto;padding:12px 18px;display:flex;align-items:center;gap:18px}.logo{font-weight:900;letter-spacing:.08em}.links{margin-left:auto;display:flex;gap:12px;font-size:.85rem;flex-wrap:wrap}
+nav{max-width:1080px;margin:auto;padding:12px 18px;display:flex;align-items:center;gap:18px}.logo{font-weight:900;letter-spacing:.08em}.site-menu{margin-left:auto;position:relative}.site-menu summary{list-style:none;cursor:pointer;padding:8px 13px;border:1px solid var(--line);border-radius:9px;background:var(--panel2);font-weight:800;user-select:none}.site-menu summary::-webkit-details-marker{display:none}.site-menu-panel{position:absolute;right:0;top:calc(100% + 8px);width:min(320px,calc(100vw - 36px));display:grid;gap:4px;padding:10px;background:rgba(10,18,14,.98);border:1px solid var(--line);border-radius:12px;box-shadow:0 18px 45px #0009;z-index:100}.site-menu-panel a{display:block;padding:9px 11px;border-radius:8px;text-decoration:none;color:var(--text)}.site-menu-panel a:hover{background:var(--panel2);color:#f0cb6b}.site-menu-panel a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .hero{padding:65px 18px 45px;max-width:1080px;margin:auto}.badge{display:inline-block;padding:4px 11px;border:1px solid #665426;border-radius:999px;color:#f0cc70;background:#2a2417;font-size:.82rem}
 h1{font-size:clamp(2.1rem,6vw,4.4rem);line-height:1.08;margin:18px 0}h2{font-size:1.85rem;line-height:1.3;margin-top:0}h3{line-height:1.35}
 .lead{color:var(--muted);max-width:850px;font-size:1.06rem}.buttons{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
@@ -33,7 +33,7 @@ section{margin:52px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,m
 .steps{display:grid;gap:13px}.step{display:grid;grid-template-columns:42px 1fr;gap:14px}.num{width:38px;height:38px;border-radius:10px;background:var(--gold);color:#161208;display:grid;place-items:center;font-weight:900}
 table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line)}th,td{padding:11px 13px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{background:var(--panel2);color:#f0cc70}
 footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-align:center;color:var(--muted)}
-@media(max-width:700px){.links{display:none}.hero{padding-top:42px}.callouts,.callouts.three{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){.hero{padding-top:42px}.callouts,.callouts.three{grid-template-columns:1fr 1fr}}
 @media(max-width:430px){.callouts,.callouts.three{grid-template-columns:1fr}}
 
 .enemy-dungeon{margin:22px 0 30px;border:1px solid var(--line);background:var(--panel);border-radius:10px;overflow:hidden}
@@ -147,7 +147,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 </style>
 </head>
 <body>
-<header><nav><div class="logo">UNTRODDENT GUIDE</div><div class="links"><a href="#dungeons">ダンジョン</a><a href="#screens">実画面操作</a><a href="#encyclopedia">敵・ドロップ図鑑</a><a href="#drop">ドロップ</a><a href="#world">ワールド</a><a href="#fortress">要塞</a><a href="#contribute">改善・PR</a><a href="#history">更新履歴</a><a href="#developer-admin">開発者</a></div></nav></header>
+<header><nav><div class="logo">UNTRODDENT GUIDE</div><details class="site-menu"><summary>☰ メニュー</summary><div class="site-menu-panel"><a href="#dungeons">1. ダンジョン</a><a href="#screens">2. 実画面操作</a><a href="#encyclopedia">3. 敵・ドロップ図鑑</a><a href="#drop">4. ドロップ・報酬</a><a href="#world">5. ワールド</a><a href="#fortress">6. 要塞・領地</a><a href="#progress">7. 初心者のおすすめ進行</a><a href="#contribute">8. 改善・PR</a><a href="#history">9. 更新履歴</a><a href="#developer-admin">10. 開発者管理画面</a></div></details></nav></header>
 <div class="hero">
 <span class="badge">実画面チュートリアル・クリーン表示版</span>
 <h1>実際のゲーム画面で<br/>アントロデンを覚える</h1>
@@ -245,7 +245,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 </div>
 <div class="notice danger"><b>建設条件に注意：</b>土地の詳細欄を確認してから操作します。実画面では、湖・聖域・王宮の周辺など建設できない条件も表示されています。</div>
 </section>
-<section>
+<section id="progress">
 <h2>7. 初心者のおすすめ進行</h2>
 <div class="grid">
 <div class="card"><h3>STEP 1</h3><p>ビギナーで操作を覚える</p></div>
@@ -578,9 +578,9 @@ untroddentWikiUpdates_v1: 未保存
 </div>
 <div class="admin-actions">
 <button class="btn" id="reliableGithubDiagnose" type="button">🔎 接続・権限・ファイル診断</button>
-<button class="btn primary" disabled="" id="reliableGithubCommit" type="button">☁️ GitHubへ反映</button>
+<button class="btn primary" id="reliableGithubCommit" type="button">☁️ GitHubへ反映</button>
 </div>
-<pre id="reliableGithubStatus" style="white-space:pre-wrap;margin-top:12px">GitHubへの接続待ちです。まず「接続・権限・ファイル診断」を実行してください。</pre>
+<pre id="reliableGithubStatus" style="white-space:pre-wrap;margin-top:12px">トークンを入力して「☁️ GitHubへ反映」を押せば、最新SHAを自動取得してそのまま更新します。診断ボタンは事前確認用です。</pre>
 </div>
 </div>
 </div>
@@ -684,7 +684,7 @@ untroddentWikiUpdates_v1: 未保存
     card.innerHTML="<h4>"+esc(name)+"</h4><p class='enemy-label'>固有スキル</p><p>"+esc(document.getElementById("adminEnemySkill").value||"—")+
       "</p><div class='drop'><b>ドロップ：</b>"+esc(document.getElementById("adminDropName").value||"—")+"</div><p class='small'>"+
       esc(document.getElementById("adminDropEffect").value||"")+"</p><p><b>ドロップ率：</b>"+esc(document.getElementById("adminDropRate").value||"—")+"</p>";
-    gateStatus.textContent="敵カードを一時追加しました。GitHubへ反映するには「現在のHTMLを保存」後、生成されたHTMLを確認して公開版へ置き換えてください。";
+    gateStatus.textContent="敵カードを一時追加しました。GitHubへ反映するには「☁️ GitHubへ反映」を実行してください。";
     document.querySelector(".enemy-dungeon .enemy-cards")?.appendChild(card);
   };
 
@@ -1261,6 +1261,7 @@ $("reliableGithubCommit").onclick=async function(){
   if(!token){status.textContent="❌ GitHubアクセストークンを入力してください。";return;}
   btn.disabled=true;
   try{
+    status.textContent="① GitHubのリポジトリを確認中…";
     const repo=await getRepo(token);
     const branch=$("reliableGithubBranch").value.trim()||repo.default_branch||"main";
     const path=$("reliableGithubPath").value.trim()||"index.html";
@@ -1384,6 +1385,9 @@ window.exportUntroddentPublishedHTML=function(){
   clone.querySelectorAll('input[type="password"]').forEach(el=>{
     el.value="";el.removeAttribute("value");
   });
+  clone.querySelectorAll('#reliableGithubToken,#githubToken,#adminPass').forEach(el=>{
+    el.value="";el.removeAttribute("value");
+  });
 
   const old=clone.querySelector("#untroddent-published-data");
   if(old)old.remove();
@@ -1397,7 +1401,7 @@ window.exportUntroddentPublishedHTML=function(){
   const analyticsCode=(localStorage.getItem("untroddentWikiAnalyticsGoatCode_v1")||"").trim().replace(/[^a-zA-Z0-9_-]/g,"");
   clone.querySelectorAll("#untroddent-goatcounter-script").forEach(el=>el.remove());
   if(analyticsCode){
-    const tracker=clone.createElement("script");
+    const tracker=document.createElement("script");
     tracker.id="untroddent-goatcounter-script";
     tracker.async=true;
     tracker.setAttribute("data-goatcounter","https://"+analyticsCode+".goatcounter.com/count");
