@@ -149,7 +149,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 </style>
 </head>
 <body>
-<header><nav><div class="logo">UNTRODDENT GUIDE</div><details class="site-menu"><summary>☰ メニュー</summary><div class="site-menu-panel"><a href="#dungeons">1. ダンジョン</a><a href="#screens">2. 実画面操作</a><a href="#encyclopedia">3. 敵・ドロップ図鑑</a><a href="#drop">4. ドロップ・報酬</a><a href="#world">5. ワールド</a><a href="#fortress">6. 要塞・領地</a><a href="#progress">7. 初心者のおすすめ進行</a><a href="#contribute">8. 改善・PR</a><a href="#history">9. 更新履歴</a><a href="#developer-admin">10. 開発者管理画面</a></div></details></nav></header>
+<header><nav><div class="logo">UNTRODDENT GUIDE</div><span id="publicVisitorCount" aria-live="polite" style="font-size:.78rem;color:var(--muted)">—</span><details class="site-menu"><summary>☰ メニュー</summary><div class="site-menu-panel"><a href="#dungeons">1. ダンジョン</a><a href="#screens">2. 実画面操作</a><a href="#encyclopedia">3. 敵・ドロップ図鑑</a><a href="#drop">4. ドロップ・報酬</a><a href="#world">5. ワールド</a><a href="#fortress">6. 要塞・領地</a><a href="#progress">7. 初心者のおすすめ進行</a><a href="#contribute">8. 改善・PR</a><a href="#history">9. 更新履歴</a><a href="#developer-admin">10. 開発者管理画面</a></div></details></nav></header>
 <div class="hero">
 <span class="badge">実画面チュートリアル・クリーン表示版</span>
 <h1>実際のゲーム画面で<br/>アントロデンを覚える</h1>
@@ -587,7 +587,7 @@ untroddentWikiUpdates_v1: 未保存
 </div>
 </div>
 </section>
-<footer>アントロデン攻略チュートリアル / 非公式ガイド<br/><span class="small">提供されたゲーム画面を参考に構成した攻略資料です。　サイト累計閲覧数：<span id="publicVisitorCount" aria-live="polite">集計中</span></span></footer>
+<footer>アントロデン攻略チュートリアル / 非公式ガイド<br/><span class="small">提供されたゲーム画面を参考に構成した攻略資料です。</span></footer>
 <script id="untroddent-goatcounter-script" data-goatcounter="https://tsuritetsu9306.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 <script id="untroddent-visitor-count-script">
 (function(){
@@ -596,11 +596,11 @@ untroddentWikiUpdates_v1: 未保存
     if(window.goatcounter&&typeof window.goatcounter.visit_count==="function"){
       target.textContent="";
       window.goatcounter.visit_count({append:"#publicVisitorCount",type:"html",path:"TOTAL",no_branding:true,attr:{width:"92",height:"20",title:"サイト累計閲覧数"},style:"html,body{margin:0;background:transparent;overflow:hidden;font:700 12px sans-serif;color:#e9eee9}div{display:block;white-space:nowrap}#gcvc-for,#gcvc-by{display:none}#gcvc-views{color:#e9eee9}"});
-      setTimeout(function(){if(target&&!target.querySelector("iframe"))target.textContent="公開設定待ち";},1500);
+      setTimeout(function(){if(target&&!target.querySelector("iframe"))target.textContent="—";},1500);
       return;
     }
     if(attempts++<50){setTimeout(render,100);}
-    else if(target){target.textContent="取得できません";}
+    else if(target){target.textContent="—";}
   }
   render();
 })();
