@@ -73,7 +73,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 
 
 .admin-gate{border:1px solid var(--line);background:var(--panel);border-radius:15px;padding:20px;margin:20px 0}
-.admin-panel{display:none}
+.admin-panel{display:none!important}
 .admin-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
 .admin-card{border:1px solid var(--line);background:#0b1512;border-radius:10px;padding:15px}
 .admin-card h3{margin-top:0;color:#f0cc70}
@@ -317,7 +317,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 </div>
 <div class="admin-status" id="adminGateStatus">更新履歴を一時追加しました。</div>
 </div>
-<div class="admin-panel" id="adminPanel" style="display: block;">
+<div class="admin-panel" id="adminPanel" style="display: none;">
 <div class="dungeon-crud-wrap">
 <div class="admin-card">
 <h3>📚 ダンジョン情報</h3>
@@ -619,6 +619,8 @@ untroddentWikiUpdates_v1: 未保存
   const panel=document.getElementById("adminPanel");
   const gateStatus=document.getElementById("adminGateStatus");
   const ghStatus=document.getElementById("adminGithubStatus");
+  // 旧版が保存した「ログインを記憶」フラグは無効化します。
+  localStorage.removeItem("untroddentWikiAdminRemembered");
 
   const dungeonData={
     "ビギナーダンジョン":{effect:"ドロップ率の分母が1減る",desc:"序盤向け。一般的な敵が出現します。"},
@@ -645,10 +647,11 @@ untroddentWikiUpdates_v1: 未保存
       return;
     }
     sessionStorage.setItem(adminKey,"1");
-    localStorage.setItem("untroddentWikiAdminRemembered","1");
-    panel.style.display="block";
+    // ログイン状態はこのタブを閉じるまでだけ有効。
+    // localStorageには保存しないため、次回アクセス時は必ず再認証します。
+    panel.style.setProperty("display","block","important");
     passInput.value="";
-    gateStatus.textContent="管理画面を開きました。ログイン状態をこのブラウザに記憶しました。";
+    gateStatus.textContent="管理画面を開きました。このタブを閉じると再度パスワードが必要です。";
   }
   function logout(){
     sessionStorage.removeItem(adminKey);
@@ -659,9 +662,12 @@ untroddentWikiUpdates_v1: 未保存
   }
   document.getElementById("adminLogin").onclick=unlock;
   document.getElementById("adminLogout").onclick=logout;
-  if(sessionStorage.getItem(adminKey)==="1" || localStorage.getItem("untroddentWikiAdminRemembered")==="1"){
-    panel.style.display="block";
-    gateStatus.textContent="保存された管理者ログイン状態を使用しています。";
+  // 初期表示では必ず管理パネルをロック。
+  // 旧版のlocalStorage記憶値だけでは開かない。
+  panel.style.setProperty("display","none","important");
+  if(sessionStorage.getItem(adminKey)==="1"){
+    panel.style.setProperty("display","block","important");
+    gateStatus.textContent="このタブでは管理者としてログイン済みです。";
   }
 
   const d=document.getElementById("adminDungeon");
