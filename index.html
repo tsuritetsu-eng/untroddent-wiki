@@ -1203,10 +1203,10 @@ function authHeaders(token){
 }
 async function gh(url,token,opt={}){
   const res=await fetch(url,{...opt,headers:{...authHeaders(token),...(opt.headers||{})}});
-  let body=null;
-  try{body=await res.json()}catch(_){body={message:await res.text().catch(()=> "")}};
+  let body={};
+  try{body=await res.json()}catch(_){body={message:"GitHubから有効なJSON応答を取得できませんでした。"};}
   if(!res.ok){
-    const e=new Error((body&&body.message)||("HTTP "+res.status));
+    const e=new Error(body.message||("HTTP "+res.status));
     e.status=res.status;e.body=body;throw e;
   }
   return body;
@@ -1217,151 +1217,129 @@ function b64Utf8(s){
   return btoa(out);
 }
 function makeCurrentHTML(){
-  if(typeof window.exportUntroddentPublishedHTML==="function"){
-    return window.exportUntroddentPublishedHTML();
-  }
+  if(typeof window.exportUntroddentPublishedHTML==="function")return window.exportUntroddentPublishedHTML();
   const clone=document.documentElement.cloneNode(true);
   clone.querySelectorAll('input[type="password"]').forEach(el=>{el.value="";el.removeAttribute("value")});
   return "<!doctype html>\n"+clone.outerHTML;
 }
+function explainGitHubError(e,stage){
+  const m=String(e?.message||"");
+  if(e?.status===401)return "401 認証失敗：トークンが無効・期限切れ・取り消し済みです。GitHubで新しいFine-grained PATを発行してください。";
+  if(e?.status===403){
+    if(/resource not accessible|forbidden|permission/i.test(m))return "403 権限不足：Fine-grained PATで Repository access に「tsuritetsu-eng/untroddent-wiki」を指定し、Repository permissions の Contents を「Read and write」にしてください。Metadata は Read-only で構いません。ブランチ保護で直接更新が禁止されている場合も403/422になります。";
+    return "403 GitHubに拒否されました：トークン権限、Repository access、またはブランチ保護を確認してください。";
+  }
+  if(e?.status===404)return "404 対象が見つかりません：リポジトリ名・ブランチ・HTMLパスを確認してください。現在は「"+OWNER+"/"+REPO+"」を使用しています。";
+  if(e?.status===409)return "409 更新競合：GitHub側で同時更新が発生しました。もう一度実行してください。";
+  if(e?.status===422)return "422 GitHubが更新を拒否しました：対象HTMLのSHA、ブランチ、またはブランチ保護ルールを確認してください。";
+  if(stage==="browser")return "ブラウザからGitHub APIへ接続できませんでした。GitHub APIへのアクセスを妨げる拡張機能・ネットワーク設定も確認してください。";
+  return (stage?stage+"：":"")+m;
+}
+
 async function getRepository(token){return gh(API+"/repos/"+OWNER+"/"+REPO,token);}
-async function getTree(token,branch){
-  const ref=await gh(API+"/repos/"+OWNER+"/"+REPO+"/git/ref/heads/"+encodeURIComponent(branch),token);
-  const commit=await gh(API+"/repos/"+OWNER+"/"+REPO+"/git/commits/"+ref.object.sha,token);
-  return {ref,commit};
-}
-async function findHtmlFiles(token,branch){
-  const treeInfo=await getTree(token,branch);
-  const tree=await gh(API+"/repos/"+OWNER+"/"+REPO+"/git/trees/"+treeInfo.commit.tree.sha+"?recursive=1",token);
-  const files=(tree.tree||[]).filter(x=>x.type==="blob"&&/\.html?$/i.test(x.path));
-  return {treeInfo,files};
-}
-function choosePath(files){
-  const selected=$("reliableGithubPath").value;
-  if(selected)return selected;
-  const paths=files.map(x=>x.path);
-  return paths.find(x=>x.toLowerCase()==="index.html") ||
-         paths.find(x=>/\/index\.html?$/i.test(x)) ||
-         paths.find(x=>/^index_new.*\.html?$/i.test(x)) ||
-         paths[0] || "index.html";
+async function getFile(token,branch,path){
+  return gh(API+"/repos/"+OWNER+"/"+REPO+"/contents/"+path.split("/").map(encodeURIComponent).join("/")+"?ref="+encodeURIComponent(branch),token);
 }
 function fillSelect(id,values,selected){
-  const el=$(id);el.innerHTML="";
-  values.forEach(v=>{
-    const o=document.createElement("option");o.value=v;o.textContent=v;el.appendChild(o);
-  });
+  const el=$(id); if(!el)return;
+  el.innerHTML="";
+  values.forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;el.appendChild(o);});
   if(selected&&values.includes(selected))el.value=selected;
 }
 async function diagnose(){
   const token=$("reliableGithubToken").value.trim();
-  if(!token){status.textContent="❌ トークンを入力してください。";return null;}
-  status.textContent="① GitHub認証を確認しています…";
-  const user=await gh(API+"/user",token);
+  if(!token){status.textContent="❌ GitHubアクセストークンを入力してください。";return null;}
+  status.textContent="① GitHubリポジトリへの接続と書き込み権限を確認しています…";
   const repo=await getRepository(token);
   const branch=repo.default_branch||"main";
-  const {files}=await findHtmlFiles(token,branch);
+  const selected=$("reliableGithubPath").value||"index.html";
+  let file=null;
+  try{file=await getFile(token,branch,selected);}catch(e){
+    if(e.status!==404)throw e;
+  }
   fillSelect("reliableGithubBranch",[branch],branch);
-  fillSelect("reliableGithubPath",files.map(x=>x.path),choosePath(files));
+  if(file)fillSelect("reliableGithubPath",[selected],selected);
   status.textContent=
-    "✅ 診断成功\n"+
-    "GitHubユーザー: "+(user.login||"不明")+"\n"+
+    "✅ 接続診断成功\n"+
     "リポジトリ: "+repo.full_name+"\n"+
     "既定ブランチ: "+branch+"\n"+
-    "HTML候補: "+(files.length?files.map(x=>x.path).join(", "):"なし")+
-    "\n\nこの時点ではまだファイルを変更していません。";
-  return {user,repo,branch,files};
+    "対象HTML: "+selected+"\n"+
+    "対象ファイル: "+(file?"確認済み":"見つかりません")+"\n\n"+
+    (file?"このまま「GitHubへ反映」を押せます。":"対象HTMLのパスを正しく選択してください。通常は index.html です。");
+  return {repo,branch,file};
 }
 $("reliableGithubDiagnose").onclick=async function(){
   this.disabled=true;
-  try{await diagnose()}catch(e){
-    let msg=e.message||"不明なエラー";
-    if(e.status===401)msg="401 認証失敗：トークンが無効・期限切れ・取り消し済みです。";
-    if(e.status===403)msg="403 権限不足：Fine-grained tokenのRepository accessとContents: Read and writeを確認してください。";
-    if(e.status===404)msg="404 リポジトリが見つかりません。Repository accessでtsuritetsu-eng/untroddent-wikiを許可してください。";
-    status.textContent="❌ 診断失敗\n"+msg;
-  }finally{this.disabled=false;}
+  try{await diagnose();}
+  catch(e){status.textContent="❌ 接続診断失敗\n"+explainGitHubError(e,"診断");}
+  finally{this.disabled=false;}
 };
 
 $("reliableGithubCommit").onclick=async function(){
-  const token=$("reliableGithubToken").value.trim();
-  if(!token){status.textContent="❌ トークンを入力してください。";return;}
-  this.disabled=true;
+  const btn=this, token=$("reliableGithubToken").value.trim();
+  if(!token){status.textContent="❌ GitHubアクセストークンを入力してください。";return;}
+  btn.disabled=true;
   try{
-    status.textContent="① 認証確認…";
-    const user=await gh(API+"/user",token);
+    status.textContent="① GitHubリポジトリを確認中…";
     const repo=await getRepository(token);
     const branch=$("reliableGithubBranch").value||repo.default_branch||"main";
+    const path=$("reliableGithubPath").value.trim()||"index.html";
+    if(!/^.+\.html?$/i.test(path))throw new Error("対象HTMLのパスが不正です："+path);
 
-    status.textContent="② リポジトリ内のHTMLを検索中…";
-    const {files}=await findHtmlFiles(token,branch);
-    const path=choosePath(files);
-    if(!path)throw new Error("更新対象のHTMLファイルが見つかりません。");
+    status.textContent="② 現在の「"+path+"」をGitHubから取得中…";
+    let current=await getFile(token,branch,path);
+    if(!current?.sha)throw new Error("対象HTMLのSHAを取得できませんでした。");
 
-    status.textContent="③ 現在の"+path+"を取得中…";
-    let current;
-    try{
-      current=await gh(API+"/repos/"+OWNER+"/"+REPO+"/contents/"+path+"?ref="+encodeURIComponent(branch),token);
-    }catch(e){
-      if(e.status===404 && path!=="index.html") throw e;
-      current=null;
-    }
-
+    status.textContent="③ 最新のCRUDデータを含む公開HTMLを生成中…";
     const content=makeCurrentHTML();
+    if(!content||content.length<1000)throw new Error("公開HTMLの生成に失敗しました。ページを再読み込みしてから試してください。");
+
     const body={
-      message:$("reliableGithubMessage").value.trim()||"Update tutorial wiki",
+      message:$("reliableGithubMessage").value.trim()||"Update tutorial wiki from admin panel",
       content:b64Utf8(content),
       branch,
-      committer:{
-        name:user.name||user.login,
-        email:(user.login+"@users.noreply.github.com")
-      },
-      author:{
-        name:user.name||user.login,
-        email:(user.login+"@users.noreply.github.com")
-      }
+      sha:current.sha
     };
-    if(current?.sha)body.sha=current.sha;
 
-    status.textContent="④ GitHubへファイルを更新中…";
+    status.textContent="④ GitHubへコミット中…";
     let result;
     try{
-      result=await gh(API+"/repos/"+OWNER+"/"+REPO+"/contents/"+path,token,{
-        method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)
+      result=await gh(API+"/repos/"+OWNER+"/"+REPO+"/contents/"+path.split("/").map(encodeURIComponent).join("/"),token,{
+        method:"PUT",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify(body)
       });
     }catch(e){
-      // If SHA changed between GET and PUT, refetch and retry exactly once.
-      if(e.status===409){
-        status.textContent="⑤ 競合を検出。最新SHAを取得して再試行中…";
-        const latest=await gh(API+"/repos/"+OWNER+"/"+REPO+"/contents/"+path+"?ref="+encodeURIComponent(branch),token);
-        body.sha=latest.sha;
-        result=await gh(API+"/repos/"+OWNER+"/"+REPO+"/contents/"+path,token,{
-          method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)
-        });
-      }else throw e;
+      if(e.status!==409)throw e;
+      status.textContent="⑤ 更新競合を検出。最新SHAで1回だけ自動再試行中…";
+      current=await getFile(token,branch,path);
+      body.sha=current.sha;
+      result=await gh(API+"/repos/"+OWNER+"/"+REPO+"/contents/"+path.split("/").map(encodeURIComponent).join("/"),token,{
+        method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)
+      });
     }
 
-    status.textContent="⑥ GitHub上の更新を確認中…";
-    const verify=await gh(API+"/repos/"+OWNER+"/"+REPO+"/contents/"+path+"?ref="+encodeURIComponent(branch),token);
-    const ok=result?.content?.sha===verify?.sha || result?.commit?.sha;
+    status.textContent="⑥ GitHub上のコミット結果を確認中…";
+    const verify=await getFile(token,branch,path);
+    const committedSha=result?.content?.sha||null;
+    const verifiedSha=verify?.sha||null;
+    const ok=!!result?.commit?.sha && !!verifiedSha;
+    if(!ok)throw new Error("GitHubへのコミット応答は返りましたが、更新後ファイルを確認できませんでした。");
+
     status.textContent=
-      "🎉 GitHubへの反映が完了しました！\n"+
+      "🎉 GitHubへの反映が完了しました！\n\n"+
       "対象: "+path+"\n"+
       "ブランチ: "+branch+"\n"+
-      "コミット: "+(result.commit?.sha||"完了")+"\n"+
-      "ファイルSHA: "+(verify.sha||"確認済み")+
-      (result.commit?.html_url?"\nコミットURL: "+result.commit.html_url:"")+
-      "\n\n"+(ok?"✅ 更新後のファイル取得にも成功しました。":"⚠️ コミットは返りましたがSHA確認が一致しません。");
-    // Token intentionally cleared; never persisted.
+      "コミット: "+result.commit.sha+"\n"+
+      "更新後ファイルSHA: "+verifiedSha+"\n"+
+      (committedSha?"コミット応答SHA: "+committedSha+"\n":"")+
+      (result.commit.html_url?"\nコミット確認: "+result.commit.html_url+"\n":"")+
+      "\n✅ GitHub上のHTMLを再取得して確認しました。\n"+
+      "※ GitHub Pagesの表示更新には数十秒〜数分かかる場合があります。";
     $("reliableGithubToken").value="";
   }catch(e){
-    let msg=e.message||"不明なエラー";
-    if(e.status===401)msg="401 認証失敗：トークンを再発行して試してください。";
-    else if(e.status===403)msg="403 権限不足：Repository access=untroddent-wiki、Contents=Read and writeを確認してください。ブランチ保護で直接pushが拒否される場合もあります。";
-    else if(e.status===404)msg="404 対象ファイルが見つかりません。診断でHTML候補を確認してください。";
-    else if(e.status===409)msg="409 更新競合：GitHub側で同時更新が発生しました。もう一度実行してください。";
-    else if(e.status===422)msg="422 GitHubがリクエストを拒否しました。コミット情報または対象パスを確認してください。";
-    status.textContent="❌ GitHubへの反映に失敗しました\n"+msg;
-  }finally{this.disabled=false;}
+    status.textContent="❌ GitHubへの反映に失敗しました\n\n"+explainGitHubError(e,"反映");
+  }finally{btn.disabled=false;}
 };
 })();
 </script>
