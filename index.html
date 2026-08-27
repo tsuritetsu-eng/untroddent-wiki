@@ -539,6 +539,19 @@ untroddentWikiUpdates_v1: 未保存
 
 ※ ここで件数が正しいのに閲覧者画面が古い場合、閲覧者側レンダラーが固定データを使っている可能性があります。</pre>
 </div>
+<div class="admin-card" id="siteAnalyticsPanel" style="margin-top:18px">
+<h3>📊 サイトアナリティクス</h3>
+<p class="small">GoatCounterを使って閲覧数を記録し、管理画面で今日・過去7日・過去30日・累計の閲覧数を確認できます。</p>
+<div class="crud-grid"><div class="admin-field full"><label>GoatCounterサイトコード</label><input id="analyticsGoatCode" placeholder="例: my-wiki" autocomplete="off"/></div></div>
+<div class="admin-actions"><button class="btn primary" id="analyticsSave" type="button">💾 アナリティクス設定を保存</button><button class="btn" id="analyticsLoad" type="button">🔄 閲覧数を更新</button></div>
+<pre id="analyticsStatus" style="white-space:pre-wrap;margin-top:12px">GoatCounterサイトコードを設定してください。</pre>
+<div class="crud-grid" id="analyticsCards" style="margin-top:12px;display:none">
+<div class="admin-card"><h4>今日</h4><div id="analyticsToday" style="font-size:1.8em;font-weight:700">—</div></div>
+<div class="admin-card"><h4>過去7日</h4><div id="analytics7d" style="font-size:1.8em;font-weight:700">—</div></div>
+<div class="admin-card"><h4>過去30日</h4><div id="analytics30d" style="font-size:1.8em;font-weight:700">—</div></div>
+<div class="admin-card"><h4>累計</h4><div id="analyticsTotal" style="font-size:1.8em;font-weight:700">—</div></div></div>
+<p class="small" style="margin-top:10px">設定後に「GitHubへ反映」を実行すると、公開HTMLに計測コードが組み込まれます。</p>
+</div>
 <div class="admin-card" id="githubReliableSync" style="margin-top:18px">
 <h3>☁️ GitHub反映センター（反映専用）</h3>
 <p class="small">
@@ -1302,6 +1315,23 @@ $("reliableGithubCommit").onclick=async function(){
 <script>
 (function(){
 "use strict";
+const $=id=>document.getElementById(id), KEY="untroddentWikiAnalyticsGoatCode_v1";
+const input=$("analyticsGoatCode"), status=$("analyticsStatus"), cards=$("analyticsCards");
+if(!input)return;
+input.value=(localStorage.getItem(KEY)||"").trim();
+function clean(v){return String(v||"").trim().replace(/[^a-zA-Z0-9_-]/g,"");}
+function save(){const c=clean(input.value);input.value=c;if(!c){localStorage.removeItem(KEY);status.textContent="❌ GoatCounterサイトコードを入力してください。";cards.style.display="none";return;}localStorage.setItem(KEY,c);status.textContent="✅ 保存しました。GitHubへ反映すると公開サイトで計測されます。";}
+function date(d){return d.toISOString().slice(0,10);}
+function fmt(v){return Number(v||0).toLocaleString("ja-JP");}
+async function getCount(c,start,end){const path=location.pathname||"/";const u="https://"+c+".goatcounter.com/counter/"+encodeURIComponent(path)+".json?start="+encodeURIComponent(start)+"&end="+encodeURIComponent(end);const r=await fetch(u,{cache:"no-store"});if(!r.ok)throw new Error("HTTP "+r.status);return r.json();}
+async function getTotal(c){const path=location.pathname||"/";const u="https://"+c+".goatcounter.com/counter/"+encodeURIComponent(path)+".json";const r=await fetch(u,{cache:"no-store"});if(!r.ok)throw new Error("HTTP "+r.status);return r.json();}
+async function load(){const c=clean(input.value);if(!c){status.textContent="❌ GoatCounterサイトコードを入力してください。";cards.style.display="none";return;}localStorage.setItem(KEY,c);status.textContent="📊 閲覧数を取得しています…";try{const now=new Date(),today=date(now),d7=new Date(now),d30=new Date(now);d7.setDate(d7.getDate()-6);d30.setDate(d30.getDate()-29);const [a,b,d,t]=await Promise.all([getCount(c,today,today),getCount(c,date(d7),today),getCount(c,date(d30),today),getTotal(c)]);$("analyticsToday").textContent=fmt(a.count);$("analytics7d").textContent=fmt(b.count);$("analytics30d").textContent=fmt(d.count);$("analyticsTotal").textContent=fmt(t.count);cards.style.display="grid";status.textContent="✅ 更新しました。取得時刻: "+new Date().toLocaleString("ja-JP");}catch(e){cards.style.display="none";status.textContent="❌ アナリティクス取得失敗。サイトコードとGoatCounter設定を確認してください。\n"+(e.message||e);}}
+$("analyticsSave").onclick=save;$("analyticsLoad").onclick=load;if(input.value)load();
+})();
+</script>
+<script>
+(function(){
+"use strict";
 window.UNTRODDENT_DATA_VERSION="2.0";
 
 function readJSON(keys, fallback){
@@ -1363,6 +1393,17 @@ window.exportUntroddentPublishedHTML=function(){
   s.type="application/json";
   s.textContent=JSON.stringify(data).replace(/</g,"\\u003c");
   clone.querySelector("body").appendChild(s);
+
+  const analyticsCode=(localStorage.getItem("untroddentWikiAnalyticsGoatCode_v1")||"").trim().replace(/[^a-zA-Z0-9_-]/g,"");
+  clone.querySelectorAll("#untroddent-goatcounter-script").forEach(el=>el.remove());
+  if(analyticsCode){
+    const tracker=clone.createElement("script");
+    tracker.id="untroddent-goatcounter-script";
+    tracker.async=true;
+    tracker.setAttribute("data-goatcounter","https://"+analyticsCode+".goatcounter.com/count");
+    tracker.src="https://gc.zgo.at/count.js";
+    clone.querySelector("body").appendChild(tracker);
+  }
 
   return "<!doctype html>\n"+clone.outerHTML;
 };
