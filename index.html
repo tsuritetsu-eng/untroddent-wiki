@@ -156,7 +156,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 </style>
 </head>
 <body>
-<header><nav><div class="logo">UNTRODDENT GUIDE</div><details class="site-menu"><summary>☰ メニュー</summary><div class="site-menu-panel"><a href="#dungeons">1. ダンジョン</a><a href="#screens">2. 実画面操作</a><a href="#baptism">3. 洗礼システム</a><a href="#encyclopedia">4. 敵・ドロップ図鑑</a><a href="#drop">5. ドロップ・報酬</a><a href="#guild">6. ギルド・同盟</a><a href="#fortress">7. 要塞・領地</a><a href="#paid-items">8. 課金アイテム</a><a href="#progress">9. 初心者のおすすめ進行</a><a href="#contribute">10. 改善・PR</a><a href="#history">11. 更新履歴</a><a href="#developer-admin">12. 開発者管理画面</a></div></details></nav></header>
+<header><nav><div class="logo">UNTRODDENT GUIDE</div><details class="site-menu"><summary>☰ メニュー</summary><div class="site-menu-panel"><a href="#dungeons">1. ダンジョン</a><a href="#screens">2. 実画面操作</a><a href="#baptism">3. 洗礼システム</a><a href="#encyclopedia">4. 敵・ドロップ図鑑</a><a href="#drop">5. ドロップ・報酬</a><a href="#guild">6. ギルド・同盟</a><a href="#fortress">7. 要塞・領地</a><a href="#paid-items">9. 課金アイテム</a><a href="#progress">10. 初心者のおすすめ進行</a><a href="#contribute">11. 改善・PR</a><a href="#history">12. 更新履歴</a><a href="#developer-admin">13. 開発者管理画面</a></div></details></nav></header>
 <div class="hero">
 <span class="badge">実画面チュートリアル・クリーン表示版</span>
 <h1>実際のゲーム画面で<br/>アントロデンを覚える</h1>
@@ -279,8 +279,18 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 </div>
 <div class="notice danger"><b>重要：</b>占領率や戦功の意味、同盟中の補正、役職別の建設・進軍権限はアップデートで変わる可能性があります。Wikiでは、現在のゲーム画面に表示された値と公式更新欄を優先し、古い攻略情報を固定値として扱わないでください。</div>
 </section>
+<section id="item-systems">
+<h2>8. アイテム・強化・合成システム</h2>
+<p>アイテムはダンジョンのドロップや合成、ショップなどから入手します。強化値や合成素材を確認し、装備の成長と素材集めを計画しましょう。</p>
+<div class="grid">
+<div class="card"><h3>強化</h3><p>同じ強化値のアイテムを2つ合わせることで、強化値を1段階上げられます。成功率は<strong>（100 − 強化値 × 5）％</strong>です。強化後のATKまたはDEFは、無強化時の値に<strong>（強化値＋1）</strong>を掛けた値になります。</p></div>
+<div class="card"><h3>合成</h3><p>指定された合成素材を集めることで実行できます。成功率は<strong>10％</strong>です。素材の種類と必要数をそろえてから挑戦します。</p></div>
+<div class="card"><h3>ドラゴンソウル</h3><p><strong>DEF＋9999</strong>の装備です。ショップで<strong>3000ガウル</strong>で購入できますが、ドラゴン系の素材を1つずつ集めることが必要です。</p></div>
+</div>
+<div class="notice info"><b>素材集めの目安：</b>エキスパートでは炎の翼、氷の翼、光の翼、闇の翼、ドラゴンのたましいが合成素材としてドロップします。合成やドラゴンソウル購入を目指す場合は、必要素材を倉庫で確認しながら周回します。</div>
+</section>
 <section id="paid-items">
-<h2>8. 課金アイテム</h2>
+<h2>9. 課金アイテム</h2>
 <p class="muted">ゲームを攻略するのに有利な課金アイテムの一覧です。</p>
 <div class="grid">
 <div class="card"><h3>行動時間半減券</h3><p><b>効果：</b>一定期間、行動時間を半減します。</p></div>
@@ -289,7 +299,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 </div>
 </section>
 <section id="progress">
-<h2>9. 初心者のおすすめ進行</h2>
+<h2>10. 初心者のおすすめ進行</h2>
 <div class="grid">
 <div class="card"><h3>STEP 1</h3><p>ビギナーで操作を覚える</p></div>
 <div class="card"><h3>STEP 2</h3><p>ノービス → ホーリー</p></div>
@@ -301,7 +311,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 </section>
 </main>
 <section id="contribute">
-<h2>10. チュートリアルサイトを改善する</h2>
+<h2>11. チュートリアルサイトを改善する</h2>
 <div class="pr-box">
 <h3>開発者にプルリクエストを送る</h3>
 <p>「敵の情報を追加してほしい」「説明を修正したい」「UIを改善したい」など、サイトの改善案をGitHub経由で開発者に送れます。</p>
@@ -335,7 +345,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 </div>
 </section>
 <section id="history">
-<h2>11. 更新履歴</h2>
+<h2>12. 更新履歴</h2>
 <p class="muted">チュートリアルサイトの更新内容を、開発者がここに追記して閲覧者へ公開できます。</p>
 <div class="history-list"><div class="history-item"><h3>V8.0</h3><div class="history-meta">2026-08-27</div><div>敵カードなど色々アップデート</div></div><div class="history-item"><h3>V8.0</h3><div class="history-meta">2026-08-27</div><div>敵カードなど色々アップデート</div></div><div class="history-item"><h3>V8.0</h3><div class="history-meta">2026-08-27</div><div>敵カードなど色々アップデート</div></div>
 <div class="history-item"><h3>v6.0 — PRフォーム・更新履歴を追加</h3><div class="history-meta">2026-08-26</div><div>閲覧者が改善内容を入力してGitHubへ送れるPRフォームと、更新履歴セクションを追加しました。</div></div>
@@ -345,7 +355,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 <div class="notice info"><b>開発者向け：</b>新しい更新を公開したら、この欄に「バージョン・日付・変更内容」を追記してコミットしてください。</div>
 </section>
 <section id="developer-admin">
-<h2>12. 開発者管理画面</h2><div class="notice info"><b>管理対象：</b>ダンジョン、敵、ドロップ品、攻略情報、更新履歴を一つの管理画面から編集できます。</div>
+<h2>13. 開発者管理画面</h2><div class="notice info"><b>管理対象：</b>ダンジョン、敵、ドロップ品、攻略情報、更新履歴を一つの管理画面から編集できます。</div>
 <div class="admin-gate">
 <h3>🔐 開発者ログイン</h3>
 <p class="small">この管理画面は、サイトの編集・更新履歴管理・GitHubへの反映をまとめて行うための画面です。</p>
