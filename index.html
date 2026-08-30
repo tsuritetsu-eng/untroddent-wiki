@@ -1692,7 +1692,18 @@ window.renderUntroddentViewerFromPublishedData=renderAllFromPublished;
     return read(DKEY,window.__UNTRODDENT_DUNGEON_DATA__,fallbackDungeons);
   }
   function getEnemies(){
-    return read(EKEY,window.__UNTRODDENT_CRUD_DATA__,[]);
+    // 公開スナップショットを基準にし、閲覧者の古いlocalStorageにも
+    // 新しく公開された敵カードを追加して表示する。
+    let published=[];
+    try{
+      const el=document.getElementById("untroddent-published-data");
+      const snap=el?JSON.parse(el.textContent):null;
+      published=Array.isArray(snap?.enemies)?snap.enemies:[];
+    }catch(_){ published=[]; }
+    const saved=read(EKEY,window.__UNTRODDENT_CRUD_DATA__,[]);
+    const merged=new Map(published.map(e=>[String(e.id||e.name||""),e]));
+    (saved||[]).forEach(e=>merged.set(String(e.id||e.name||""),e));
+    return [...merged.values()];
   }
   function normalizeDrops(e){
     if(Array.isArray(e?.drops) && e.drops.length){
