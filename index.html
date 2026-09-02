@@ -154,17 +154,16 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 /* 既存管理カードの見た目を保ったまま、機能ごとに開閉するための最小限の追加スタイル */
 .admin-section{margin-top:20px}.admin-section>summary{list-style:none;cursor:pointer}.admin-section>summary::-webkit-details-marker{display:none}.admin-section>summary .admin-card{margin:0}.admin-section>summary .admin-card h3{margin:0}.admin-section>summary .admin-card h3:after{content:' ▸';font-size:.92em}.admin-section[open]>summary .admin-card h3:after{content:' ▾'}.admin-section-body{padding-top:14px}.admin-section-body>.admin-card{margin:0}.admin-section-body>.dungeon-crud-wrap,.admin-section-body>.crud-wrap{margin-top:0}#publicVisitorCount iframe{width:92px;height:20px;border:0;vertical-align:middle}
 </style>
-</head>
+<style id="chapter-structure-css">.guide-chapter{margin-top:38px}.guide-chapter>h2{margin-bottom:24px}.guide-chapter>section:first-of-type{margin-top:0}</style></head>
 <body>
-<header><nav><div class="logo">UNTRODDENT GUIDE</div><details class="site-menu"><summary>☰ メニュー</summary><div class="site-menu-panel"><a href="#dungeons">1. ダンジョン5種類</a><a href="#screens">2. 実画面操作</a><a href="#baptism">3. 洗礼システム</a><a href="#encyclopedia">4. 敵・ドロップ図鑑</a><a href="#drop">5. ドロップ・報酬</a><a href="#guild">6. ギルド・同盟</a><a href="#fortress">7. 要塞・領地</a><a href="#item-systems">8. アイテム・強化・合成</a><a href="#paid-items">9. 課金アイテム</a><a href="#progress">10. 初心者のおすすめ進行</a><a href="#contribute">11. 改善・PR</a><a href="#history">12. 更新履歴</a><a href="#developer-admin">13. 開発者管理画面</a></div></details></nav></header>
+<header><nav><div class="logo">UNTRODDENT GUIDE</div><details class="site-menu"><summary>☰ メニュー</summary><div class="site-menu-panel"><a href="#chapter1">1章. ダンジョンでの戦闘</a><a class="chapter-subshortcut" href="#dungeons">　1. ダンジョン5種類</a><a class="chapter-subshortcut" href="#screens">　2. 実際のゲーム画面で操作を覚える</a><a href="#chapter2">2章. ダンジョンの敵の武器</a><a class="chapter-subshortcut" href="#encyclopedia">　1. ダンジョン別・敵・ドロップ品カード図鑑</a><a class="chapter-subshortcut" href="#drop">　2. ドロップ・報酬を見る場所</a><a href="#chapter3">3章. ギルドシステムと領地</a><a class="chapter-subshortcut" href="#guild">　1. ギルド・同盟の使い方</a><a class="chapter-subshortcut" href="#fortress">　2. 要塞・領地の読み方</a><a href="#chapter4">4章. 洗礼とアイテム強化</a><a class="chapter-subshortcut" href="#baptism">　1. 洗礼システム</a><a class="chapter-subshortcut" href="#item-systems">　2. アイテム・強化・合成システム</a><a href="#chapter5">5章. その他</a><a class="chapter-subshortcut" href="#paid-items">　1. 課金アイテム</a><a class="chapter-subshortcut" href="#progress">　2. 初心者のおすすめ進行</a><a class="chapter-subshortcut" href="#contribute">　3. チュートリアルサイトを改善する</a><a href="#history">更新履歴</a><a href="#developer-admin">開発者管理画面</a></div></details></nav></header>
 <div class="hero">
 <span class="badge">実画面チュートリアル・クリーン表示版</span>
 <h1>実際のゲーム画面で<br/>アントロデンを覚える</h1>
 <div class="buttons"><a class="btn primary" href="https://untroddent.com" target="_blank">ゲームを開く</a><a class="btn" href="#screens">実画面チュートリアル ↓</a></div>
 </div>
 <main class="wrap">
-<section id="dungeons"><h2>1. ダンジョン5種類</h2><p class="muted">攻略が簡単な順に、ビギナー → ノービス → ホーリー → エキスパート → アンドロデンと覚えます。</p><div class="dungeon" data-dungeon-id="d1"><h3><span class="rank">★1</span> ビギナーダンジョン</h3><p>序盤向けのダンジョン。<br/><b>系統効果：</b>ドロップ率の分母が1減る</p><p class="small"><b>攻略：</b>基本的な敵から戦闘に慣れる。</p></div><div class="dungeon" data-dungeon-id="d2"><h3><span class="rank">★2</span> ノービスダンジョン</h3><p>ビギナーから一段階上のダンジョン。<br/><b>系統効果：</b>獲得ゴールドが15%上がる</p><p class="small"><b>攻略：</b>敵の攻撃を見ながら各個撃破する。</p></div><div class="dungeon" data-dungeon-id="d3"><h3><span class="rank">★3</span> ホーリーダンジョン</h3><p>経験値稼ぎにも向くダンジョン。<br/><b>系統効果：</b>獲得ガウルがたまに1増える</p><p class="small"><b>攻略：</b>敵の属性や特殊攻撃に注意する。</p></div><div class="dungeon" data-dungeon-id="d4"><h3><span class="rank ex">★4</span> エキスパートダンジョン</h3><p>高難度のダンジョン。<br/><b>系統効果：</b>経験値が2倍になる</p><p class="small"><b>攻略：</b>強力な敵への対策を準備する。</p></div><div class="dungeon" data-dungeon-id="d5"><h3><span class="rank boss">★5</span> アンドロデンダンジョン</h3><p>最上位クラスのダンジョン。<br/><b>系統効果：</b>なし</p><p class="small"><b>攻略：</b>ボス戦を想定した装備と編成を準備する。</p></div><table><tbody><tr><th>種類</th><th>敵</th><th>攻略の位置づけ</th><th>系統効果</th></tr><tr><td>ビギナー</td><td data-dungeon-enemies="d1">スライム、くろいコウモリ、しろいコウモリ、モルモットっぽいねこ、馬刺しになるはずだった馬、こわれたロボット</td><td>基本的な敵から戦闘に慣れる。</td><td>ドロップ率の分母が1減る</td></tr><tr><td>ノービス</td><td data-dungeon-enemies="d2">ふとったいぬ、ツタンカー麺、マリーアンドネット、歩く死体、船の船長、船員</td><td>敵の攻撃を見ながら各個撃破する。</td><td>獲得ゴールドが15%上がる</td></tr><tr><td>ホーリー</td><td data-dungeon-enemies="d3">パラディン、英雄アーサー、雷神ソー</td><td>敵の属性や特殊攻撃に注意する。</td><td>獲得ガウルがたまに1増える</td></tr><tr><td>エキスパート</td><td data-dungeon-enemies="d4">レッドドラゴン、ブルードラゴン、ホワイトドラゴン、ブラックドラゴン、ゴーストドラゴン</td><td>強力な敵への対策を準備する。</td><td>経験値が2倍になる</td></tr><tr><td>アンドロデン</td><td data-dungeon-enemies="d5">縺ｫ繧?メ繝オル</td><td>ボス戦を想定した装備と編成を準備する。</td><td>なし</td></tr></tbody></table></section>
-<section id="screens">
+<div class="guide-chapter" id="chapter1"><h2>1章. ダンジョンでの戦闘</h2><section id="dungeons"><h2>1. ダンジョン5種類</h2><p class="muted">攻略が簡単な順に、ビギナー → ノービス → ホーリー → エキスパート → アンドロデンと覚えます。</p><div class="dungeon" data-dungeon-id="d1"><h3><span class="rank">★1</span> ビギナーダンジョン</h3><p>序盤向けのダンジョン。<br/><b>系統効果：</b>ドロップ率の分母が1減る</p><p class="small"><b>攻略：</b>基本的な敵から戦闘に慣れる。</p></div><div class="dungeon" data-dungeon-id="d2"><h3><span class="rank">★2</span> ノービスダンジョン</h3><p>ビギナーから一段階上のダンジョン。<br/><b>系統効果：</b>獲得ゴールドが15%上がる</p><p class="small"><b>攻略：</b>敵の攻撃を見ながら各個撃破する。</p></div><div class="dungeon" data-dungeon-id="d3"><h3><span class="rank">★3</span> ホーリーダンジョン</h3><p>経験値稼ぎにも向くダンジョン。<br/><b>系統効果：</b>獲得ガウルがたまに1増える</p><p class="small"><b>攻略：</b>敵の属性や特殊攻撃に注意する。</p></div><div class="dungeon" data-dungeon-id="d4"><h3><span class="rank ex">★4</span> エキスパートダンジョン</h3><p>高難度のダンジョン。<br/><b>系統効果：</b>経験値が2倍になる</p><p class="small"><b>攻略：</b>強力な敵への対策を準備する。</p></div><div class="dungeon" data-dungeon-id="d5"><h3><span class="rank boss">★5</span> アンドロデンダンジョン</h3><p>最上位クラスのダンジョン。<br/><b>系統効果：</b>なし</p><p class="small"><b>攻略：</b>ボス戦を想定した装備と編成を準備する。</p></div><table><tbody><tr><th>種類</th><th>敵</th><th>攻略の位置づけ</th><th>系統効果</th></tr><tr><td>ビギナー</td><td data-dungeon-enemies="d1">スライム、くろいコウモリ、しろいコウモリ、モルモットっぽいねこ、馬刺しになるはずだった馬、こわれたロボット</td><td>基本的な敵から戦闘に慣れる。</td><td>ドロップ率の分母が1減る</td></tr><tr><td>ノービス</td><td data-dungeon-enemies="d2">ふとったいぬ、ツタンカー麺、マリーアンドネット、歩く死体、船の船長、船員</td><td>敵の攻撃を見ながら各個撃破する。</td><td>獲得ゴールドが15%上がる</td></tr><tr><td>ホーリー</td><td data-dungeon-enemies="d3">パラディン、英雄アーサー、雷神ソー</td><td>敵の属性や特殊攻撃に注意する。</td><td>獲得ガウルがたまに1増える</td></tr><tr><td>エキスパート</td><td data-dungeon-enemies="d4">レッドドラゴン、ブルードラゴン、ホワイトドラゴン、ブラックドラゴン、ゴーストドラゴン</td><td>強力な敵への対策を準備する。</td><td>経験値が2倍になる</td></tr><tr><td>アンドロデン</td><td data-dungeon-enemies="d5">縺ｫ繧?メ繝オル</td><td>ボス戦を想定した装備と編成を準備する。</td><td>なし</td></tr></tbody></table></section><section id="screens">
 <h2>2. 実際のゲーム画面で操作を覚える</h2>
 <p>画像は端末のステータスバー・ブラウザUIを取り除き、ゲーム画面だけを独立したゲームUIとして見せています。説明枠は画像の外に配置して、ゲーム内の文字を隠さない構成にしました。</p>
 <div class="game-shot">
@@ -195,22 +194,8 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 <div class="callout"><b>③ 戦闘ログ</b>制覇・ガウル・経験値などを記録。</div>
 </div>
 <div class="notice info"><b>攻略のコツ：</b>ダンジョン欄の下には、判定・戦闘間隔・系統効果などの情報があります。挑戦前にここまで読むと、報酬や条件を把握しやすくなります。</div>
-</section>
-<section id="baptism">
-<h2>3. 洗礼システム</h2>
-<p class="muted">洗礼は、プレイヤーの成長を次の段階へ進めるためのシステムです。洗礼回数に応じてダンジョンLVや最大プレイヤーレベルなどが変化します。</p>
-<div class="grid">
-<div class="card"><h3>ダンジョンLV</h3><p>洗礼回数に応じて最大ダンジョンレベルが上昇します。最大レベルは「20×洗礼回数＋50」。洗礼後は「20×洗礼回数」LVのダンジョンから挑戦できます。バトル終了時には、ダンジョンレベルに応じた経験値倍率が適用されます。</p></div>
-<div class="card"><h3>最大プレイヤーレベル</h3><p>基本の最大レベルは10万レベル。洗礼するごとに最大レベルが1万レベルずつ上昇します。</p></div>
-<div class="card"><h3>必要経験値</h3><p>洗礼回数が増えるほど必要経験値量は増加します。一方、5回目・10回目・20回目の洗礼後は、必要経験値量が比較的少なくなるとされています。</p></div>
-<div class="card"><h3>固有スキル</h3><p>洗礼するたびに固有スキルがランダムで与えられます。別の固有スキルに変更したい場合は、再洗礼券が必要です。</p></div>
-<div class="card"><h3>洗礼条件</h3><p>最大レベルの70％まで到達することが条件です。70％から100％までは約2.5倍の経験値が必要とされています。</p></div>
-<div class="card"><h3>ステータス引き継ぎ</h3><p>洗礼後は、これまでの合計レベルの1/100だけ、全ステータスが引き継がれます。</p></div>
-</div>
-<div class="notice info"><b>ゲーム内確認：</b>アントロデン本体には「洗礼」ボタンがあり、ダンジョン選択・レベル選択などと並ぶゲーム機能として表示されています。</div>
-</section>
-<section id="encyclopedia">
-<h2>4. ダンジョン別・敵・ドロップ品カード図鑑</h2>
+</section></div><div class="guide-chapter" id="chapter2"><h2>2章. ダンジョンの敵の武器</h2><section id="encyclopedia">
+<h2>1. ダンジョン別・敵・ドロップ品カード図鑑</h2>
 <p class="muted">敵カードには、各モブの固有スキル、ドロップ品、ドロップ率、効果詳細を表示します。</p><p class="muted"><b>ダンジョン別獲得経験値：</b>ビギナー 1,620 XP ／ ノービス 4,860 XP ／ ホーリー 16,200 XP ／ エキスパート 36,450 XP ／ アントロデン 24,350 XP</p>
 <div id="viewerEnemyDungeonList"><details class="enemy-dungeon-collapsible" data-dungeon-id="d1" open=""><summary><div class="enemy-dungeon-summary"><span class="{cls}">{rank}</span> <h3>{title}</h3><span class="enemy-count">{len(es)}体</span><p><b>系統効果：</b>{esc(effect)}</p><p class="small">{esc(desc)}</p><p class="small"><b>攻略：</b>{esc(strategy)}</p></div></summary><div class="enemy-dungeon-body"><div class="enemy-cards"><div class="enemy-card"><h4>スライム</h4><p class="enemy-label">固有スキル</p><p>—</p><div class="drop"><b>ドロップ：</b><div class="enemy-drop-item"><b>スライムマント</b> <span>（1/3）</span><br/><span class="small">【防具】DEF+20 やわらかいマント（効果なし）</span></div></div><div class="enemy-stats"><div class="enemy-stat"><b>HP</b><span>90</span></div></div><p class="small"><b>攻略：</b>—</p></div><div class="enemy-card"><h4>くろいコウモリ</h4><p class="enemy-label">固有スキル</p><p>—</p><div class="drop"><b>ドロップ：</b><div class="enemy-drop-item"><b>くろいヘルメット</b> <span>（1/5）</span><br/><span class="small">【防具】DEF+50 坑道でも怖くない（効果なし）</span></div></div><div class="enemy-stats"><div class="enemy-stat"><b>HP</b><span>90</span></div></div><p class="small"><b>攻略：</b>—</p></div><div class="enemy-card"><h4>しろいコウモリ</h4><p class="enemy-label">固有スキル</p><p>—</p><div class="drop"><b>ドロップ：</b><div class="enemy-drop-item"><b>あかるいライト</b> <span>（1/8）</span><br/><span class="small">【武器】ATK+20。1ターンごとに1/15の確率で敵を行動不能にする。強化値ごとに1/(15-0.5×強化値)の確率で相手を麻痺させる。1/3が上限。</span></div></div><div class="enemy-stats"><div class="enemy-stat"><b>HP</b><span>90</span></div></div><p class="small"><b>攻略：</b>—</p></div><div class="enemy-card"><h4>モルモットっぽいねこ</h4><p class="enemy-label">固有スキル</p><p>—</p><div class="drop"><b>ドロップ：</b><div class="enemy-drop-item"><b>爪とひげ</b> <span>（1/5）</span><br/><span class="small">【武器】ATK+50 するどい爪とひげ（効果なし）</span></div></div><div class="enemy-stats"><div class="enemy-stat"><b>HP</b><span>90</span></div></div><p class="small"><b>攻略：</b>—</p></div><div class="enemy-card"><h4>馬刺しになるはずだった馬</h4><p class="enemy-label">固有スキル</p><p>—</p><div class="drop"><b>ドロップ：</b>—</div><div class="enemy-stats"><div class="enemy-stat"><b>HP</b><span>126</span></div></div><p class="small"><b>攻略：</b>—</p></div><div class="enemy-card"><h4>こわれたロボット</h4><p class="enemy-label">固有スキル</p><p>—</p><div class="drop"><b>ドロップ：</b><div class="enemy-drop-item"><b>スタンガン</b> <span>（1/6）</span><br/><span class="small">【武器】ATK+150 『ボル○ッカー』。1ターンごとに1/10の確率で敵全体に攻撃。強化値に確率は依存しない。</span></div></div><div class="enemy-stats"><div class="enemy-stat"><b>HP</b><span>144</span></div></div><p class="small"><b>攻略：</b>—</p></div></div></div></details><details class="enemy-dungeon-collapsible" data-dungeon-id="d2"><summary><div class="enemy-dungeon-summary"><span class="{cls}">{rank}</span> <h3>{title}</h3><span class="enemy-count">{len(es)}体</span><p><b>系統効果：</b>{esc(effect)}</p><p class="small">{esc(desc)}</p><p class="small"><b>攻略：</b>{esc(strategy)}</p></div></summary><div class="enemy-dungeon-body"><div class="enemy-cards"><div class="enemy-card"><h4>ふとったいぬ</h4><p class="enemy-label">固有スキル</p><p>【ステータス？くれてやる。】発動率1/1。ランダムでプレイヤーのステータスのどれかが1~20上がる。</p><div class="drop"><b>ドロップ：</b>—</div><div class="enemy-stats"><div class="enemy-stat"><b>HP</b><span>161</span></div></div><p class="small"><b>攻略：</b>—</p></div><div class="enemy-card"><h4>ツタンカー麺</h4><p class="enemy-label">固有スキル</p><p>—</p><div class="drop"><b>ドロップ：</b><div class="enemy-drop-item"><b>どんぶり</b> <span>（1/15）</span><br/><span class="small">【装身具】獲得ゴールドが2倍になる</span></div></div><div class="enemy-stats"><div class="enemy-stat"><b>HP</b><span>230</span></div></div><p class="small"><b>攻略：</b>—</p></div><div class="enemy-card"><h4>マリーアンドネット</h4><p class="enemy-label">固有スキル</p><p>【私と一緒に踊りましょう】スキル発動率1/10。獲得ゴールドが1.5倍になる。</p><div class="drop"><b>ドロップ：</b>—</div><div class="enemy-stats"><div class="enemy-stat"><b>HP</b><span>—</span></div></div><p class="small"><b>攻略：</b>—</p></div><div class="enemy-card"><h4>歩く死体</h4><p class="enemy-label">固有スキル</p><p>—</p><div class="drop"><b>ドロップ：</b>—</div><div class="enemy-stats"><div class="enemy-stat"><b>HP</b><span>230</span></div></div><p class="small"><b>攻略：</b>—</p></div><div class="enemy-card"><h4>船の船長</h4><p class="enemy-label">固有スキル</p><p>—</p><div class="drop"><b>ドロップ：</b><div class="enemy-drop-item"><b>救命胴衣</b> <span>（1/20）</span><br/><span class="small">【防具】DEF+500 これを着て（効果はなし）</span></div></div><div class="enemy-stats"><div class="enemy-stat"><b>HP</b><span>345</span></div></div><p class="small"><b>攻略：</b>—</p></div><div class="enemy-card"><h4>船員</h4><p class="enemy-label">固有スキル</p><p>—</p><div class="drop"><b>ドロップ：</b>—</div><div class="enemy-stats"><div class="enemy-stat"><b>HP</b><span>230</span></div></div><p class="small"><b>攻略：</b>—</p></div></div></div></details><details class="enemy-dungeon-collapsible" data-dungeon-id="d3"><summary><div class="enemy-dungeon-summary"><span class="{cls}">{rank}</span> <h3>{title}</h3><span class="enemy-count">{len(es)}体</span><p><b>系統効果：</b>{esc(effect)}</p><p class="small">{esc(desc)}</p><p class="small"><b>攻略：</b>{esc(strategy)}</p></div></summary><div class="enemy-dungeon-body"><div class="enemy-cards"><div class="enemy-card"><h4>パラディン</h4><p class="enemy-label">固有スキル</p><p>【詠唱】スキル発動率1/1。相手に魔法ダメージ</p><div class="drop"><b>ドロップ：</b><div class="enemy-drop-item"><b>魔術師のコート</b> <span>（1/35）</span><br/><span class="small">【防具】DEF+3000。一度体力が全体ステータスの30％以下になった時、全回復する。</span></div></div><div class="enemy-stats"><div class="enemy-stat"><b>HP</b><span>1,100</span></div></div><p class="small"><b>攻略：</b>—</p></div><div class="enemy-card"><h4>英雄アーサー</h4><p class="enemy-label">固有スキル</p><p>【剣の奏でるハーモニー】スキル発動率1/1。相手に物理ダメージ</p><div class="drop"><b>ドロップ：</b><div class="enemy-drop-item"><b>エクスカリバー</b> <span>（1/333）</span><br/><span class="small">【武器】ATK+7777。1ターン目に自分に英雄状態を付与した後、1/(17-1×強化値)（最大1/1）の確率で相手の最大HPを（最大HPの50〜50＋強化値×3）の中のランダムなパーセントで（最大95％）削る。どんな手段でも相手はこれを回復できない。削られた分の相手のHPバーは白黒で削られる。また、英雄状態を解かれると、相手のHPを削ることはできない。</span></div></div><div class="enemy-stats"><div class="enemy-stat"><b>HP</b><span>2,640</span></div></div><p class="small"><b>攻略：</b>—</p></div><div class="enemy-card"><h4>雷神ソー</h4><p class="enemy-label">固有スキル</p><p>【怒りのいかづち】1/5の確率で即死</p><div class="drop"><b>ドロップ：</b><div class="enemy-drop-item"><b>ムジョルニア</b> <span>（1/100）</span><br/><span class="small">【武器】ATK+8000。全体攻撃になる。また、1/9の確率で雷を呼び起こし敵全体に大ダメージ、また、英雄状態を解くことができる。</span></div></div><div class="enemy-stats"><div class="enemy-stat"><b>HP</b><span>2,200</span></div></div><p class="small"><b>攻略：</b>—</p></div></div></div></details><details class="enemy-dungeon-collapsible" data-dungeon-id="d4"><summary><div class="enemy-dungeon-summary"><span class="{cls}">{rank}</span> <h3>{title}</h3><span class="enemy-count">{len(es)}体</span><p><b>系統効果：</b>{esc(effect)}</p><p class="small">{esc(desc)}</p><p class="small"><b>攻略：</b>{esc(strategy)}</p></div></summary><div class="enemy-dungeon-body"><div class="enemy-cards"><div class="enemy-card"><h4>レッドドラゴン</h4><p class="enemy-label">固有スキル</p><p>【仲間を呼ぶ】毎ターンチビドラゴンを召喚する。</p><div class="drop"><b>ドロップ：</b><div class="enemy-drop-item"><b>炎の翼</b> <span>（1/30）</span><br/><span class="small">合成素材</span></div></div><div class="enemy-stats"><div class="enemy-stat"><b>HP</b><span>3,200</span></div></div><p class="small"><b>攻略：</b>—</p></div><div class="enemy-card"><h4>ブルードラゴン</h4><p class="enemy-label">固有スキル</p><p>【仲間を呼ぶ】毎ターンチビドラゴンを召喚する。</p><div class="drop"><b>ドロップ：</b><div class="enemy-drop-item"><b>氷の翼</b> <span>（1/30）</span><br/><span class="small">合成素材</span></div></div><div class="enemy-stats"><div class="enemy-stat"><b>HP</b><span>3,200</span></div></div><p class="small"><b>攻略：</b>—</p></div><div class="enemy-card"><h4>ホワイトドラゴン</h4><p class="enemy-label">固有スキル</p><p>【仲間を呼ぶ】毎ターンチビドラゴンを召喚する。</p><div class="drop"><b>ドロップ：</b><div class="enemy-drop-item"><b>光の翼</b> <span>（1/30）</span><br/><span class="small">合成素材</span></div></div><div class="enemy-stats"><div class="enemy-stat"><b>HP</b><span>3,200</span></div></div><p class="small"><b>攻略：</b>—</p></div><div class="enemy-card"><h4>ブラックドラゴン</h4><p class="enemy-label">固有スキル</p><p>【仲間を呼ぶ】毎ターンチビドラゴンを召喚する。</p><div class="drop"><b>ドロップ：</b><div class="enemy-drop-item"><b>闇の翼</b> <span>（1/30）</span><br/><span class="small">合成素材</span></div></div><div class="enemy-stats"><div class="enemy-stat"><b>HP</b><span>3,200</span></div></div><p class="small"><b>攻略：</b>—</p></div><div class="enemy-card"><h4>ゴーストドラゴン</h4><p class="enemy-label">固有スキル</p><p>【仲間を呼ぶ】毎ターンチビドラゴンを召喚する。</p><div class="drop"><b>ドロップ：</b><div class="enemy-drop-item"><b>ドラゴンのたましい</b> <span>（1/50）</span><br/><span class="small">合成素材</span></div></div><div class="enemy-stats"><div class="enemy-stat"><b>HP</b><span>4,480</span></div></div><p class="small"><b>攻略：</b>—</p></div></div></div></details><details class="enemy-dungeon-collapsible" data-dungeon-id="d5"><summary><div class="enemy-dungeon-summary"><span class="{cls}">{rank}</span> <h3>{title}</h3><span class="enemy-count">{len(es)}体</span><p><b>系統効果：</b>{esc(effect)}</p><p class="small">{esc(desc)}</p><p class="small"><b>攻略：</b>{esc(strategy)}</p></div></summary><div class="enemy-dungeon-body"><div class="enemy-cards"><div class="enemy-card"><h4>縺ｫ繧?メ繝オル</h4><p class="enemy-label">固有スキル</p><p>【ドッペルゲンガー】自分と全く同じステータスの敵になる。</p><div class="drop"><b>ドロップ：</b><div class="enemy-drop-item"><b>チタンのペンダント</b> <span>（1/99）</span><br/><span class="small">【装身具】洗礼された数だけ強くなる。（1.1の(洗礼回数)乗分、全ステータスが強化される）</span></div></div><div class="enemy-stats"><div class="enemy-stat"><b>HP</b><span>300</span></div></div><p class="small"><b>攻略：</b>—</p></div></div></div></details></div><div class="notice info" style="margin-top:14px">
 <b>統合表示：</b>「ダンジョン別敵図鑑」と「敵・ドロップ品カード」を分離せず、各ダンジョンの中に敵カード、その中に全ドロップ品をまとめています。
@@ -225,17 +210,15 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 <div class="notice info" style="margin-top:14px">
 <b>カード表示について：</b>「ドロップアイテムが存在しない」、「未確認」の箇所は「＿」などで表示しています。
 </div>
-</section>
-<section id="drop">
-<h2>5. ドロップ・報酬を見る場所</h2>
+</section><section id="drop">
+<h2>2. ドロップ・報酬を見る場所</h2>
 <div class="grid">
 <div class="card"><h3>通常報酬</h3><p>戦闘ログに表示されるガウル・経験値などを確認します。</p></div>
 <div class="card"><h3>レアドロップ</h3><p>アイテム名がログに現れたら、倉庫と合わせて確認。欲しいアイテムの周回記録を残します。</p></div>
 <div class="card"><h3>周回</h3><p>ダンジョンLvと報酬をセットで記録すると、どこを回るべきか比較しやすくなります。</p></div>
 </div>
-</section>
-<section id="guild">
-<h2>6. ギルド・同盟の使い方</h2>
+</section></div><div class="guide-chapter" id="chapter3"><h2>3章. ギルドシステムと領地</h2><section id="guild">
+<h2>1. ギルド・同盟の使い方</h2>
 <p>ギルドは、プレイヤーが所属してチャット・ギルド戦・砦・領地を共有するための単位です。ゲーム画面上部の「ギルド」から一覧を開けます。市場・郵便・ギルド・ワールドは全プレイヤーで共有されています。チャットには「全体」「王国」「取引」「ギルド」「DM」の5チャンネルが用意されています。</p>
 <div class="game-shot">
 <div class="titlebar"><span><span class="dot"></span>GUILD / LIST VIEW</span><span>公式ゲーム・ログイン後</span></div>
@@ -259,7 +242,6 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 </div>
 <h3>同盟システム</h3>
 <p>同盟はギルド間で結ぶ外交関係です。公式ゲームの実装上、同盟はギルド名を指定して申し込み、期間を<strong>1〜30日</strong>で設定します。相手側が承認すると成立し、申請中は取り下げ／却下、成立後は双方の合意による早期解消が可能です。相手ギルドの承認が必要な操作と、マスター等の権限が必要な操作があるため、ボタンが表示されない場合は権限または状態を確認します。</p>
-
 <h3>ギルド／同盟の実戦チェックリスト</h3>
 <div class="steps">
 <div class="step"><div class="num">1</div><div><b>ギルド一覧で条件を比較</b><br/>ギルドLv、在籍人数／30人、申請制、戦功、マスターを確認し、自分のプレイ方針に合うギルドを選びます。</div></div>
@@ -267,9 +249,8 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 <div class="step"><div class="num">3</div><div><b>同盟相手と期間を合意</b><br/>相手ギルド名を指定し、1〜30日の期間を決めて申請。相手の承認後に成立するため、期間と目的をチャットで共有します。</div></div>
 <div class="step"><div class="num">4</div><div><b>砦・領地の作戦を共有</b><br/>座標、地形、占領状態、建設可否、砦の耐久を記録し、ギルド内と同盟先へ必要な範囲だけ伝えます。</div></div>
 </div>
-</section>
-<section id="fortress">
-<h2>7. 要塞・領地の読み方</h2>
+</section><section id="fortress">
+<h2>2. 要塞・領地の読み方</h2>
 <p>ワールド画面には、座標入力と移動、ミニマップ、凡例、世界大戦の占領率と次回までの時間、そして「王宮」「自要塞」「建設」「領地」「戻る」の操作があります。マップ上の土地をタップすると詳細パネルが開き、地形、王宮までの距離、建設可否、効果、占領・進軍などの操作ができます。</p>
 <div class="game-shot">
 <div class="titlebar"><span><span class="dot"></span>GUILD / WORLD MAP VIEW</span><span>公式ゲーム・ログイン後</span></div>
@@ -288,9 +269,20 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 </ul>
 </div>
 <div class="notice danger"><b>重要：</b>占領率や戦功の意味、同盟中の補正、役職別の建設・進軍権限はアップデートで変わる可能性があります。Wikiでは、現在のゲーム画面に表示された値と公式更新欄を優先し、古い攻略情報を固定値として扱わないでください。</div>
-</section>
-<section id="item-systems">
-<h2>8. アイテム・強化・合成システム</h2>
+</section></div><div class="guide-chapter" id="chapter4"><h2>4章. 洗礼とアイテム強化</h2><section id="baptism">
+<h2>1. 洗礼システム</h2>
+<p class="muted">洗礼は、プレイヤーの成長を次の段階へ進めるためのシステムです。洗礼回数に応じてダンジョンLVや最大プレイヤーレベルなどが変化します。</p>
+<div class="grid">
+<div class="card"><h3>ダンジョンLV</h3><p>洗礼回数に応じて最大ダンジョンレベルが上昇します。最大レベルは「20×洗礼回数＋50」。洗礼後は「20×洗礼回数」LVのダンジョンから挑戦できます。バトル終了時には、ダンジョンレベルに応じた経験値倍率が適用されます。</p></div>
+<div class="card"><h3>最大プレイヤーレベル</h3><p>基本の最大レベルは10万レベル。洗礼するごとに最大レベルが1万レベルずつ上昇します。</p></div>
+<div class="card"><h3>必要経験値</h3><p>洗礼回数が増えるほど必要経験値量は増加します。一方、5回目・10回目・20回目の洗礼後は、必要経験値量が比較的少なくなるとされています。</p></div>
+<div class="card"><h3>固有スキル</h3><p>洗礼するたびに固有スキルがランダムで与えられます。別の固有スキルに変更したい場合は、再洗礼券が必要です。</p></div>
+<div class="card"><h3>洗礼条件</h3><p>最大レベルの70％まで到達することが条件です。70％から100％までは約2.5倍の経験値が必要とされています。</p></div>
+<div class="card"><h3>ステータス引き継ぎ</h3><p>洗礼後は、これまでの合計レベルの1/100だけ、全ステータスが引き継がれます。</p></div>
+</div>
+<div class="notice info"><b>ゲーム内確認：</b>アントロデン本体には「洗礼」ボタンがあり、ダンジョン選択・レベル選択などと並ぶゲーム機能として表示されています。</div>
+</section><section id="item-systems">
+<h2>2. アイテム・強化・合成システム</h2>
 <p>アイテムはダンジョンのドロップや合成、ショップなどから入手します。強化値や合成素材を確認し、装備の成長と素材集めを計画しましょう。</p>
 <div class="grid">
 <div class="card"><h3>強化</h3><p>同じ強化値のアイテムを2つ合わせることで、強化値を1段階上げられます。成功率は<strong>（100 − 強化値 × 5）％</strong>です。強化後のATKまたはDEFは、無強化時の値に<strong>（強化値＋1）</strong>を掛けた値になります。</p></div>
@@ -298,9 +290,8 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 <div class="card"><h3>ドラゴンソウル</h3><p><strong>DEF＋9999</strong>の装備です。ショップで<strong>3000ガウル</strong>で購入できますが、ドラゴン系の素材を1つずつ集めることが必要です。</p></div>
 </div>
 <div class="notice info"><b>素材集めの目安：</b>エキスパートでは炎の翼、氷の翼、光の翼、闇の翼、ドラゴンのたましいが合成素材としてドロップします。合成やドラゴンソウル購入を目指す場合は、必要素材を倉庫で確認しながら周回します。</div>
-</section>
-<section id="paid-items">
-<h2>9. 課金アイテム</h2>
+</section></div><div class="guide-chapter" id="chapter5"><h2>5章. その他</h2><section id="paid-items">
+<h2>1. 課金アイテム</h2>
 <p class="muted">ゲームを攻略するのに有利な課金アイテムの一覧です。</p>
 <div class="grid">
 <div class="card"><h3>行動時間半減券</h3><p><b>効果：</b>一定期間、行動時間を半減します。</p></div>
@@ -310,9 +301,8 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 <div class="card"><h3>保釈券</h3><p><b>効果：</b>捕虜収容所から抜け出せます。ギルドの仲間を助け出すこともできます。郵便で届きます。</p></div>
 <div class="card"><h3>呪い解除券</h3><p><b>効果：</b>処刑で受けた呪い（世界大戦中に全ステータス30％減）を消します。郵便で届きます。</p></div>
 </div>
-</section>
-<section id="progress">
-<h2>10. 初心者のおすすめ進行</h2>
+</section><section id="progress">
+<h2>2. 初心者のおすすめ進行</h2>
 <div class="grid">
 <div class="card"><h3>STEP 1</h3><p>ビギナーで操作を覚える</p></div>
 <div class="card"><h3>STEP 2</h3><p>ノービス → ホーリー</p></div>
@@ -321,10 +311,8 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 <div class="card"><h3>STEP 5</h3><p>アンドロデンのボス攻略を目指す</p></div>
 <div class="card"><h3>STEP 6</h3><p>ワールド・領地・要塞を覚える</p></div>
 </div>
-</section>
-</main>
-<section id="contribute">
-<h2>11. チュートリアルサイトを改善する</h2>
+</section><section id="contribute">
+<h2>3. チュートリアルサイトを改善する</h2>
 <div class="pr-box">
 <h3>開発者にプルリクエストを送る</h3>
 <p>「敵の情報を追加してほしい」「説明を修正したい」「UIを改善したい」など、サイトの改善案をGitHub経由で開発者に送れます。</p>
@@ -356,9 +344,20 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
       <br/>※GitHubへのログインや認証はGitHub公式画面で行います。このサイトにはGitHubのパスワードやアクセストークンを入力しません。
     </div>
 </div>
-</section>
+</section></div>
+
+
+
+
+
+
+
+
+
+</main>
+
 <section id="history">
-<h2>12. 更新履歴</h2>
+<h2>更新履歴</h2>
 <p class="muted">チュートリアルサイトの更新内容を、開発者がここに追記して閲覧者へ公開できます。</p>
 <div class="history-list"><div class="history-item"><h3>V8.0</h3><div class="history-meta">2026-08-27</div><div>敵カードなど色々アップデート</div></div><div class="history-item"><h3>V8.0</h3><div class="history-meta">2026-08-27</div><div>敵カードなど色々アップデート</div></div><div class="history-item"><h3>V8.0</h3><div class="history-meta">2026-08-27</div><div>敵カードなど色々アップデート</div></div>
 <div class="history-item"><h3>v6.0 — PRフォーム・更新履歴を追加</h3><div class="history-meta">2026-08-26</div><div>閲覧者が改善内容を入力してGitHubへ送れるPRフォームと、更新履歴セクションを追加しました。</div></div>
@@ -368,7 +367,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 <div class="notice info"><b>開発者向け：</b>新しい更新を公開したら、この欄に「バージョン・日付・変更内容」を追記してコミットしてください。</div>
 </section>
 <section id="developer-admin">
-<h2>13. 開発者管理画面</h2><div class="notice info"><b>管理対象：</b>ダンジョン、敵、ドロップ品、攻略情報、更新履歴を一つの管理画面から編集できます。</div>
+<h2>開発者管理画面</h2><div class="notice info"><b>管理対象：</b>ダンジョン、敵、ドロップ品、攻略情報、更新履歴を一つの管理画面から編集できます。</div>
 <div class="admin-gate">
 <h3>🔐 開発者ログイン</h3>
 <p class="small">この管理画面は、サイトの編集・更新履歴管理・GitHubへの反映をまとめて行うための画面です。</p>
