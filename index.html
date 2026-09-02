@@ -1676,11 +1676,22 @@ window.renderUntroddentViewerFromPublishedData=renderAllFromPublished;
     const n=i+1;
     return n===4?' ex':(n===5?' boss':'');
   }
+  const SPAWN_RATES={
+    "スライム":"30%","くろいコウモリ":"24%","しろいコウモリ":"18%",
+    "馬刺しになるはずだった馬":"12%","モルモットっぽいねこ":"10%","こわれたロボット":"6%",
+    "ふとったいぬ":"14%","ツタンカー猫":"16%","マリーアンドネット":"16%",
+    "歩く死体":"24%","船の船長":"12%","船員":"18%",
+    "パラディン":"64%","英雄アーサー":"9%","雷神ソー":"15%",
+    "八岐大蛇":"6%","クロノス":"6%","レッドドラゴン":"22%",
+    "ブルードラゴン":"22%","ホワイトドラゴン":"22%","ブラックドラゴン":"22%",
+    "ゴーストドラゴン":"11%"
+  };
   function enemyCard(e){
     const drops=normalizeDrops(e);
     const skill=e.skill||"—";
     const strategy=e.strategy||"—";
-    const stats=[['HP',e.hp],['ATK',e.atk],['DEF',e.def],['SPD',e.spd],['EXP',e.exp],['GOLD',e.gold]]
+    const spawnRate=SPAWN_RATES[String(e.name||'').trim()];
+    const stats=[['HP',e.hp],['ATK',e.atk],['DEF',e.def],['SPD',e.spd],['EXP',e.exp],['GOLD',e.gold],['スポーン率',spawnRate]]
       .filter(x=>x[1]!==undefined && x[1]!==null && String(x[1]).trim()!=="");
     let html='<div class="enemy-card">';
     if(e.image){ html+='<img src="'+esc(e.image)+'" alt="'+esc(e.name||'敵')+'" style="width:100%;max-height:180px;object-fit:contain;border-radius:7px;margin-bottom:9px">'; }
