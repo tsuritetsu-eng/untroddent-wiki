@@ -4,33 +4,51 @@
 
 `index.html` に左上の「AI攻略チャット」ボタンとチャット画面を追加しました。ブラウザからNVIDIA APIを直接呼ばず、`window.UNTRODDENT_AI_ENDPOINT`で指定したサーバー側APIへ質問を送ります。APIキーはHTMLへ保存しません。
 
-## NVIDIA Buildで確認すること
+Python版の中継APIは `api/server.py` です。提示されたNVIDIA Buildのストリーミング方式を使い、APIキーは環境変数から読み込みます。
 
-1. [NVIDIA Build](https://build.nvidia.com/)でログインする。
-2. 使用モデルのページを開き、Model IDを確認する。既定値は `nvidia/nemotron-3-super-120b-a12b` です。
-3. [API Keys](https://build.nvidia.com/settings/api-keys)でAPIキーを発行する。
-4. APIキーはサーバー側の秘密情報 `NVIDIA_API_KEY` として登録する。
+## NVIDIA APIキーについて
 
-## API中継サーバーの例（Cloudflare Workers）
+今回のメッセージにAPIキーが平文で含まれているため、そのキーは**漏えいしたものとして直ちにNVIDIA Buildで無効化し、新しいキーを発行**してください。新しいキーをソースコード、GitHub、ブラウザ側JavaScriptへ書き込まないでください。
 
-`api/worker.js` はCloudflare Workers用の中継サーバーです。CloudflareのWorkerを作成し、ファイルをデプロイした後、Secretsに次を登録します。
+## Python APIの起動
 
-- `NVIDIA_API_KEY`: NVIDIA Buildで発行したキー
-- `NVIDIA_MODEL`: 任意。未設定なら `nvidia/nemotron-3-super-120b-a12b`
-- `ALLOWED_ORIGIN`: `https://tsuritetsu-eng.github.io`
+リポジトリのルートで次を実行します。
 
-Workerの公開URLを、index.htmlの `</head>` より前などに次の設定として追加してください。
-
-```html
-<script>window.UNTRODDENT_AI_ENDPOINT = "https://あなたのworker.example.workers.dev";</script>
+```bash
+python3 -m venv .venv
+. .venv/bin/activate
+pip install -r api/requirements.txt
+export NVIDIA_API_KEY='NVIDIA Buildで再発行したキー'
+export ALLOWED_ORIGIN='https://tsuritetsu-eng.github.io'
+python api/server.py
 ```
 
-設定後に質問を送信し、回答が返ることを確認します。Worker側でWiki本文を参照させる場合は、後からWikiデータのJSONを取得してプロンプトへ追加できます。現時点では、モデルが持つ知識だけで断定しないよう安全側の指示を設定しています。
+Windows PowerShellの場合は次のようにします。
 
-## GitHub Pages
+```powershell
+$env:NVIDIA_API_KEY = "NVIDIA Buildで再発行したキー"
+$env:ALLOWED_ORIGIN = "https://tsuritetsu-eng.github.io"
+python api/server.py
+```
 
-`index.html` を `main` ブランチへpushすれば、既存のGitHub Pages設定で公開されます。GitHubリポジトリの **Settings → Pages** で、Sourceが `Deploy from a branch`、Branchが `main` / `/ (root)` になっていることを確認してください。
+既定のモデルは `nvidia/nemotron-3-super-120b-a12b` です。変更する場合は次の環境変数を設定します。
+
+```bash
+export NVIDIA_MODEL='nvidia/nemotron-3-super-120b-a12b'
+```
+
+公開サーバーへデプロイした後、公開されたAPI URLを `index.html` のAIチャット設定に登録します。
+
+```html
+<script>
+  window.UNTRODDENT_AI_ENDPOINT = "https://あなたのAPI.example.com/api/ask";
+</script>
+```
+
+この設定はGitHub Pagesへpushする前に追加してください。APIサーバーはHTTPSで公開し、環境変数として `NVIDIA_API_KEY` を登録します。
 
 ## 注意
 
-NVIDIA APIキーやGitHubトークンを `index.html`、公開JavaScript、GitHub PagesのHTMLに記載しないでください。APIキーが未設定の場合、画面にはサーバー側API URL未設定のエラーが表示されます。
+GitHub Pagesは静的サイトなので、Python Flaskサーバー自体をGitHub Pagesで実行することはできません。GitHub Pagesには画面を置き、Python APIはRender、Railway、Fly.io、Cloud Runなどのサーバー環境へ別途デプロイしてください。
+
+APIキーやGitHubトークンを `index.html`、公開JavaScript、GitHub PagesのHTMLに記載しないでください。
