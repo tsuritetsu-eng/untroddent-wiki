@@ -132,7 +132,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
     try{if(!API_ENDPOINT)throw new Error("AI_ENDPOINT未設定。サーバー側のAPI URLを設定してください。");var r=await fetch(API_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({question:question,pageUrl:location.href,wikiContext:(()=>{const m=document.querySelector("main");if(!m)return "";const ds=[...m.querySelectorAll("details")];const states=ds.map(d=>d.open);ds.forEach(d=>d.open=true);const t=m.innerText;ds.forEach((d,i)=>d.open=states[i]);return t.slice(0,200000)})()})});var data=await r.json().catch(function(){return{}});if(!r.ok)throw new Error(data.error||"APIエラー（"+r.status+"）");waiting.textContent=data.answer||"回答を取得できませんでした。"}catch(err){waiting.classList.add("untroddent-ai-error");waiting.textContent="接続できませんでした。管理者に確認してください。\n("+err.message+")"}finally{send.disabled=false;input.focus()}
   });
 })();</script>
-<header><nav><div class="logo">UNTRODDENT GUIDE</div><details class="site-menu"><summary>☰ メニュー</summary><div class="site-menu-panel"><a href="#chapter1">1章. ダンジョンでの戦闘</a><a class="chapter-subshortcut" href="#dungeons">　1. ダンジョン5種類</a><a class="chapter-subshortcut" href="#screens">　2. 実際のゲーム画面で操作を覚える</a><a href="#chapter2">2章. ダンジョンの敵の武器</a><a class="chapter-subshortcut" href="#encyclopedia">　1. ダンジョン別・敵・ドロップ品カード図鑑</a><a class="chapter-subshortcut" href="#drop">　2. ドロップ・報酬を見る場所</a><a href="#chapter3">3章. ギルドシステムと領地</a><a class="chapter-subshortcut" href="#guild">　1. ギルド・同盟の使い方</a><a class="chapter-subshortcut" href="#fortress">　2. 要塞・領地の読み方</a><a class="chapter-subshortcut" href="#fortress-research">　3. 要塞・拠点の研究と兵器開発</a><a class="chapter-subshortcut" href="#guild-map-systems">　4. ギルドマップの各システム</a><a href="#chapter4">4章. 洗礼とアイテム強化</a><a class="chapter-subshortcut" href="#baptism">　1. 洗礼システム</a><a class="chapter-subshortcut" href="#item-systems">　2. アイテム・強化・合成システム</a><a href="#chapter5">5章. その他</a><a class="chapter-subshortcut" href="#paid-items">　1. 課金アイテム</a><a class="chapter-subshortcut" href="#progress">　2. 初心者のおすすめ進行</a><a href="#history">更新履歴</a></div></details></nav></header>
+<header><nav><div class="logo">UNTRODDENT GUIDE</div><details class="site-menu"><summary>☰ メニュー</summary><div class="site-menu-panel"><a href="#chapter1">1章. ダンジョンでの戦闘</a><a class="chapter-subshortcut" href="#dungeons">　1. ダンジョン5種類</a><a class="chapter-subshortcut" href="#screens">　2. 実際のゲーム画面で操作を覚える</a><a href="#chapter2">2章. ダンジョンの敵の武器</a><a class="chapter-subshortcut" href="#encyclopedia">　1. ダンジョン別・敵・ドロップ品カード図鑑</a><a class="chapter-subshortcut" href="#drop">　2. ドロップ・報酬を見る場所</a><a href="#chapter3">3章. ギルドシステムと領地</a><a class="chapter-subshortcut" href="#guild">　1. ギルド・同盟の使い方</a><a class="chapter-subshortcut" href="#fortress">　2. 要塞・領地の読み方</a><a class="chapter-subshortcut" href="#guild-map-systems">　2-1. ギルドマップの各システム</a><a class="chapter-subshortcut" href="#fortress-research">　3. 要塞・拠点の研究と兵器開発</a><a href="#chapter4">4章. 洗礼とアイテム強化</a><a class="chapter-subshortcut" href="#baptism">　1. 洗礼システム</a><a class="chapter-subshortcut" href="#item-systems">　2. アイテム・強化・合成システム</a><a href="#chapter5">5章. その他</a><a class="chapter-subshortcut" href="#paid-items">　1. 課金アイテム</a><a class="chapter-subshortcut" href="#progress">　2. 初心者のおすすめ進行</a><a href="#history">更新履歴</a></div></details></nav></header>
 <div class="hero">
 <span class="badge">実画面チュートリアル・クリーン表示版</span>
 <h1>実際のゲーム画面で<br/>アントロデンを覚える</h1>
@@ -242,26 +242,7 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 </ul>
 </div>
 <div class="notice danger"><b>重要：</b>占領率や戦功の意味、同盟中の補正、役職別の建設・進軍権限はアップデートで変わる可能性があります。Wikiでは、現在のゲーム画面に表示された値と公式更新欄を優先し、古い攻略情報を固定値として扱わないでください。</div>
-</section><section id="fortress-research">
-<h2>3. 要塞・拠点の研究と兵器開発</h2>
-<p>ここでは、上の要塞・領地の基本操作に加えて、「資源を集める → 拠点研究または兵器生成へ回す」という内政面をまとめます。数値や解放条件はアップデートやアカウント状態で変わるため、最終的にはゲーム画面の表示を優先してください。</p>
-<div class="notice info"><b>研究ツリーの4タブ：</b>研究画面の上部には「偵察強化」「兵器生成」「耐久強化」「衛兵強化」の4タブが横並びで表示されます。タブごとに現在レベル、ノード、効果説明、進行度、必要資源、所要時間、研究ボタンが切り替わります。研究中は対象・次レベル・残り時間・研究1時間短縮券の案内を確認でき、別の研究を同時には進められません。</div>
-<div class="grid">
-<div class="card"><h3>資源ノード</h3><p><b>鉱脈：</b>マスの上で野営すると鉱石が5分に1つ貯まり、上限は999個。鉱石は拠点研究に使われます。<br/><b>油田：</b>同じく野営中に石油が5分に1つ貯まり、上限は999個。鉱石とは別の資源として管理されます。拠点研究ボタンに表示される主な必要資源は鉱石で、石油の用途はゲーム内の最新表示を優先します。</p></div>
-<div class="card"><h3>拠点で確認する項目</h3><p>座標、耐久・最大耐久、バリア状態、衛兵レベル、耐久研究レベル、偵察研究レベルに加え、鉱石・石油・ガウルの所持数を確認できます。資源を回収した後は、拠点詳細で所持数が更新されたか確認します。</p></div>
-<div class="card"><h3>研究の3系統</h3><p><b>衛兵強化：</b>拠点防衛力を高める。<br/><b>耐久強化：</b>拠点の最大耐久を高める。<br/><b>偵察強化：</b>敵拠点などの情報を調べる機能を強化する。研究費用はガウル・鉱石・ゴールドで表示され、系統ごとに同時進行はできません。</p></div>
-</div>
-<h3>兵器生成の研究ツリー</h3>
-<p>研究画面の「兵器生成」タブでは、兵器工廠を起点に前提ノードを順番に解放します。未解放ノードは鍵アイコンで表示され、名称、効果、進行度、必要資源、所要時間を確認してから研究を開始します。</p>
-<details class="enemy-dungeon-collapsible" style="margin-top:18px"><summary><div class="enemy-dungeon-summary"><h3>兵器生成の研究ツリー表</h3><p>クリックして表を表示</p></div></summary><div class="enemy-dungeon-body"><table><tbody><tr><th>開発ノード</th><th>確認できた効果</th><th>進行上の位置</th></tr>
-<tr><td>兵器工廠</td><td>兵器研究を解禁する起点。テスト画面ではLv1、進行度0/1、必要量「ガ8・鉱32・油8・G6万」、所要時間5分と表示。</td><td>最初に解放</td></tr>
-<tr><td>戦車開発</td><td>戦車を生産でき、段階ごとに攻撃力が上がる。</td><td>兵器工廠の下流、進行度0/5表示</td></tr>
-<tr><td>偵察機改良</td><td>偵察機の速度が上がる。</td><td>兵器工廠の下流、進行度0/5表示</td></tr>
-<tr><td>造船所</td><td>戦艦を生産でき、段階ごとに攻撃力が上がる。</td><td>兵器工廠の下流、進行度0/5表示</td></tr>
-<tr><td>重装甲</td><td>戦車の耐久が上がる。</td><td>戦車開発2段が前提、進行度0/5表示</td></tr>
-</tbody></table></div></details>
-<details class="enemy-dungeon-collapsible" style="margin-top:18px"><summary><div class="enemy-dungeon-summary"><h3>派生ノードと研究の進め方</h3><p>クリックして詳細を表示</p></div></summary><div class="enemy-dungeon-body"><p><b>派生強化：</b>偵察機改良から「高高度飛行」（偵察機の石油消費−3／段）、造船所から「巡航エンジン」（戦艦の耐久・回収量UP）が派生します。まず前提ノードを解放し、必要資源と所要時間が揃ったものから順に進めます。</p><p><b>開始から完了まで：</b>①「自要塞」から自分の拠点へ移動 → ②研究を開いて系統タブを選択 → ③現在Lv・次レベル・ガウル・鉱石・ゴールド・所要時間を確認 → ④条件を満たして研究開始 → ⑤対象と残り時間を確認して完了を待つ → ⑥完了後に衛兵Lv、耐久研究Lv、偵察研究Lv、拠点耐久や偵察情報の変化を再確認、の順です。</p><p><b>運用の目安：</b>敵の進軍が予想されるときは衛兵・耐久、敵拠点の情報が必要なときは偵察を優先します。資源回収役と防衛役を分担し、研究開始前にガウル・鉱石・ゴールドをまとめて確認します。</p></div></details>
-</section><section id="guild-map-systems">
+<div id="guild-map-systems" class="integrated-map-systems">
 <h2>4. ギルドマップの各システム</h2>
 <p>マップでは、座標移動、地形効果、資源回収、野営・駐屯、占領、建設、進軍、偵察、世界大戦、チャットを同じ画面で判断します。対象マスを選んだときに表示される操作だけが実行可能です。</p>
 <div class="grid">
@@ -288,9 +269,26 @@ footer{border-top:1px solid var(--line);margin-top:70px;padding:35px 18px;text-a
 <div class="step"><div class="num">3</div><div><b>野営・駐屯・占領・建設から選ぶ</b><br/><span class="muted">資源回収ならノード上で野営、防衛なら駐屯、領地拡大なら占領または建設を選びます。</span></div></div>
 <div class="step"><div class="num">4</div><div><b>進軍前に経路と同行者を確認</b><br/><span class="muted">進軍は移動と異なり仲間を同行できますが、出撃中や捕虜状態のメンバーは選べません。通常移動の1マス2.5秒に対し、進軍は1マス5秒です。敵の占領地に入る経路では戦闘が発生します。</span></div></div>
 </div>
-<div class="notice info"><b>チャットの使い分け：</b>マップ画面の全体・王国・取引・ギルド・DMを使い分け、資源ノードの位置、鉱石の所持数、敵拠点の座標、要塞の耐久、修復担当、マップ更新や資源ノード出現を必要な範囲で共有します。王宮画面では世界大戦の占領率と次回更新までの時間も確認できます。</div>
-
-</section></div><div class="guide-chapter" id="chapter4"><h2>4章. 洗礼とアイテム強化</h2><section id="baptism">
+<div class="notice info"><b>チャットの使い分け：</b>マップ画面の全体・王国・取引・ギルド・DMを使い分け、資源ノードの位置、鉱石の所持数、敵拠点の座標、要塞の耐久、修復担当、マップ更新や資源ノード出現を必要な範囲で共有します。王宮画面では世界大戦の占領率と次回更新までの時間も確認できます。</div></div></section><section id="fortress-research">
+<h2>3. 要塞・拠点の研究と兵器開発</h2>
+<p>ここでは、上の要塞・領地の基本操作に加えて、「資源を集める → 拠点研究または兵器生成へ回す」という内政面をまとめます。数値や解放条件はアップデートやアカウント状態で変わるため、最終的にはゲーム画面の表示を優先してください。</p>
+<div class="notice info"><b>研究ツリーの4タブ：</b>研究画面の上部には「偵察強化」「兵器生成」「耐久強化」「衛兵強化」の4タブが横並びで表示されます。タブごとに現在レベル、ノード、効果説明、進行度、必要資源、所要時間、研究ボタンが切り替わります。研究中は対象・次レベル・残り時間・研究1時間短縮券の案内を確認でき、別の研究を同時には進められません。</div>
+<div class="grid">
+<div class="card"><h3>資源ノード</h3><p><b>鉱脈：</b>マスの上で野営すると鉱石が5分に1つ貯まり、上限は999個。鉱石は拠点研究に使われます。<br/><b>油田：</b>同じく野営中に石油が5分に1つ貯まり、上限は999個。鉱石とは別の資源として管理されます。拠点研究ボタンに表示される主な必要資源は鉱石で、石油の用途はゲーム内の最新表示を優先します。</p></div>
+<div class="card"><h3>拠点で確認する項目</h3><p>座標、耐久・最大耐久、バリア状態、衛兵レベル、耐久研究レベル、偵察研究レベルに加え、鉱石・石油・ガウルの所持数を確認できます。資源を回収した後は、拠点詳細で所持数が更新されたか確認します。</p></div>
+<div class="card"><h3>研究の3系統</h3><p><b>衛兵強化：</b>拠点防衛力を高める。<br/><b>耐久強化：</b>拠点の最大耐久を高める。<br/><b>偵察強化：</b>敵拠点などの情報を調べる機能を強化する。研究費用はガウル・鉱石・ゴールドで表示され、系統ごとに同時進行はできません。</p></div>
+</div>
+<h3>兵器生成の研究ツリー</h3>
+<p>研究画面の「兵器生成」タブでは、兵器工廠を起点に前提ノードを順番に解放します。未解放ノードは鍵アイコンで表示され、名称、効果、進行度、必要資源、所要時間を確認してから研究を開始します。</p>
+<details class="enemy-dungeon-collapsible" style="margin-top:18px"><summary><div class="enemy-dungeon-summary"><h3>兵器生成の研究ツリー表</h3><p>クリックして表を表示</p></div></summary><div class="enemy-dungeon-body"><table><tbody><tr><th>開発ノード</th><th>確認できた効果</th><th>進行上の位置</th></tr>
+<tr><td>兵器工廠</td><td>兵器研究を解禁する起点。テスト画面ではLv1、進行度0/1、必要量「ガ8・鉱32・油8・G6万」、所要時間5分と表示。</td><td>最初に解放</td></tr>
+<tr><td>戦車開発</td><td>戦車を生産でき、段階ごとに攻撃力が上がる。</td><td>兵器工廠の下流、進行度0/5表示</td></tr>
+<tr><td>偵察機改良</td><td>偵察機の速度が上がる。</td><td>兵器工廠の下流、進行度0/5表示</td></tr>
+<tr><td>造船所</td><td>戦艦を生産でき、段階ごとに攻撃力が上がる。</td><td>兵器工廠の下流、進行度0/5表示</td></tr>
+<tr><td>重装甲</td><td>戦車の耐久が上がる。</td><td>戦車開発2段が前提、進行度0/5表示</td></tr>
+</tbody></table></div></details>
+<details class="enemy-dungeon-collapsible" style="margin-top:18px"><summary><div class="enemy-dungeon-summary"><h3>派生ノードと研究の進め方</h3><p>クリックして詳細を表示</p></div></summary><div class="enemy-dungeon-body"><p><b>派生強化：</b>偵察機改良から「高高度飛行」（偵察機の石油消費−3／段）、造船所から「巡航エンジン」（戦艦の耐久・回収量UP）が派生します。まず前提ノードを解放し、必要資源と所要時間が揃ったものから順に進めます。</p><p><b>開始から完了まで：</b>①「自要塞」から自分の拠点へ移動 → ②研究を開いて系統タブを選択 → ③現在Lv・次レベル・ガウル・鉱石・ゴールド・所要時間を確認 → ④条件を満たして研究開始 → ⑤対象と残り時間を確認して完了を待つ → ⑥完了後に衛兵Lv、耐久研究Lv、偵察研究Lv、拠点耐久や偵察情報の変化を再確認、の順です。</p><p><b>運用の目安：</b>敵の進軍が予想されるときは衛兵・耐久、敵拠点の情報が必要なときは偵察を優先します。資源回収役と防衛役を分担し、研究開始前にガウル・鉱石・ゴールドをまとめて確認します。</p></div></details>
+</section></section></div><div class="guide-chapter" id="chapter4"><h2>4章. 洗礼とアイテム強化</h2><section id="baptism">
 <h2>1. 洗礼システム</h2>
 <p class="muted">洗礼は、プレイヤーの成長を次の段階へ進めるためのシステムです。洗礼回数に応じてダンジョンLVや最大プレイヤーレベルなどが変化します。</p>
 <div class="grid">
